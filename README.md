@@ -15,12 +15,23 @@ npm run serve
 npm run build
 ```
 
-### Run tests
-```
-npm run test
-```
-
 ### Lints and fixes files
 ```
 npm run lint
 ```
+
+# Running node-server-app module
+
+## Project setup
+```
+npm install
+```
+
+## Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+
+
+

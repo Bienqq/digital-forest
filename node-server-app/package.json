@@ -1,0 +1,35 @@
+{
+  "name": "node-server-app",
+  "version": "1.0.0",
+  "description": "Node.js server-side application",
+  "main": "main.js",
+  "scripts": {
+    "start": "node server.js",
+    "serve": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bienqq/booking-car-parks-app.git"
+  },
+  "keywords": [
+    "node",
+    "server",
+    "REST",
+    "API"
+  ],
+  "engines": {
+    "node": "8.11.2"
+  },
+  "author": "Dawid Krakowczyk Tomasz Bieniek",
+  "email": "tomek-1996-1996@o2.pl",
+  "license": "Copyright (C) Dawid Krakowczyk Tomasz Bieniek, Inc - All Rights Reserved",
+  "bugs": {
+    "url": "https://github.com/Bienqq/booking-car-parks-app/issues"
+  },
+  "homepage": "https://github.com/Bienqq/booking-car-parks-app#readme",
+  "dependencies": {
+    "dns": "^0.2.2",
+    "express": "^4.16.4",
+    "os": "^0.1.1"
+  }
+}
