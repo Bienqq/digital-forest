@@ -32,6 +32,11 @@ npm install
 npm run serve
 ```
 
+# Authors
+* -- Dawid Krakowczyk --
+* -- Tomasz Bieniek --
 
-
-
+# Licence
+Copyright (C) Dawid Krakowczyk, Tomasz Bieniek, Inc - All Rights Reserved
+Unauthorized copying of this file, via any medium is strictly prohibited
+Proprietary and confidential
