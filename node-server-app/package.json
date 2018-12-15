@@ -4,8 +4,8 @@
   "description": "Node.js server-side application",
   "main": "main.js",
   "scripts": {
-    "start": "node server.js",
-    "serve": "nodemon server.js"
+    "start": "node -r dotenv/config server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,12 @@
   "homepage": "https://github.com/Bienqq/booking-car-parks-app#readme",
   "dependencies": {
     "dns": "^0.2.2",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "http": "0.0.0",
     "os": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
   }
 }

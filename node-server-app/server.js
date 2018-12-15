@@ -1,16 +1,16 @@
+const http = require("http")
 const dns = require("dns");
 const os = require("os");
-const express = require("express")
-const app = express()
+const app = require("./app")
 
-const PORT = 8090
+const server = http.createServer(app)
 
 dns.lookup(os.hostname(), (error, address, fam) => {
-    app.listen(PORT, () => {
+    server.listen(process.env.PORT, () => {
         console.log("-------------------APLICATION STARTED--------------------");
         console.log("Hostname : " + os.hostname());
         console.log("IP : " + address);
-        const serverAddress = `http://${address}:${PORT}`;
+        const serverAddress = `http://${address}:${process.env.PORT}`;
         console.log(`Server is listening at : ${serverAddress}`);
     })
 });
