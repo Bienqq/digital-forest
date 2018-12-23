@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Bienqq/booking-car-parks-app.git"
+    "url": "git+https://github.com/Bienqq/forester-app.git"
   },
   "keywords": [
     "node",
@@ -24,9 +24,9 @@
   "email": "tomek-1996-1996@o2.pl",
   "license": "Copyright (C) Dawid Krakowczyk Tomasz Bieniek, Inc - All Rights Reserved",
   "bugs": {
-    "url": "https://github.com/Bienqq/booking-car-parks-app/issues"
+    "url": "https://github.com/Bienqq/forester-app/issues"
   },
-  "homepage": "https://github.com/Bienqq/booking-car-parks-app#readme",
+  "homepage": "https://github.com/Bienqq/forester-app#readme",
   "dependencies": {
     "dns": "^0.2.2",
     "dotenv": "^6.2.0",
