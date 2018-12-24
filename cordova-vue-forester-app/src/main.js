@@ -6,10 +6,17 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+document.addEventListener('deviceready',() => alert("device is ready"))
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  components: { App },
-  template: '<App/>'
+  components: {
+    App
+  },
+  render: h => h(App),
 })
+
+
+
