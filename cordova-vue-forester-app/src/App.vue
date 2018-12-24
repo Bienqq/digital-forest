@@ -18,6 +18,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-  background: url("./assets/bg_forest.jpg");
+  background: url("./assets/img/bg_forest.jpg");
 }
 </style>
