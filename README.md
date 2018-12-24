@@ -1,4 +1,4 @@
-# cordova-vue-forester-app
+# Cordova-vue-forester-app
 ## Install dependencies
 
 ```
