@@ -1,16 +1,16 @@
 # cordova-vue-forester-app
-##Install dependencies
+## Install dependencies
 
 ```
 npm install
 ```
 
-##Add cordova platform eg:Android
+## Add cordova platform eg:Android
 ```
 cordova platform add android
 ```
 
-##Build Vue app, build .apk (debug mode) with cordova and deploy on emulated android virtual device
+## Build Vue app, build .apk (debug mode) with cordova and deploy on emulated android virtual device
 ```
 npm run build-emulate
 ```
