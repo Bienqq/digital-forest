@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <router-view />
   </div>
 </template>
 
@@ -10,14 +9,34 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700,900&subset=latin-ext');
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 600;
+$font-weight-black: 800;
+
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  background: url("./assets/img/bg_forest.jpg");
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 85%;
+}
+
+* {
+  box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-  background: url("./assets/img/bg_forest.jpg");
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
 }
 </style>
