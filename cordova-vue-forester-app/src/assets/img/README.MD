@@ -1,3 +1,1 @@
-Forest photo comes from https://unsplash.com and can be used for free for commercial and noncommercial purposes
-
-See license: https://unsplash.com
+forest_bacground.jpg <a href="http://www.freepik.com">Designed by Freepik</a>
