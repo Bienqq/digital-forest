@@ -34,21 +34,16 @@ body {
   height: 100vh;
   top: 0;
   z-index: -1;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 85%;
 
   @media screen and (orientation: landscape) {
-    background: url("./assets/img/bg_menu_landscape.png");
-
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 85%;
+    background-image: url("./assets/img/bg_menu_landscape.png");
   }
 
   @media screen and (orientation: portrait) {
-    background: url("./assets/img/bg_menu_portrait.png");
-
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 85%;
+    background-image: url("./assets/img/bg_menu_portrait.png");
   }
 }
 </style>
