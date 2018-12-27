@@ -32,7 +32,7 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
-    <preference name="SplashScreenDelay" value="4500" />
+    <preference name="SplashScreenDelay" value="500" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <engine name="android" spec="^7.1.4" />
