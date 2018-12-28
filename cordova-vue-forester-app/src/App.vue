@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Sample tekst</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ac tincidunt felis. In consectetur mattis magna eu tincidunt. Nunc sit amet odio eleifend, malesuada magna a, auctor libero. Quisque id cursus arcu. Mauris egestas sollicitudin condimentum. Quisque a congue est, vitae semper ante. Duis posuere, nisi porttitor malesuada consequat, lacus erat faucibus odio, id congue mi magna malesuada lacus. Praesent sed orci vitae massa euismod cursus. Nulla in elit felis. Sed at libero ut felis scelerisque tincidunt. Aenean lectus purus, imperdiet vitae urna id, dictum laoreet ipsum. Morbi rutrum magna a convallis tempus. </p>
   </div>
 </template>
 
@@ -34,6 +34,7 @@ body {
   height: 100vh;
   top: 0;
   z-index: -1;
+
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 85%;
