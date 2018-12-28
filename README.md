@@ -1,4 +1,17 @@
 # Cordova-vue-forester-app
+
+## required dependencies
+* Node.js with npm
+* Gradle
+* Android virtual device (AVD)
+* Vue CLI
+* Webpack
+* Cordova
+
+```
+npm install
+```
+
 ## Install dependencies
 
 ```
