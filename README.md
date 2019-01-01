@@ -18,7 +18,7 @@ npm install #Install required dependencies
 ## How to run
 ```sh
 npm install -g cordova # If cordova is not already installed
-vue add cordova
+vue add cordova # Adding cordova to Vue project
 npm run cordova-serve-android # Development Android
 npm run cordova-build-android # Build Android
 npm run cordova-serve-ios # Development IOS
