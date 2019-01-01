@@ -1,34 +1,29 @@
 # Cordova-vue-forester-app
 
+[vue-cli-plugin-cordova](https://github.com/m0dch3n/vue-cli-plugin-cordova) for Apache Cordova apps based on Vue.js framework
+
 ## required dependencies
 * Node.js with npm
 * Gradle
 * Android virtual device (AVD)
 * Vue CLI
-* Webpack
 * Cordova
-
-## Useful repos
-> https://github.com/FortAwesome/vue-fontawesome  - icons
-
-
 
 ## Install dependencies
 
-```
-npm install
-```
-
-## Add cordova platform eg:Android
-```
-cordova platform add android
+```sh
+npm install #Install required dependencies
 ```
 
-## Build Vue app, build .apk (debug mode) with cordova and deploy on emulated android virtual device
+## How to run
+```sh
+npm install -g cordova # If cordova is not already installed
+vue add cordova
+npm run cordova-serve-android # Development Android
+npm run cordova-build-android # Build Android
+npm run cordova-serve-ios # Development IOS
+npm run cordova-build-ios # Build IOS
+npm run cordova-serve-browser # Development Browser
+npm run cordova-build-browser # Build Browser
+npm run cordova-prepare # prepare for build
 ```
-npm run build-emulate
-```
-
-## DON'T DELETE FILES WHICH HAVE .gitkeep inside they are required to cordova build process work properly
-
->For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
