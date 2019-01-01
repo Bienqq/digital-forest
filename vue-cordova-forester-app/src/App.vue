@@ -1,12 +1,17 @@
 <template>
   <div id="app">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ac tincidunt felis. In consectetur mattis magna eu tincidunt. Nunc sit amet odio eleifend, malesuada magna a, auctor libero. Quisque id cursus arcu. Mauris egestas sollicitudin condimentum. Quisque a congue est, vitae semper ante. Duis posuere, nisi porttitor malesuada consequat, lacus erat faucibus odio, id congue mi magna malesuada lacus. Praesent sed orci vitae massa euismod cursus. Nulla in elit felis. Sed at libero ut felis scelerisque tincidunt. Aenean lectus purus, imperdiet vitae urna id, dictum laoreet ipsum. Morbi rutrum magna a convallis tempus. </p>
+    <main-menu></main-menu>
   </div>
 </template>
 
 <script>
+import Menu from "./components/menu/Menu";
+
 export default {
-  name: "App"
+  name: "App",
+  components: {
+    "main-menu": Menu
+  }
 };
 </script>
 

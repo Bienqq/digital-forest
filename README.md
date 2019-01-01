@@ -8,6 +8,11 @@
 * Webpack
 * Cordova
 
+## Useful repos
+> https://github.com/FortAwesome/vue-fontawesome  - icons
+
+
+
 ## Install dependencies
 
 ```
