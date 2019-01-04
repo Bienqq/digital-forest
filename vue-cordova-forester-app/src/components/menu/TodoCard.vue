@@ -5,7 +5,7 @@
       <li class="list-inline-item">X</li>
       <li class="list-inline-item">X</li>
     </ul>
-    <h6 class="p-0 m-0">Drzewo do wyciencia  </h6>
+    <h6 class="p-0 m-0">Drzewo do wyciencia 2 </h6>
     <img src="@/assets/img/TestCardImg1.jpg" alt="Image" class="mt-1 mb-1 ml-auto mr-auto card-background-image">
         <b-card-body class="p-0 pl-1 pr-1 small">
                 Jakis tekst jak za będzie za dlugi to bedzie mozna rozwinanc  ...
