@@ -1,17 +1,13 @@
 <template>
   <div id="app">
-    <main-menu></main-menu>
   </div>
 </template>
 
 <script>
-import Menu from "./components/menu/Menu";
+
 
 export default {
   name: "App",
-  components: {
-    "main-menu": Menu
-  }
 };
 </script>
 
