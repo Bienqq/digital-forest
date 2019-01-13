@@ -1,13 +1,17 @@
 <template>
-  <div id="app">
-  </div>
+  <v-app id="app">
+    <profiles-view></profiles-view>
+  </v-app>
 </template>
 
 <script>
-
+import ProfilesView from "./components/menu/ProfilesView";
 
 export default {
   name: "App",
+  components: {
+    "profiles-view": ProfilesView
+  }
 };
 </script>
 
@@ -28,7 +32,6 @@ body {
   padding: 0;
   font-family: "Roboto", sans-serif;
 }
-
 
 #app {
   position: fixed;
