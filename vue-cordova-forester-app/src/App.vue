@@ -45,8 +45,8 @@ body {
   background-image: url("./assets/img/bg_menu_portrait.png");
 }
 
-// It is required to hide underlinedlinks for Cordova app
+// It is required to hide underlined links for Cordova app
 a {
-text-decoration: none !important; 
+  text-decoration: none !important; 
 }
 </style>
