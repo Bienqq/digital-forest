@@ -1,11 +1,11 @@
 <template>
   <v-app id="app">
-    <profiles-view></profiles-view>
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
-import ProfilesView from "./components/menu/ProfilesView";
+import ProfilesView from "./components/main-menu/ProfilesView";
 
 export default {
   name: "App",
@@ -39,17 +39,14 @@ body {
   height: 100vh;
   top: 0;
   z-index: -1;
-
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 85%;
+  background-image: url("./assets/img/bg_menu_portrait.png");
+}
 
-  @media screen and (orientation: landscape) {
-    background-image: url("./assets/img/bg_menu_landscape.png");
-  }
-
-  @media screen and (orientation: portrait) {
-    background-image: url("./assets/img/bg_menu_portrait.png");
-  }
+// It is required to hide underlinedlinks for Cordova app
+a {
+text-decoration: none !important; 
 }
 </style>

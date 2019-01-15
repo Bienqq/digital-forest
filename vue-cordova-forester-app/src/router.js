@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import ProfilesView from "./components/main-menu/ProfilesView"
+import EnterTheForest from "./components/enter-forest-menu/EnterTheForest"
 
 Vue.use(Router)
 
@@ -10,6 +11,18 @@ if you run or build for Cordova. history mode does not work!
 The plugin already tries to fix this automatically...
 */
 
+
 export default new Router({
-  routes: []
+  routes: [
+    {
+      path: "/",
+      name: "ProfilesView",
+      component: ProfilesView,
+    },
+    {
+      path:"/enter-the-forest",
+      name: "EnterTheForest",
+      component: EnterTheForest
+    }
+  ]
 })

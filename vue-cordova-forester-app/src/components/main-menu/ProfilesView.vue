@@ -9,9 +9,12 @@
                         <v-btn color="success" v-bind:loading="loading2" v-on:click="loading2 = !loading2" round >Użytkownik</v-btn>
                     </v-flex>
                     <v-flex xs1>
-                        <v-btn color="success" v-bind:loading="loading3" v-on:click="loading3 = !loading3" round >Wejdź do lasu</v-btn>
+                        <router-link to="/enter-the-forest">
+                            <v-btn color="success" v-bind:loading="loading3" v-on:click="loading3 = !loading3" round >Wejdź do lasu</v-btn>
+                        </router-link> 
                     </v-flex>
             </v-layout>
+            <router-view></router-view>
     </v-container>
 </template>
 
