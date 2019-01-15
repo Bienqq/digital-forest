@@ -5,12 +5,11 @@
 </template>
 
 <script>
-import ProfilesView from "./components/main-menu/ProfilesView";
 
 export default {
   name: "App",
   components: {
-    "profiles-view": ProfilesView
+    
   }
 };
 </script>
