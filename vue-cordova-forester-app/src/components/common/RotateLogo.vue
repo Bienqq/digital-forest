@@ -12,8 +12,8 @@
       class="RotateLogo2"
       v-bind:src="textSrc"
       aspect-ratio="1.8"
-      min-width="300px"
-      min-height="300px"
+      min-width="250px"
+      min-height="250px"
       contain
     ></v-img>
   </v-flex>
@@ -43,8 +43,8 @@ export default {
 .RotateLogo2 {
   z-index: 2;
   position: relative;
-  top: -300px;
-  margin-bottom: -300px;
+  top: -275px;
+  margin-bottom: -250px;
 }
 
 @-webkit-keyframes rotate-center {
