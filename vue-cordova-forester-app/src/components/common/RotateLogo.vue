@@ -4,16 +4,16 @@
       class="RotateLogo1"
       v-bind:src="logoSrc"
       aspect-ratio="1.8"
-      min-width="300px"
-      min-height="300px"
+      min-width="60vw"
+      min-height="60vw"
       contain
     ></v-img>
     <v-img
       class="RotateLogo2"
       v-bind:src="textSrc"
       aspect-ratio="1.8"
-      min-width="300px"
-      min-height="300px"
+      min-width="20vw"
+      min-height="20vw"
       contain
     ></v-img>
   </v-flex>
@@ -31,20 +31,18 @@ export default {
 };
 </script>
 
-<style scooped lang="scss">
+<style scoped lang="scss">
 .RotateLogo1 {
   z-index: 1;
   position: relative;
-  margin: auto;
-  width: 300px;
   -webkit-animation: rotate-center 15s linear infinite both;
   animation: rotate-center 15s linear infinite both;
 }
 .RotateLogo2 {
   z-index: 2;
   position: relative;
-  top: -300px;
-  margin-bottom: -300px;
+  top: -55vw;
+  margin-bottom: -45vw;
 }
 
 @-webkit-keyframes rotate-center {
