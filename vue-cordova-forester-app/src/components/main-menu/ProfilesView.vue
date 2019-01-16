@@ -1,15 +1,15 @@
 <template>
         <v-container grid-list-xs>
             <RotateLogo/>
-                <v-layout class="white--text font-weight-medium" align-center column fill-height pt-5>
-                        <v-flex xs1>
-                            <v-btn color="success" to="/enter-the-forest"  >Wejdź do lasu</v-btn>
+                <v-layout class="white--text font-weight-medium" align-center column fill-height mb-5>
+                        <v-flex xs1 mt-5>
+                            <v-btn class="responsive-btn" color="success" to="/enter-the-forest"  >Wejdź do lasu</v-btn>
                         </v-flex>
                         <v-flex xs1>
-                            <v-btn color="success" v-bind:loading="loading1" v-on:click="loading1 = !loading1"> Zaloguj się</v-btn>
-                        </v-flex>                      
+                            <v-btn class="responsive-btn" color="success" v-bind:loading="loading1" v-on:click="loading1 = !loading1"> Zaloguj się</v-btn>
+                        </v-flex>
                         <p>Nie masz konta ? Zarejestruj się !</p>
-                        <p>Przypomnij hasło</p>               
+                        <p>Przypomnij hasło</p>                    
                 </v-layout>
         </v-container>
 </template>
@@ -30,11 +30,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
-button{
-    width:40vw;
-    font-size: 3vw;
-    
-}
+    .responsive-btn {
+        width:40vw;
+        height: 4vh;
+        font-size: 3vw;
+    }
 
+    p {
+        font-size: 3vw;
+    }
 
 </style>
