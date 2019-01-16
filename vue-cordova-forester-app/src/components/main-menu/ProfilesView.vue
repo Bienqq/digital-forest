@@ -1,7 +1,7 @@
 <template>
         <v-container grid-list-xs>
             <RotateLogo/>
-                <v-layout class="white--text font-weight-medium" align-center column fill-height mb-5>
+                <v-layout class="white--text font-weight-medium" align-center column fill-height>
                         <v-flex xs1 mt-5>
                             <v-btn class="responsive-btn" color="success" to="/enter-the-forest"  >Wejdź do lasu</v-btn>
                         </v-flex>
