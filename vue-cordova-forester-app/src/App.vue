@@ -1,6 +1,8 @@
 <template>
-  <v-app id="app">
-    <router-view></router-view>
+  <v-app id="app" >
+    <transition name="slideUp" mode="out-in">
+      <router-view class="fast"></router-view>
+    </transition>
   </v-app>
 </template>
 
@@ -42,6 +44,10 @@ body {
   background-size: cover;
   background-position: 50% 85%;
   background-image: url("./assets/img/bg_menu_portrait.png");
+}
+
+.fast {
+  animation-duration: 0.75s !important;
 }
 
 // It is required to hide underlined links for Cordova app

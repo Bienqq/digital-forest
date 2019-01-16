@@ -1,13 +1,13 @@
 <template>
-  <transition>
   <v-container align-content-center>
-        <h5>Witaj w lesie</h5>
+      <v-layout align-center column fill-height>
+        <h2>Organizm wszedl do lasu</h2>
         <router-link to="/">
-          <v-btn color="success">Powrót</v-btn>
+          <v-btn color="success" round>Powrót</v-btn>
         </router-link>
         <router-view></router-view>
+        </v-layout>
       </v-container>
-  </transition>
 </template>
 
 <script>
@@ -17,10 +17,7 @@ export default {
   name: "EnterTheForest",
   data() {
     return {};
-  },
-  created() {
-    console.log(this.$route.meta.transitionName)
-  },
+  }
 };
 </script>
 

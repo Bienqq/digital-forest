@@ -1,5 +1,4 @@
 <template>
-    <transition name="slideOutUp" mode="out-in">
         <v-container grid-list-xs>
                 <v-img v-bind:src="logoSrc" aspect-ratio="1.8" min-width="300px"  min-height="300px" contain ></v-img>
                 <v-layout align-center column fill-height>
@@ -15,9 +14,7 @@
                             </router-link> 
                         </v-flex>
                 </v-layout>
-                <router-view></router-view>
         </v-container>
-    </transition>
 </template>
 
 <script>
