@@ -13,16 +13,15 @@ The plugin already tries to fix this automatically...
 
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: "/",
       name: "ProfilesView",
       component: ProfilesView,
     },
     {
-      path:"/enter-the-forest",
+      path: "/enter-the-forest",
       name: "EnterTheForest",
-      component: EnterTheForest
+      component: EnterTheForest,
     }
   ]
 })
