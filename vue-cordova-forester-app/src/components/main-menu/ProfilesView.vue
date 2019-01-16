@@ -1,6 +1,6 @@
 <template>
         <v-container grid-list-xs>
-                <v-img v-bind:src="logoSrc" aspect-ratio="1.8" min-width="300px"  min-height="300px" contain ></v-img>
+            <RotateLogo/>
                 <v-layout align-center column fill-height>
                         <v-flex xs1>
                             <v-btn color="success" v-bind:loading="loading1" v-on:click="loading1 = !loading1" round >Leśniczy</v-btn>
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import RotateLogo from "../common/RotateLogo"
 export default {
     name: "ProfilesView",
     data(){
@@ -28,6 +29,9 @@ export default {
             loading3: false
         }
     }, 
+    components:{
+        'RotateLogo' : RotateLogo
+    }
 }
 </script>
 
