@@ -7,24 +7,22 @@
 </template>
 
 <script>
-
 export default {
   name: "App",
-  data(){
-    return{
+  data() {
+    return {
       transitionName: "slideDown"
-    }
+    };
   },
   watch: {
-  '$route' (to, from) {
-    if(to.path === "/") {
-      this.transitionName = "slideDown"
-    }else{
-      this.transitionName = "slideUp"
+    $route(to, from) {
+      if (to.path === "/") {
+        this.transitionName = "slideDown";
+      } else {
+        this.transitionName = "slideUp";
+      }
     }
   }
-}
-
 };
 </script>
 
@@ -65,6 +63,6 @@ body {
 
 // It is required to hide underlined links for Cordova app
 a {
-  text-decoration: none !important; 
+  text-decoration: none !important;
 }
 </style>
