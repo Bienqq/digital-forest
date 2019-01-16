@@ -1,6 +1,6 @@
 <template>
   <v-app id="app" >
-    <transition name="slideUp" mode="out-in">
+    <transition v-bind:name="transitionName" mode="out-in">
       <router-view class="fast"></router-view>
     </transition>
   </v-app>
@@ -10,9 +10,21 @@
 
 export default {
   name: "App",
-  components: {
-    
+  data(){
+    return{
+      transitionName: "slideDown"
+    }
+  },
+  watch: {
+  '$route' (to, from) {
+    if(to.path === "/") {
+      this.transitionName = "slideDown"
+    }else{
+      this.transitionName = "slideUp"
+    }
   }
+}
+
 };
 </script>
 
@@ -47,7 +59,7 @@ body {
 }
 
 .fast {
-  animation-duration: 0.75s !important;
+  animation-duration: 0.7s !important;
 }
 
 // It is required to hide underlined links for Cordova app
