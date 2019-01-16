@@ -1,7 +1,7 @@
 <template>
   <v-app id="app" >
     <transition v-bind:name="transitionName" mode="out-in">
-      <router-view class="fast"></router-view>
+      <router-view class="fast"/>
     </transition>
   </v-app>
 </template>
@@ -40,6 +40,7 @@ $font-weight-black: 900;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 body {
   margin: 0;
   padding: 0;

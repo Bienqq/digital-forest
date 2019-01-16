@@ -3,10 +3,8 @@
   <v-container align-content-center>
       <v-layout align-center column fill-height>
         <h2>Organizm wszedl do lasu</h2>
-        <router-link to="/">
-          <v-btn color="success" round>Powrót</v-btn>
-        </router-link>
-        <router-view></router-view>
+          <v-btn color="success" to="/" >Powrót</v-btn>
+        <router-view/>
         </v-layout>
       </v-container>
 </template>
