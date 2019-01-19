@@ -1,5 +1,5 @@
 <template>
-  <v-app id="app" >
+  <v-app id="app">
     <transition v-bind:name="transitionName" mode="out-in">
       <router-view class="fast"/>
     </transition>
@@ -21,8 +21,9 @@ export default {
       } else {
         this.transitionName = "slideUp";
       }
-    }
+    },
   }
+
 };
 </script>
 

@@ -9,7 +9,7 @@ import "vue2-animate/dist/vue2-animate.min.css"
 Vue.config.productionTip = false
 Vue.use(Vuetify)
 
-new Vue({
+const init = () => new Vue({
   router,
   store,
   components: {
@@ -17,3 +17,15 @@ new Vue({
   },
   render: h => h(App)
 }).$mount('#app')
+
+// Wait for the deviceready event to start the render
+document.addEventListener("deviceready", () => {
+  console.log("Ready, Render the App");
+  init();
+});
+
+// If we are not in Cordova, manually trigger the deviceready event
+const isCordovaApp = (typeof window.cordova !== "undefined");
+if (!isCordovaApp){
+  document.dispatchEvent(new CustomEvent("deviceready", {}));
+}

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import ProfilesView from "./components/main-menu/ProfilesView"
+import MainMenu from "./components/main-menu/MainMenu"
 import EnterTheForest from "./components/enter-forest-menu/EnterTheForest"
 
 Vue.use(Router)
@@ -15,8 +15,8 @@ The plugin already tries to fix this automatically...
 export default new Router({
   routes: [{
       path: "/",
-      name: "ProfilesView",
-      component: ProfilesView,
+      name: "MainMenu",
+      component: MainMenu,
     },
     {
       path: "/enter-the-forest",
