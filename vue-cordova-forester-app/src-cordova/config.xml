@@ -29,7 +29,7 @@
         <splash density="port-mdpi" src="res/screen/android/mdpi.png" />
         <splash density="port-xhdpi" src="res/screen/android/xhdpi.png" />
         <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application/activity">
-            <activity android:windowSoftInputMode="adjustPan" />
+            <activity android:windowSoftInputMode="adjustResize" />
         </edit-config>
     </platform>
     <platform name="ios">

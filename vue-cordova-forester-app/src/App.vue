@@ -44,10 +44,11 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
+  
 }
 
 #app {
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100vh;
   top: 0;
@@ -56,6 +57,8 @@ body {
   background-size: cover;
   background-position: 50% 85%;
   background-image: url("./assets/img/bg_menu_portrait.png");
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .fast {

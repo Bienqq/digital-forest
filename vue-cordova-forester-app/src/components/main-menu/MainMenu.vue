@@ -1,7 +1,7 @@
 <template>
-  <v-container grid-list-xs v-on:click.self="hideLoginForm()" v-bind:class="{'scroll-y': enableScrolling}">
+<v-container grid-list-xs v-on:click.self="hideLoginForm()">
             <rotate-logo/>
-                <v-layout class="white--text font-weight-medium" align-center column fill-height>
+                <v-layout class="white--text font-weight-medium" align-center column>
                         <template v-if="!showForm">
                           <v-flex xs1 mt-5>
                               <v-btn class="responsive-btn" color="success" to="/enter-the-forest">Wejdź do lasu</v-btn>
@@ -31,8 +31,7 @@ export default {
   data() {
     return {
       loginComponent: "login-form",
-      showForm: false,
-      enableScrolling: false
+      showForm: false
     };
   },
   methods: {
@@ -44,17 +43,12 @@ export default {
       if (this.showForm) {
         this.showForm = false;
       }
-    },
+    }
   },
   created: function() {
-    
-      window.addEventListener("keyboardWillShow", () => {
-        this.enableScrolling = true;
-      });
-
-      window.addEventListener("keyboardWillHide", () => {
-        this.enableScrolling = false;
-      });
+    window.addEventListener("keyboardWillShow", () => {
+      document.activeElement.scrollIntoViewIfNeeded()
+    });
   }
 };
 </script>
