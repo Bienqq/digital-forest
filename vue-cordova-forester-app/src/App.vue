@@ -54,8 +54,7 @@ body {
   top: 0;
   z-index: -1;
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 50% 85%;
+  background-size: 100vw auto;
   background-image: url("./assets/img/bg_menu_portrait.png");
   overflow-x: hidden;
   overflow-y: auto;
