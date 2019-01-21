@@ -1,6 +1,6 @@
 <template>
 <v-container grid-list-xs v-on:click.self="hideLoginForm()">
-            <rotate-logo/>
+            <rotate-logo v-if="showLogo"/>
                 <v-layout class="white--text font-weight-medium" align-center column>
                         <template v-if="!showForm">
                           <v-flex xs1 mt-5>
@@ -31,17 +31,20 @@ export default {
   data() {
     return {
       loginComponent: "login-form",
-      showForm: false
+      showForm: false,
+      showLogo : true
     };
   },
   methods: {
     showLoginForm() {
       this.showForm = true;
+      this.showLogo = false;
     },
 
     hideLoginForm() {
       if (this.showForm) {
         this.showForm = false;
+        this.showLogo = true;
       }
     }
   },
