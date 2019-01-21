@@ -1,8 +1,8 @@
 <template>
-<v-container fluid v-on:click.self="hideLoginForm()">
+<v-container fluid v-on:click.self="hideRegisterForm()">
             <rotate-logo v-if="showLogo"/>
                 <v-layout class="white--text font-weight-medium top-spacer" align-center column  >
-                        <template v-if="!showRegisterForm" >
+                        <template v-if="!showRegister" >
                            <v-card width="90%" color="#f9f9f9">
                           <v-flex xs10 offset-xs1 class="top-spacer">
                               <v-btn block xs12  color="success" to="/enter-the-forest">Wejdź do lasu</v-btn>
@@ -38,19 +38,19 @@ export default {
   data() {
     return {
       RegisterComponent: "Register-form",
-      showRegisterForm: false,
+      showRegister: false,
       showLogo : true
     };
   },
   methods: {
     showRegisterForm() {
-      this.showRegisterForm = true;
+      this.showRegister = true;
       this.showLogo = false;
     },
 
     hideRegisterForm() {
-      if (this.showRegisterForm) {
-        this.showRegisterForm = false;
+      if (this.showRegister) {
+        this.showRegister = false;
         this.showLogo = true;
       }
     }
