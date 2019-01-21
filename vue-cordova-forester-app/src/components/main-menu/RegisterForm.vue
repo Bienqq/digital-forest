@@ -1,7 +1,7 @@
 <template>
   <transition name="slideUp" mode="out-in">
     <v-form v-model="valid">
-      <v-container>
+      <v-container >
         <v-layout column>
           <v-flex xs12 md4>
             <v-text-field v-model="firstname" v-bind:rules="nameRules" v-bind:counter="10" label="First name" required></v-text-field>

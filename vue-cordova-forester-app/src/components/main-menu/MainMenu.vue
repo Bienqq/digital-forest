@@ -1,19 +1,26 @@
 <template>
-<v-container grid-list-xs v-on:click.self="hideLoginForm()">
+<v-container fluid v-on:click.self="hideLoginForm()">
             <rotate-logo v-if="showLogo"/>
-                <v-layout class="white--text font-weight-medium" align-center column>
-                        <template v-if="!showForm">
-                          <v-flex xs1 mt-5>
-                              <v-btn class="responsive-btn" color="success" to="/enter-the-forest">Wejdź do lasu</v-btn>
+                <v-layout class="white--text font-weight-medium top-spacer" align-center column  >
+                        <template v-if="!showRegisterForm" >
+                           <v-card width="90%" color="#f9f9f9">
+                          <v-flex xs10 offset-xs1 class="top-spacer">
+                              <v-btn block xs12  color="success" to="/enter-the-forest">Wejdź do lasu</v-btn>
                           </v-flex>
-                          <v-flex xs1>
-                              <v-btn class="responsive-btn" color="success" v-on:click.stop="showLoginForm()"> Zaloguj się</v-btn>
+                          <v-flex xs10 offset-xs1  class="bottom-spacer">
+                              <v-btn block  color="success" > Zaloguj się</v-btn>
                           </v-flex>
-                          <v-btn class="responsive-btn pa-2 font-weight-normal" color="white" flat>Zarejestruj się !</v-btn>
-                          <v-btn class="responsive-btn pa-2 font-weight-normal" color="white" flat> Przypomnij hasło</v-btn> 
+                            <v-divider ></v-divider>
+                          <v-flex justify-center xs8 offset-xs2 >
+                             <v-btn block  small color="black" flat v-on:click.stop="showRegisterForm()">Zarejestruj się !</v-btn>
+                          </v-flex>
+                          <!-- <v-flex justify-center xs8 offset-xs2 >
+                            <v-btn block small color="black" flat> Przypomnij hasło</v-btn> 
+                          </v-flex> -->
+                           </v-card>
                        </template>
                        <template v-else>
-                          <component v-bind:is="loginComponent"></component> 
+                          <component v-bind:is="RegisterComponent"></component> 
                        </template>
                 </v-layout>
     </v-container>
@@ -21,29 +28,29 @@
 
 <script>
 import RotateLogo from "../common/RotateLogo";
-import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
 export default {
   name: "MainMenu",
   components: {
     "rotate-logo": RotateLogo,
-    "login-form": LoginForm
+    "Register-form": RegisterForm
   },
   data() {
     return {
-      loginComponent: "login-form",
-      showForm: false,
+      RegisterComponent: "Register-form",
+      showRegisterForm: false,
       showLogo : true
     };
   },
   methods: {
-    showLoginForm() {
-      this.showForm = true;
+    showRegisterForm() {
+      this.showRegisterForm = true;
       this.showLogo = false;
     },
 
-    hideLoginForm() {
-      if (this.showForm) {
-        this.showForm = false;
+    hideRegisterForm() {
+      if (this.showRegisterForm) {
+        this.showRegisterForm = false;
         this.showLogo = true;
       }
     }
@@ -57,9 +64,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.responsive-btn {
-  width: 40vw;
-  height: 4vh;
-  font-size: 3vw;
-}
+
 </style>

@@ -68,4 +68,21 @@ body {
 a {
   text-decoration: none !important;
 }
+
+//main colors background and font schemes for the application
+.light-green{
+  background:#4caf50;
+}
+.dark-green{
+background: #004d34;
+}
+
+
+//auxiliaries for eg. spacers, dividers
+.top-spacer{
+  margin-top:5vw;
+}
+.bottom-spacer{
+  margin-bottom:5vw;
+}
 </style>
