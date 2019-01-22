@@ -3,6 +3,7 @@
     <transition v-bind:name="transitionName" mode="out-in">
       <router-view class="fast"/>
     </transition>
+      
   </v-app>
 </template>
 
