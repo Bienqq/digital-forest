@@ -18,7 +18,7 @@
                             <v-btn block small color="black" flat> Przypomnij hasło</v-btn> 
                           </v-flex> -->
                            </v-card>
-                          <v-dialog  v-model="showRegister"> <Register-form v-on:closeWindow="showRegister = false"/> </v-dialog>
+                          <v-dialog fullscreen v-model="showRegister"> <Register-form v-on:closeWindow="showRegister = false"/> </v-dialog>
                        </template>
                 </v-layout>
     </v-container>
