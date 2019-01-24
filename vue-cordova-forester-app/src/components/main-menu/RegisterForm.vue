@@ -6,7 +6,7 @@
           <v-card width="90vw">
             <!-- pasek u góry -->
             <v-toolbar dark color="#004d34">
-              <v-toolbar-title>Rejestracja</v-toolbar-title>
+              <v-toolbar-title>Rejestracja {{accountTypeComputed}}</v-toolbar-title>
               <v-spacer></v-spacer>
               <v-btn icon dark v-on:click="closeWindow()">
                 <v-icon>close</v-icon>
@@ -14,12 +14,20 @@
             </v-toolbar>
 
             <v-flex xs12>
-              <v-select color="#004d34" box :items="typyKont" label="Wybierz typ konta"></v-select>
+              <v-select
+                color="green" 
+                box
+                :items="typyKont"
+                label="Wybierz typ konta"
+                v-model="accountType"
+              ></v-select>
             </v-flex>
 
             <v-flex xs10 offset-xs1>
               <v-text-field
+              color="green" 
                 v-model="login"
+                prepend-inner-icon="person"
                 v-bind:rules="nameRules"
                 v-bind:counter="20"
                 label="Login"
@@ -45,15 +53,16 @@
                 label="Nazwisko"
                 required
               ></v-text-field>
-            </v-flex> -->
-
+            </v-flex>-->
             <v-flex xs10 offset-xs1>
-              <v-text-field v-model="email" v-bind:rules="emailRules" label="E-mail" required></v-text-field>
+              <v-text-field color="green" prepend-inner-icon="email" v-model="email" v-bind:rules="emailRules" label="E-mail" required></v-text-field>
             </v-flex>
 
             <v-flex xs10 offset-xs1>
               <v-text-field
                 v-model="password"
+                color="green" 
+                prepend-inner-icon="lock"
                 v-bind:rules="passwordRules"
                 v-bind:counter="30"
                 label="Hasło"
@@ -64,6 +73,8 @@
             <v-flex xs10 offset-xs1>
               <v-text-field
                 v-model="repeatPassword"
+                color="green" 
+                prepend-inner-icon="lock"
                 v-bind:rules="repeatPassword"
                 v-bind:counter="30"
                 label="Powtórz Hasło"
@@ -71,15 +82,21 @@
               ></v-text-field>
             </v-flex>
 
-            <v-flex justify-center xs8 offset-xs2>
-              <v-btn
-                block                
-                color="black"
-                flat
-                v-on:click.stop="showRegister = true"
-              >Dalej</v-btn>
+            <v-flex xs10 offset-xs1>
+              <v-checkbox v-model="checkbox" color="green" >
+                <div slot="label">Zgadzam się na przetwarzanie danych dla celów rejestracyjnych.</div>
+              </v-checkbox>
             </v-flex>
 
+            <v-flex xs10 offset-xs1>
+              <v-checkbox v-model="checkbox" color="green" >
+                <div slot="label">Akceptuję Regulamin</div>
+              </v-checkbox>
+            </v-flex>
+
+            <v-flex justify-center xs8 offset-xs2>
+              <v-btn block color="black" flat v-on:click.stop="showRegister = true">Dalej</v-btn>
+            </v-flex>
           </v-card>
         </v-layout>
       </v-container>
@@ -94,6 +111,7 @@ export default {
       valid: false,
       firstname: "",
       lastname: "",
+      accountType: "Użytkownik",
       nameRules: [
         v => !!v || "Pole wymagane",
         v => v.length <= 15 || "Imie nie może zawierać więcej niż 15"
@@ -109,6 +127,11 @@ export default {
   methods: {
     closeWindow() {
       this.$emit("closeWindow");
+    }
+  },
+  computed: {
+    accountTypeComputed: function() {
+      return this.accountType == "Użytkownik" ? "Użytkownika" : "Leśniczego";
     }
   }
 };
