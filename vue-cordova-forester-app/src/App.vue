@@ -28,6 +28,30 @@ export default {
 </script>
 
 <style lang="scss" >
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v42/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,700,900&subset=latin-ext");
 $font-weight-light: 300;
 $font-weight-normal: 400;
@@ -70,6 +94,10 @@ a {
 }
 
 //main colors background and font schemes for the application
+.light-gray{
+  background:#f9f9f9;
+}
+
 .light-green{
   background:#4caf50;
 }

@@ -7,7 +7,8 @@
     <author email="tomek-1996-1996@o2.pl">
         Tomasz Bieniek
     </author>
-    <content src="http://192.168.0.73:8081" />
+    <content src="http://192.168.1.106:8080" />
+    <allow-navigation href="http://192.168.1.106:8080" />
     <allow-navigation href="http://192.168.0.73:8081" />
     <allow-navigation href="http://192.168.0.73:8083" />
     <allow-navigation href="*" />
@@ -18,6 +19,7 @@
         <preference name="orientation" value="portrait" />
         <preference name="SplashScreenSpinnerColor" value="white" />
         <preference name="fullscreen" value="false" />
+        <preference name="loadUrlTimeoutValue" value="700000" />
         <splash density="port-hdpi" src="res/screen/android/hdpi.png" />
         <splash density="port-ldpi" src="res/screen/android/ldpi.png" />
         <splash density="port-mdpi" src="res/screen/android/mdpi.png" />
