@@ -1,38 +1,42 @@
 <template>
-  <transition name="rubberBand" mode="out-in">
-    <v-form v-model="valid">
-      <v-container>
-        <v-layout align-center column>
-          <v-card width="90vw">
-            <!-- pasek u góry -->
-            <v-toolbar dark color="#004d34">
-              <v-toolbar-title>Rejestracja {{accountTypeComputed}}</v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-btn icon dark v-on:click="closeWindow()">
-                <v-icon>close</v-icon>
-              </v-btn>
-            </v-toolbar>
+  <v-form v-model="valid">
+    <v-container>
+      <v-layout align-center column>
+        <v-card width="90vw">
+          <!-- pasek u góry -->
+          <v-toolbar dark color="#004d34">
+            <v-toolbar-title>Rejestracja {{accountTypeComputed}}</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn icon dark v-on:click="closeWindow()">
+              <v-icon>close</v-icon>
+            </v-btn>
+          </v-toolbar>
 
-            <v-flex xs12>
-              <v-select color="green" box :items="typyKont" label="Wybierz typ konta" v-model="accountType"></v-select>
+          <v-flex xs12>
+            <v-select color="green" box :items="typyKont" label="Wybierz typ konta" v-model="accountType"></v-select>
+          </v-flex>
+
+          <div v-if="accountType === 'Leśniczy'" class="flip-scale-up-hor">
+
+            <v-flex xs10 offset-xs1>
+              <v-text-field prepend-inner-icon="person_outline" v-model="firstname" v-bind:rules="nameRules"
+                v-bind:counter="15" label="Imie" required></v-text-field>
             </v-flex>
 
-            <div v-if="accountType === 'Leśniczy'">
-              <v-flex xs10 offset-xs1>
-                <v-text-field prepend-inner-icon="person_outline" v-model="firstname" v-bind:rules="nameRules" v-bind:counter="15" label="Imie" required></v-text-field>
-              </v-flex>
+            <v-flex xs10 offset-xs1>
+              <v-text-field prepend-inner-icon="person_outline" v-model="lastname" v-bind:rules="surnameRules"
+                v-bind:counter="30" label="Nazwisko" required></v-text-field>
+            </v-flex>
 
-              <v-flex xs10 offset-xs1>
-                <v-text-field prepend-inner-icon="person_outline" v-model="lastname" v-bind:rules="surnameRules" v-bind:counter="30" label="Nazwisko" required></v-text-field>
-              </v-flex>
+            <v-flex xs10 offset-xs1>
+              <v-text-field prepend-inner-icon="fingerprint" v-model="pesel" v-bind:rules="peselRules" v-bind:counter="11"
+                label="Pesel" required></v-text-field>
+            </v-flex>
+            <v-divider class="top-spacer" />
 
-              <v-flex xs10 offset-xs1>
-                <v-text-field prepend-inner-icon="fingerprint" v-model="pesel" v-bind:rules="peselRules" v-bind:counter="11" label="Pesel" required></v-text-field>
-              </v-flex>
-            </div>
+          </div>
 
-            <v-divider class="top-spacer"/>
-
+          <div class="flip-scale-up-hor">
             <v-flex xs10 offset-xs1>
               <v-text-field color="green" v-model="login" prepend-inner-icon="person" v-bind:rules="loginRules"
                 v-bind:counter="20" label="Login" required></v-text-field>
@@ -56,7 +60,7 @@
             </v-flex>
 
             <v-flex xs10 offset-xs1>
-              <v-checkbox  color="green">
+              <v-checkbox color="green">
                 <div slot="label">Zgadzam się na przetwarzanie danych dla celów rejestracyjnych.</div>
               </v-checkbox>
             </v-flex>
@@ -70,11 +74,11 @@
             <v-flex justify-center xs8 offset-xs2>
               <v-btn block color="black" flat v-on:click.stop="showRegister = true">Dalej</v-btn>
             </v-flex>
-          </v-card>
-        </v-layout>
-      </v-container>
-    </v-form>
-  </transition>
+          </div>
+        </v-card>
+      </v-layout>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
@@ -84,10 +88,10 @@
         valid: false,
         firstname: "",
         lastname: "",
-        login:"",
-        password:"",
-        pesel:"",
-        repeatPassword:"",
+        login: "",
+        password: "",
+        pesel: "",
+        repeatPassword: "",
         accountType: "Użytkownik",
         nameRules: [
           v => !!v || "Pole wymagane",
@@ -136,4 +140,6 @@
 </script>
 
 <style scoped lang="scss">
+
+
 </style>
