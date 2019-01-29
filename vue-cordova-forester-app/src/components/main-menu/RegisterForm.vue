@@ -17,12 +17,6 @@
               <v-select color="green" box :items="typyKont" label="Wybierz typ konta" v-model="accountType"></v-select>
             </v-flex>
 
-            <v-flex xs10 offset-xs1>
-              <v-text-field color="green" v-model="login" prepend-inner-icon="person" v-bind:rules="loginRules"
-                v-bind:counter="20" label="Login" required></v-text-field>
-            </v-flex>
-
-
             <div v-if="accountType === 'Leśniczy'">
               <v-flex xs10 offset-xs1>
                 <v-text-field prepend-inner-icon="person_outline" v-model="firstname" v-bind:rules="nameRules" v-bind:counter="15" label="Imie" required></v-text-field>
@@ -31,7 +25,20 @@
               <v-flex xs10 offset-xs1>
                 <v-text-field prepend-inner-icon="person_outline" v-model="lastname" v-bind:rules="surnameRules" v-bind:counter="30" label="Nazwisko" required></v-text-field>
               </v-flex>
+
+              <v-flex xs10 offset-xs1>
+                <v-text-field prepend-inner-icon="fingerprint" v-model="pesel" v-bind:rules="peselRules" v-bind:counter="11" label="Pesel" required></v-text-field>
+              </v-flex>
             </div>
+
+            <v-divider class="top-spacer"/>
+
+            <v-flex xs10 offset-xs1>
+              <v-text-field color="green" v-model="login" prepend-inner-icon="person" v-bind:rules="loginRules"
+                v-bind:counter="20" label="Login" required></v-text-field>
+            </v-flex>
+
+
 
             <v-flex xs10 offset-xs1>
               <v-text-field color="green" prepend-inner-icon="email" v-model="email" v-bind:rules="emailRules" label="E-mail"
@@ -79,6 +86,7 @@
         lastname: "",
         login:"",
         password:"",
+        pesel:"",
         repeatPassword:"",
         accountType: "Użytkownik",
         nameRules: [
@@ -87,11 +95,15 @@
         ],
         surnameRules: [
           v => !!v || "Pole wymagane",
-          v => v.length <= 15 || "Imie nie może zawierać więcej niż 15"
+          v => v.length <= 30 || "Nazwisko nie może zawierać więcej niż 30"
         ],
         loginRules: [
           v => !!v || "Pole wymagane",
           v => v.length <= 15 || "Login nie może zawierać więcej niż 20"
+        ],
+        peselRules: [
+          v => !!v || "Pole wymagane",
+          v => /^[0-9]{11}$/.test(v) || "Proszę wpisać poprawny pesel"
         ],
         passwordRules: [
           v => !!v || "Pole wymagane",
