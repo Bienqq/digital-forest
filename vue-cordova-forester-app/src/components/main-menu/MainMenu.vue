@@ -8,18 +8,19 @@
             <v-btn block xs12 color="success" to="/enter-the-forest">Wejdź do lasu</v-btn>
           </v-flex>
           <v-flex xs10 offset-xs1 class="bottom-spacer">
-            <v-btn block color="success"> Zaloguj się</v-btn>
+            <v-btn block color="success" v-on:click.stop="showLogin = true"> Zaloguj się</v-btn>
           </v-flex>
           <v-divider></v-divider>
           <v-flex justify-center xs8 offset-xs2>
             <v-btn block small color="black" flat v-on:click.stop="showRegister = true">Zarejestruj się !</v-btn>
           </v-flex>
-          <!-- <v-flex justify-center xs8 offset-xs2 >
-                            <v-btn block small color="black" flat> Przypomnij hasło</v-btn> 
-                          </v-flex> -->
+         
         </v-card>
         <v-dialog fullscreen v-model="showRegister">
           <Register-form v-on:closeWindow="showRegister = false" />
+        </v-dialog>
+        <v-dialog  v-model="showLogin">
+          <Login-form v-on:closeLoginWindow="showLogin = false" />
         </v-dialog>
       </template>
     </v-layout>
@@ -29,28 +30,33 @@
 <script>
   import RotateLogo from "../common/RotateLogo";
   import RegisterForm from "./RegisterForm";
+  import LoginForm from "./LoginForm.vue"
   export default {
     name: "MainMenu",
     components: {
       "rotate-logo": RotateLogo,
-      "Register-form": RegisterForm
+      "Register-form": RegisterForm,
+      "Login-form": LoginForm
     },
     data() {
       return {
         RegisterComponent: "Register-form",
         showRegister: false,
+        showLogin: false,
         showLogo: true
       };
     },
     methods: {
-      showRegisterForm() {
-        this.showRegister = true;
-        this.showLogo = false;
-      },
 
       hideRegisterForm() {
         if (this.showRegister) {
           this.showRegister = false;
+          this.showLogo = true;
+        }
+      },
+      hideLoginForm() {
+        if (this.showLogin) {
+          this.showLogin = false;
           this.showLogo = true;
         }
       }

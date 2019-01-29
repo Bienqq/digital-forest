@@ -72,7 +72,7 @@
             </v-flex>
 
             <v-flex justify-center xs8 offset-xs2>
-              <v-btn block color="black" flat v-on:click.stop="showRegister = true">Dalej</v-btn>
+              <v-btn block color="black" flat >Dalej</v-btn>
             </v-flex>
           </div>
         </v-card>
