@@ -1,5 +1,5 @@
 <template>
-    <v-form v-model="valid">
+  <v-form>
     <v-container>
       <v-layout align-center column>
         <v-card width="90vw">
@@ -10,26 +10,29 @@
             <v-btn icon dark v-on:click="closeWindow()">
               <v-icon>close</v-icon>
             </v-btn>
-          </v-toolbar>          
+          </v-toolbar>
+          <section id="login" v-if="loginToogle">
+            <div class="flip-scale-up-hor">
+              <v-flex xs10 offset-xs1>
+                <v-text-field color="green" v-model="login" prepend-inner-icon="person" label="Login" required></v-text-field>
+              </v-flex>
 
-          <div class="flip-scale-up-hor">
-            <v-flex xs10 offset-xs1>
-              <v-text-field color="green" v-model="login" prepend-inner-icon="person" 
-                label="Login" required></v-text-field>
-            </v-flex>
-
-            <v-flex xs10 offset-xs1>
-              <v-text-field v-model="password" color="green" prepend-inner-icon="lock" 
-               label="Hasło" type="password" required></v-text-field>
-            </v-flex>
-            <v-divider class="top-spacer"/> 
-            <v-flex justify-center xs8 offset-xs2 class="bottom-spacer">
-              <v-btn  block color="success"  v-on:click.stop="showRegister = true">Zaloguj</v-btn>
-            </v-flex>
- <v-flex justify-center xs8 offset-xs2 class="top-spacer" >
-                            <v-btn block small color="black" flat> Zapomniałeś hasła? Kliknij tutaj!</v-btn> 
-                          </v-flex>
-          </div>
+              <v-flex xs10 offset-xs1>
+                <v-text-field v-model="password" color="green" prepend-inner-icon="lock" label="Hasło" type="password"
+                  required></v-text-field>
+              </v-flex>
+              <v-divider class="top-spacer" />
+              <v-flex justify-center xs8 offset-xs2 class="bottom-spacer">
+                <v-btn block color="success" v-on:click.stop="showRegister = true">Zaloguj</v-btn>
+              </v-flex>
+              <v-flex justify-center xs8 offset-xs2 class="top-spacer">
+                <v-btn block small color="black" flat @click="loginToogle = false"> Zapomniałeś hasła? Kliknij tutaj!</v-btn>
+              </v-flex>
+            </div>
+          </section>
+          <section v-else>
+            <lost-password-form/>
+          </section>
         </v-card>
       </v-layout>
     </v-container>
@@ -37,19 +40,24 @@
 </template>
 
 <script>
-export default {
-data(){
-    return({
-        login:"",
-        password:""
-    });
-},
-methods:{
-    closeWindow(){
-        this.$emit('closeLoginWindow',"");
+import lostPassword from './LoginForm/lostPassword'
+  export default {
+    components:{
+      "lost-password-form" : lostPassword
+    },
+    data() {
+      return ({
+        login: "",
+        password: "",
+        loginToogle: true,
+      });
+    },
+    methods: {
+      closeWindow() {
+        this.$emit('closeLoginWindow', "");
+      }
     }
-}
-}
+  }
 </script>
 
 <style>
