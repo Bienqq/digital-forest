@@ -49,14 +49,8 @@ export default {
   direction: ltr;
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
+  font-feature-settings: "liga";
 }
-
-
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,700,900&subset=latin-ext");
-$font-weight-light: 300;
-$font-weight-normal: 400;
-$font-weight-bold: 700;
-$font-weight-black: 900;
 
 * {
   box-sizing: border-box;
@@ -68,7 +62,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
-  
 }
 
 #app {

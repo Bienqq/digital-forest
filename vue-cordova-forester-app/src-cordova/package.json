@@ -19,7 +19,8 @@
         "plugins": {
             "cordova-plugin-whitelist": {},
             "cordova-plugin-splashscreen": {},
-            "cordova-plugin-ionic-keyboard": {}
+            "cordova-plugin-ionic-keyboard": {},
+            "cordova-plugin-background-mode": {}
         },
         "platforms": [
             "browser",

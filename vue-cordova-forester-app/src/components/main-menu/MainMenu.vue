@@ -31,11 +31,10 @@
 
         <!-- wyskakujące okienka po naciśnięciu przycisków  -->
         <v-dialog fullscreen v-model="showRegister">
-          <Register-form v-on:closeWindow="showRegister = false" />
+          <register-form v-on:closeWindow="showRegister = false" />
         </v-dialog>
-
         <v-dialog v-model="showLogin">
-          <Login-form v-on:closeLoginWindow="showLogin = false" />
+          <login-form v-on:closeLoginWindow="showLogin = false" />
         </v-dialog>
 
       </template>
@@ -44,19 +43,20 @@
 </template>
 
 <script>
-  import RotateLogo from "../common/RotateLogo"
-  import RegisterForm from "./RegisterForm"
-  import LoginForm from "./LoginForm.vue"
+  import RotateLogo from "../common/RotateLogo";
+  import RegisterForm from "./RegisterForm";
+  import LoginForm from "./login-form/LoginForm.vue"
+
   export default {
     name: "MainMenu",
     components: {
       "rotate-logo": RotateLogo,
-      "Register-form": RegisterForm,
-      "Login-form": LoginForm
+      "register-form": RegisterForm,
+      "login-form": LoginForm
     },
     data() {
       return {
-        RegisterComponent: "Register-form",
+        registerComponent: "register-form",
         showRegister: false,
         showLogin: false,
         showLogo: true

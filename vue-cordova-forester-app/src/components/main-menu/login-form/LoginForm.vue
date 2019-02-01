@@ -57,10 +57,10 @@
 </template>
 
 <script>
-  import lostPassword from './LoginForm/lostPassword'
+import LostPassword from './LostPassword'
   export default {
-    components: {
-      "lost-password-form": lostPassword
+    components:{
+      "lost-password-form" : LostPassword
     },
     data() {
       return ({
