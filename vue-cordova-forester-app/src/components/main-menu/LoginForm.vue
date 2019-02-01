@@ -34,7 +34,7 @@
 
               <!-- button logowania -->
               <v-flex justify-center xs8 offset-xs2 class="bottom-spacer">
-                <v-btn block color="success" v-on:click.stop="showRegister = true">Zaloguj</v-btn>
+                <v-btn block color="success" v-on:click.stop="">Zaloguj</v-btn>
               </v-flex>
 
               <!-- button zapomnienia xD -->
@@ -47,7 +47,7 @@
         </section>
 
         <section v-else>
-          <lost-password-form />
+          <lost-password-form/>
         </section>
 
       </v-card>
@@ -71,7 +71,8 @@
     },
     methods: {
       closeWindow() {
-        this.$emit('closeLoginWindow', "");
+        this.loginToogle = true
+        this.$emit('closeLoginWindow')
       }
     }
   }
