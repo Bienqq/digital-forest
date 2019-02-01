@@ -40,10 +40,10 @@
 </template>
 
 <script>
-import lostPassword from './LoginForm/lostPassword'
+import LostPassword from './LoginForm/LostPassword'
   export default {
     components:{
-      "lost-password-form" : lostPassword
+      "lost-password-form" : LostPassword
     },
     data() {
       return ({
@@ -54,7 +54,7 @@ import lostPassword from './LoginForm/lostPassword'
     },
     methods: {
       closeWindow() {
-        this.$emit('closeLoginWindow', "");
+        this.$emit('closeLoginWindow',"");
       }
     }
   }

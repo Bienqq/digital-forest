@@ -6,6 +6,7 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import "vue2-animate/dist/vue2-animate.min.css"
 import "./assets/Animations/Animations.css"
+
 Vue.config.productionTip = false
 Vue.use(Vuetify)
 
