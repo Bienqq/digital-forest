@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import LostPassword from './LoginForm/LostPassword'
+import LostPassword from './LostPassword'
   export default {
     components:{
       "lost-password-form" : LostPassword

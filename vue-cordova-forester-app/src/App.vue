@@ -35,12 +35,6 @@ export default {
   src: url(https://fonts.gstatic.com/s/materialicons/v42/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
 }
 
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,700,900&subset=latin-ext");
-$font-weight-light: 300;
-$font-weight-normal: 400;
-$font-weight-bold: 700;
-$font-weight-black: 900;
-
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;

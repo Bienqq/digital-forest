@@ -14,12 +14,12 @@
           <v-flex justify-center xs8 offset-xs2>
             <v-btn block small color="black" flat v-on:click.stop="showRegister = true">Zarejestruj się !</v-btn>
           </v-flex>
-         
+
         </v-card>
         <v-dialog fullscreen v-model="showRegister">
           <register-form v-on:closeWindow="showRegister = false" />
         </v-dialog>
-        <v-dialog  v-model="showLogin">
+        <v-dialog v-model="showLogin">
           <login-form v-on:closeLoginWindow="showLogin = false" />
         </v-dialog>
       </template>
@@ -30,7 +30,8 @@
 <script>
   import RotateLogo from "../common/RotateLogo";
   import RegisterForm from "./RegisterForm";
-  import LoginForm from "./LoginForm.vue"
+  import LoginForm from "./LoginForm/LoginForm.vue"
+
   export default {
     name: "MainMenu",
     components: {
@@ -40,7 +41,7 @@
     },
     data() {
       return {
-        RegisterComponent: "Register-form",
+        registerComponent: "register-form",
         showRegister: false,
         showLogin: false,
         showLogo: true
