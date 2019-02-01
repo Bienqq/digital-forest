@@ -3,6 +3,8 @@
     <v-container>
       <v-layout align-center column>
         <v-card width="90vw">
+
+
           <!-- pasek u góry -->
           <v-toolbar dark color="#004d34">
             <v-toolbar-title>Rejestracja {{accountTypeComputed}}</v-toolbar-title>
@@ -11,6 +13,7 @@
               <v-icon>close</v-icon>
             </v-btn>
           </v-toolbar>
+          
 
           <v-flex xs12>
             <v-select color="green" box :items="typyKont" label="Wybierz typ konta" v-model="accountType"></v-select>
@@ -133,7 +136,7 @@
     },
     computed: {
       accountTypeComputed: function () {
-        return this.accountType == "Użytkownik" ? "Użytkownika" : "Leśniczego";
+        return this.accountType == "Użytkownik" ? "Użytkownika" : "Leśniczego"
       }
     }
   };

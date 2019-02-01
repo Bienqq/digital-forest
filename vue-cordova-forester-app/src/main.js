@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -10,6 +11,7 @@ import initCordova from "./plugins"
 
 Vue.config.productionTip = false
 Vue.use(Vuetify)
+Vue.use(Vuex)
 
 const initVue = () => new Vue({
   router,
