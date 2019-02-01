@@ -57,17 +57,10 @@
 </template>
 
 <script>
-<<<<<<< HEAD:vue-cordova-forester-app/src/components/main-menu/LoginForm/LoginForm.vue
 import LostPassword from './LostPassword'
   export default {
     components:{
       "lost-password-form" : LostPassword
-=======
-  import lostPassword from './LoginForm/lostPassword'
-  export default {
-    components: {
-      "lost-password-form": lostPassword
->>>>>>> origin/master:vue-cordova-forester-app/src/components/main-menu/LoginForm.vue
     },
     data() {
       return ({
@@ -78,12 +71,8 @@ import LostPassword from './LostPassword'
     },
     methods: {
       closeWindow() {
-<<<<<<< HEAD:vue-cordova-forester-app/src/components/main-menu/LoginForm/LoginForm.vue
-        this.$emit('closeLoginWindow',"");
-=======
         this.loginToogle = true
         this.$emit('closeLoginWindow')
->>>>>>> origin/master:vue-cordova-forester-app/src/components/main-menu/LoginForm.vue
       }
     }
   }

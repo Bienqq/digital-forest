@@ -36,10 +36,10 @@
 </template>
 
 <script>
-    import changePassword from './changePassword'
+    import ChangePassword from './ChangePassword'
     export default {
         components: {
-            "change-password": changePassword
+            "change-password": ChangePassword
         },
         data() {
             return {

@@ -33,14 +33,8 @@
         <v-dialog fullscreen v-model="showRegister">
           <register-form v-on:closeWindow="showRegister = false" />
         </v-dialog>
-<<<<<<< HEAD
         <v-dialog v-model="showLogin">
           <login-form v-on:closeLoginWindow="showLogin = false" />
-=======
-
-        <v-dialog v-model="showLogin">
-          <Login-form v-on:closeLoginWindow="showLogin = false" />
->>>>>>> origin/master
         </v-dialog>
 
       </template>
@@ -49,16 +43,10 @@
 </template>
 
 <script>
-<<<<<<< HEAD
   import RotateLogo from "../common/RotateLogo";
   import RegisterForm from "./RegisterForm";
-  import LoginForm from "./LoginForm/LoginForm.vue"
+  import LoginForm from "./login-form/LoginForm.vue"
 
-=======
-  import RotateLogo from "../common/RotateLogo"
-  import RegisterForm from "./RegisterForm"
-  import LoginForm from "./LoginForm.vue"
->>>>>>> origin/master
   export default {
     name: "MainMenu",
     components: {
