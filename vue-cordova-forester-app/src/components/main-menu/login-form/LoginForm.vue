@@ -2,7 +2,7 @@
 
   <v-container>
     <v-layout align-center column>
-      <v-card width="90vw">
+      <v-card width="90vw" >
 
         <!-- pasek u góry -->
         <v-toolbar dark color="#004d34">
@@ -17,7 +17,7 @@
         <!-- sekcja logowanie -->
         <section id="login" v-if="loginToogle">
           <v-form>
-            <div class="flip-scale-up-hor">
+            <div class="animated slideInDown">
 
               <!-- input login -->
               <v-flex xs10 offset-xs1>

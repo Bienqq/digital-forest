@@ -1,3 +1,0 @@
-Animacje zawarte pod nazwami klas: 
-
-1. wywrócenie na drugą strone : .flip-scale-up-hor
