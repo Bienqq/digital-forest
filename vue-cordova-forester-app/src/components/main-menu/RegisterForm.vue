@@ -4,8 +4,7 @@
       <v-layout align-center column>
         <v-card width="90vw">
 
-
-          <!-- pasek u góry -->
+          <!-- white toolbar -->
           <v-toolbar dark color="#004d34">
             <v-toolbar-title>Rejestracja {{accountTypeComputed}}</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -13,13 +12,12 @@
               <v-icon>close</v-icon>
             </v-btn>
           </v-toolbar>
-          
 
           <v-flex xs12>
-            <v-select color="green" box :items="typyKont" label="Wybierz typ konta" v-model="accountType"></v-select>
+            <v-select color="green" box :items="profilesList" label="Wybierz typ konta" v-model="profile"></v-select>
           </v-flex>
 
-          <div v-if="accountType === 'Leśniczy'" class="flip-scale-up-hor">
+          <div v-if="profile === 'Leśniczy'" class="flip-scale-up-hor">
 
             <v-flex xs10 offset-xs1>
               <v-text-field prepend-inner-icon="person_outline" v-model="firstname" v-bind:rules="nameRules"
@@ -44,8 +42,6 @@
               <v-text-field color="green" v-model="login" prepend-inner-icon="person" v-bind:rules="loginRules"
                 v-bind:counter="20" label="Login" required></v-text-field>
             </v-flex>
-
-
 
             <v-flex xs10 offset-xs1>
               <v-text-field color="green" prepend-inner-icon="email" v-model="email" v-bind:rules="emailRules" label="E-mail"
@@ -75,7 +71,7 @@
             </v-flex>
 
             <v-flex justify-center xs8 offset-xs2>
-              <v-btn block color="black" flat >Dalej</v-btn>
+              <v-btn block color="black" flat>Dalej</v-btn>
             </v-flex>
           </div>
         </v-card>
@@ -95,10 +91,10 @@
         password: "",
         pesel: "",
         repeatPassword: "",
-        accountType: "Użytkownik",
+        profile: "Użytkownik",
         nameRules: [
           v => !!v || "Pole wymagane",
-          v => v.length <= 15 || "Imie nie może zawierać więcej niż 15"
+          v => v.length <= 15 || "Imię nie może zawierać więcej niż 15"
         ],
         surnameRules: [
           v => !!v || "Pole wymagane",
@@ -126,19 +122,25 @@
           v => !!v || "Pole wymagane",
           v => /.+@.+/.test(v) || "Błędnie wpisany E-mail"
         ],
-        typyKont: ["Użytkownik", "Leśniczy"]
+        profilesList: ["Użytkownik", "Leśniczy"]
       };
     },
     methods: {
       closeWindow() {
         this.$emit("closeWindow");
-      }
+      },
     },
     computed: {
       accountTypeComputed: function () {
-        return this.accountType == "Użytkownik" ? "Użytkownika" : "Leśniczego"
+        return this.profile == "Użytkownik" ? "Użytkownika" : "Leśniczego"
       }
-    }
+    },
+    created() {
+      document.addEventListener("backbutton", () => {
+        this.$emit("closeWindow")
+        alert("window Closed")
+      })
+    },
   };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12>
-    <v-img class="RotateLogo1" v-bind:src="logoSrc" aspect-ratio="1.8" min-width="60vw" min-height="60vw" contain></v-img>
-    <v-img class="RotateLogo2" v-bind:src="textSrc" aspect-ratio="1.8" min-width="20vw" min-height="20vw" contain></v-img>
+    <v-img class="RotateLogo1" :src="logoSrc" aspect-ratio="1.8" min-width="60vw" min-height="60vw" contain></v-img>
+    <v-img class="RotateLogo2" :src="textSrc" aspect-ratio="1.8" min-width="20vw" min-height="20vw" contain></v-img>
   </v-flex>
 </template>
 

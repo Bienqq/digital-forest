@@ -1,35 +1,30 @@
 <template>
   <v-container fluid v-on:click.self="hideRegisterForm()">
 
-    <!-- logo co się kręci -->
     <rotate-logo v-if="showLogo" />
 
-    <!-- biały box z buttonami -->
+    <!-- white box with buttons -->
     <v-layout class="white--text font-weight-medium top-spacer" align-center column>
       <template>
         <v-card width="90%" class="light-gray">
 
-          <!-- button wejdz do lasu -->
           <v-flex xs10 offset-xs1 class="top-spacer">
             <v-btn block xs12 color="success" to="/enter-the-forest">Wejdź do lasu</v-btn>
           </v-flex>
 
-          <!-- button logowanie -->
           <v-flex xs10 offset-xs1 class="bottom-spacer">
             <v-btn block color="success" v-on:click.stop="showLogin = true"> Zaloguj się</v-btn>
           </v-flex>
 
           <v-divider></v-divider>
 
-          <!-- button rejestracja -->
           <v-flex justify-center xs8 offset-xs2>
             <v-btn block small color="black" flat v-on:click.stop="showRegister = true">Zarejestruj się !</v-btn>
           </v-flex>
 
         </v-card>
 
-
-        <!-- wyskakujące okienka po naciśnięciu przycisków  -->
+        <!-- displayed windows after clicked button  -->
         <v-dialog fullscreen v-model="showRegister">
           <register-form v-on:closeWindow="showRegister = false" />
         </v-dialog>

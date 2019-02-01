@@ -22,13 +22,7 @@ const initVue = () => new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-
 const isCordovaApp = (typeof window.cordova !== "undefined")
-
-// If we are not in Cordova, manually trigger the deviceready event 
-if (!isCordovaApp) {
-  document.dispatchEvent(new CustomEvent("deviceready"))
-}
 
 // Wait for the deviceready event to start the render
 document.addEventListener("deviceready", () => {
@@ -38,3 +32,8 @@ document.addEventListener("deviceready", () => {
   }
   initVue();
 });
+
+// If we are not in Cordova, manually trigger the deviceready event 
+if (!isCordovaApp) {
+  document.dispatchEvent(new CustomEvent("deviceready"))
+}
