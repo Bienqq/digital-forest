@@ -1,35 +1,51 @@
 <template>
   <v-container fluid v-on:click.self="hideRegisterForm()">
+
+    <!-- logo co się kręci -->
     <rotate-logo v-if="showLogo" />
+
+    <!-- biały box z buttonami -->
     <v-layout class="white--text font-weight-medium top-spacer" align-center column>
       <template>
         <v-card width="90%" class="light-gray">
+
+          <!-- button wejdz do lasu -->
           <v-flex xs10 offset-xs1 class="top-spacer">
             <v-btn block xs12 color="success" to="/enter-the-forest">Wejdź do lasu</v-btn>
           </v-flex>
+
+          <!-- button logowanie -->
           <v-flex xs10 offset-xs1 class="bottom-spacer">
             <v-btn block color="success" v-on:click.stop="showLogin = true"> Zaloguj się</v-btn>
           </v-flex>
+
           <v-divider></v-divider>
+
+          <!-- button rejestracja -->
           <v-flex justify-center xs8 offset-xs2>
             <v-btn block small color="black" flat v-on:click.stop="showRegister = true">Zarejestruj się !</v-btn>
           </v-flex>
-         
+
         </v-card>
+
+
+        <!-- wyskakujące okienka po naciśnięciu przycisków  -->
         <v-dialog fullscreen v-model="showRegister">
           <Register-form v-on:closeWindow="showRegister = false" />
         </v-dialog>
-        <v-dialog  v-model="showLogin">
+
+        <v-dialog v-model="showLogin">
           <Login-form v-on:closeLoginWindow="showLogin = false" />
         </v-dialog>
+
       </template>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-  import RotateLogo from "../common/RotateLogo";
-  import RegisterForm from "./RegisterForm";
+  import RotateLogo from "../common/RotateLogo"
+  import RegisterForm from "./RegisterForm"
   import LoginForm from "./LoginForm.vue"
   export default {
     name: "MainMenu",
@@ -50,14 +66,14 @@
 
       hideRegisterForm() {
         if (this.showRegister) {
-          this.showRegister = false;
-          this.showLogo = true;
+          this.showRegister = false
+          this.showLogo = true
         }
       },
       hideLoginForm() {
         if (this.showLogin) {
-          this.showLogin = false;
-          this.showLogo = true;
+          this.showLogin = false
+          this.showLogo = true
         }
       }
     },
