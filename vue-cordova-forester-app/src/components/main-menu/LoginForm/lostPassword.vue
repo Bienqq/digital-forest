@@ -16,18 +16,12 @@
         <v-flex justify-center xs8 offset-xs2 class="bottom-spacer">
             <v-btn block color="success" @click="checkChangePassword()">Zmień hasło</v-btn>
         </v-flex>
-
         <section id="changePasswordInput" v-if="confirmed">
             <div v-if="isCorrect">
                 <change-password />
             </div>
             <div v-else>
-                <v-flex xs10 offset-xs1>
-                    <transition name="bounce" enter-active-class="bounceInLeft" leave-active-class="bounceOutRight">
-                        <p class="errorInfo">błędnie wpisane dane</P>
-                    </transition>
-
-                </v-flex>
+            <p class="errorInfo animated infinite pulse" >błędnie wpisane dane</P>
             </div>
         </section>
 
@@ -46,17 +40,18 @@
                 login: "",
                 email: "",
                 confirmed: false,
-                isCorrect: false
+                isCorrect: false,
+                visible : true
             }
         },
         methods: {
             checkChangePassword() {
                 this.confirmed = true
-
+                this.visible = !this.visible
                 if (this.isCorrect == false) {
                     setTimeout(() => {
                         this.confirmed = false
-                    }, 1500);
+                    }, 2000);
                 }
             }
         }
