@@ -13,6 +13,7 @@
     "cordova-serve-ios": "vue-cli-service cordova-serve-ios"
   },
   "dependencies": {
+    "animate.css": "^3.7.0",
     "es6-promise": "^4.2.5",
     "vue": "^2.5.21",
     "vue-router": "^3.0.1",
