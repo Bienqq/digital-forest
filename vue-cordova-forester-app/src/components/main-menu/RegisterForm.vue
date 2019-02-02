@@ -33,7 +33,7 @@
               <v-text-field prepend-inner-icon="fingerprint" v-model="pesel" :rules="peselRules" :counter="11"
                 label="Pesel" required></v-text-field>
             </v-flex>
-            <v-divider class="top-spacer" />
+            <v-divider class="top-spacer ml-3 mr-3" />
 
           </div>
 

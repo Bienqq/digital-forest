@@ -25,7 +25,7 @@
                   required></v-text-field>
               </v-flex>
 
-              <v-divider class="top-spacer" />
+              <v-divider class="top-spacer ml-5 mr-5 mb-3"/>
 
               <v-flex justify-center xs8 offset-xs2 class="bottom-spacer">
                 <v-btn block color="success" @click.stop="">Zaloguj</v-btn>
