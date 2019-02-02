@@ -2,29 +2,24 @@
 
   <v-container>
     <v-layout align-center column>
-      <v-card width="90vw" >
+      <v-card width="90vw">
 
-        <!-- pasek u góry -->
         <v-toolbar dark color="#004d34">
           <v-toolbar-title>Logowanie</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn icon dark v-on:click="closeWindow()">
+          <v-btn icon dark @click="closeWindow()">
             <v-icon>close</v-icon>
           </v-btn>
         </v-toolbar>
 
-
-        <!-- sekcja logowanie -->
         <section id="login" v-if="loginToogle">
           <v-form>
             <div class="animated slideInDown">
 
-              <!-- input login -->
               <v-flex xs10 offset-xs1>
                 <v-text-field color="green" v-model="login" prepend-inner-icon="person" label="Login" required></v-text-field>
               </v-flex>
 
-              <!-- input hasło -->
               <v-flex xs10 offset-xs1>
                 <v-text-field v-model="password" color="green" prepend-inner-icon="lock" label="Hasło" type="password"
                   required></v-text-field>
@@ -32,12 +27,10 @@
 
               <v-divider class="top-spacer" />
 
-              <!-- button logowania -->
               <v-flex justify-center xs8 offset-xs2 class="bottom-spacer">
-                <v-btn block color="success" v-on:click.stop="">Zaloguj</v-btn>
+                <v-btn block color="success" @click.stop="">Zaloguj</v-btn>
               </v-flex>
 
-              <!-- button zapomnienia xD -->
               <v-flex justify-center xs8 offset-xs2 class="top-spacer">
                 <v-btn block small color="black" flat @click="loginToogle = false"> Zapomniałeś hasła? Kliknij tutaj!</v-btn>
               </v-flex>
@@ -47,7 +40,7 @@
         </section>
 
         <section v-else>
-          <lost-password-form/>
+          <lost-password-form />
         </section>
 
       </v-card>
@@ -57,10 +50,10 @@
 </template>
 
 <script>
-import LostPassword from './LostPassword'
+  import LostPassword from './LostPassword'
   export default {
-    components:{
-      "lost-password-form" : LostPassword
+    components: {
+      "lost-password-form": LostPassword
     },
     data() {
       return ({

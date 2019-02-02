@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid v-on:click.self="hideRegisterForm()">
+  <v-container fluid @click.self="hideRegisterForm()">
 
     <rotate-logo v-if="showLogo" />
 
@@ -13,13 +13,13 @@
           </v-flex>
 
           <v-flex xs10 offset-xs1 class="bottom-spacer">
-            <v-btn block color="success" v-on:click.stop="showLogin = true"> Zaloguj się</v-btn>
+            <v-btn block color="success" @click.stop="showLogin = true"> Zaloguj się</v-btn>
           </v-flex>
 
           <v-divider></v-divider>
 
           <v-flex justify-center xs8 offset-xs2>
-            <v-btn block small color="black" flat v-on:click.stop="showRegister = true">Zarejestruj się !</v-btn>
+            <v-btn block small color="black" flat @click.stop="showRegister = true">Zarejestruj się !</v-btn>
           </v-flex>
 
         </v-card>
@@ -28,8 +28,8 @@
         <v-dialog fullscreen v-if="showRegister" v-model="showRegister">
           <register-form @closeWindow="showRegister = false" />
         </v-dialog>
-        <v-dialog v-if="showRegister" v-model="showLogin">
-          <login-form v-on:closeLoginWindow="showLogin = false" />
+        <v-dialog v-if="showLogin" v-model="showLogin">
+          <login-form @closeLoginWindow="showLogin = false" />
         </v-dialog>
 
       </template>
