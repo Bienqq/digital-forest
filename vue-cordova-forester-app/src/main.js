@@ -6,7 +6,6 @@ import store from './store'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import "vue2-animate/dist/vue2-animate.min.css"
-import "./assets/Animations/Animations.css"
 import 'animate.css'
 import initCordova from "./plugins" 
 

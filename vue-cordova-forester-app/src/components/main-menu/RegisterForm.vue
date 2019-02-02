@@ -17,7 +17,7 @@
             <v-select color="green" box :items="profilesList" label="Wybierz typ konta" v-model="profile"></v-select>
           </v-flex>
 
-          <div v-if="profile === 'Leśniczy'" class="flip-scale-up-hor">
+          <div v-if="accountType === 'Leśniczy'" class="animated slideInDown">
 
             <v-flex xs10 offset-xs1>
               <v-text-field prepend-inner-icon="person_outline" v-model="firstname" v-bind:rules="nameRules"
@@ -37,7 +37,7 @@
 
           </div>
 
-          <div class="flip-scale-up-hor">
+          <div class="animated slideInDown">
             <v-flex xs10 offset-xs1>
               <v-text-field color="green" v-model="login" prepend-inner-icon="person" v-bind:rules="loginRules"
                 v-bind:counter="20" label="Login" required></v-text-field>
