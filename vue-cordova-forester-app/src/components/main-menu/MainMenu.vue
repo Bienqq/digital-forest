@@ -25,10 +25,10 @@
         </v-card>
 
         <!-- displayed windows after clicked button  -->
-        <v-dialog fullscreen :is="register-form">
-          <register-form v-on:closeWindow="showRegister = false" />
+        <v-dialog fullscreen v-if="showRegister" v-model="showRegister">
+          <register-form @closeWindow="showRegister = false" />
         </v-dialog>
-        <v-dialog v-model="showLogin">
+        <v-dialog v-if="showRegister" v-model="showLogin">
           <login-form v-on:closeLoginWindow="showLogin = false" />
         </v-dialog>
 
@@ -51,7 +51,6 @@
     },
     data() {
       return {
-        registerComponent: "register-form",
         showRegister: false,
         showLogin: false,
         showLogo: true

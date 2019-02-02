@@ -17,7 +17,7 @@
             <v-select color="green" box :items="profilesList" label="Wybierz typ konta" v-model="profile"></v-select>
           </v-flex>
 
-          <div v-if="accountType === 'Leśniczy'" class="animated slideInDown">
+          <div v-if="profile === 'Leśniczy'" class="animated slideInDown">
 
             <v-flex xs10 offset-xs1>
               <v-text-field prepend-inner-icon="person_outline" v-model="firstname" v-bind:rules="nameRules"
@@ -60,7 +60,7 @@
 
             <v-flex xs10 offset-xs1>
               <v-checkbox color="green">
-                <div slot="label">Zgadzam się na przetwarzanie danych dla celów rejestracyjnych.</div>
+                <div slot="label">Zgadzam się na przetwarzanie danych dla celów rejestracyjnych</div>
               </v-checkbox>
             </v-flex>
 
@@ -138,7 +138,6 @@
     created() {
       document.addEventListener("backbutton", () => {
         this.$emit("closeWindow")
-        alert("window Closed")
       })
     },
   };
