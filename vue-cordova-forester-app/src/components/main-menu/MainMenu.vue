@@ -25,7 +25,7 @@
         </v-card>
 
         <!-- displayed windows after clicked button  -->
-        <v-dialog fullscreen v-model="showRegister">
+        <v-dialog fullscreen :is="register-form">
           <register-form v-on:closeWindow="showRegister = false" />
         </v-dialog>
         <v-dialog v-model="showLogin">
