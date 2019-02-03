@@ -76,7 +76,6 @@
         }
       },
       handleBackButton() {
-        alert(this.showRegister + " " + this.showLogin + " " + this.$route.path)
         if (this.showRegister == false && this.showLogin == false && this.$route.path == "/") {
           backAsHome.trigger()
         }
