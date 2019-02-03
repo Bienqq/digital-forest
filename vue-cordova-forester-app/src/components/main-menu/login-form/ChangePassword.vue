@@ -2,13 +2,13 @@
     <div>
 
         <v-flex xs10 offset-xs1>
-            <v-text-field v-model="password" color="green" prepend-inner-icon="lock" v-bind:rules="passwordRules"
-                v-bind:counter="30" label="Hasło" type="password" required></v-text-field>
+            <v-text-field v-model="password" color="green" prepend-inner-icon="lock" :rules="passwordRules"
+                :counter="30" label="Hasło" type="password" required></v-text-field>
         </v-flex>
 
         <v-flex xs10 offset-xs1>
-            <v-text-field v-model="repeatPassword" color="green" prepend-inner-icon="lock" v-bind:rules="repeatPasswordRules"
-                v-bind:counter="30" label="Powtórz Hasło" type="password" required></v-text-field>
+            <v-text-field v-model="repeatPassword" color="green" prepend-inner-icon="lock" :rules="repeatPasswordRules"
+                :counter="30" label="Powtórz Hasło" type="password" required></v-text-field>
         </v-flex>
 
     </div>
@@ -27,13 +27,13 @@
                     "Hasło musi zawierać min. 8 znaków, jedną dużą litere i cyfrę"
                 ],
                 repeatPasswordRules: [
-                    v => v === this.password || "Hasło powinno być takie samo jak poprzednie."
+                    v => v === this.password || "Hasło powinno być takie samo jak poprzednie"
                 ]
             }
         }
     }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>
