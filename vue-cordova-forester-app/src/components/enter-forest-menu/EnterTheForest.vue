@@ -53,7 +53,14 @@
           },
         ],
       };
-    }
+    },
+    created() {
+      document.addEventListener("backbutton", (event) => {
+        if (this.$route.path == "/enter-the-forest") {
+          history.back()
+        }
+      })
+    },
   };
 </script>
 

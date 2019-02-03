@@ -26,14 +26,14 @@
 
         <!-- displayed window after clicked button  -->
         <transition name="form-animated">
-          <v-dialog v-model="showRegister" hide-overlay >
-            <register-form  @closeWindow="showRegister = false" />
+          <v-dialog v-model="showRegister" hide-overlay>
+            <register-form @closeWindow="showRegister = false" />
           </v-dialog>
         </transition>
 
-        <transition name="form-animated" >
-          <v-dialog  v-model="showLogin" hide-overlay>
-            <login-form @closeLoginWindow="showLogin = false"/>
+        <transition name="form-animated">
+          <v-dialog v-model="showLogin" hide-overlay>
+            <login-form @closeLoginWindow="showLogin = false" />
           </v-dialog>
         </transition>
 
@@ -74,13 +74,21 @@
           this.showLogin = false
           this.showLogo = true
         }
+      },
+      handleBackButton() {
+        alert(this.showRegister + " " + this.showLogin + " " + this.$route.path)
+        if (this.showRegister == false && this.showLogin == false && this.$route.path == "/") {
+          backAsHome.trigger()
+        }
       }
     },
     created: function () {
       window.addEventListener("keyboardWillShow", () => {
         document.activeElement.scrollIntoViewIfNeeded()
       });
-    }
+      document.addEventListener("backbutton", this.handleBackButton)
+    },
+
   };
 </script>
 
@@ -91,12 +99,5 @@
 
   .form-animated-leave-active {
     transition: zoomOut .8s;
-  }
-
-  .centered{
-    position: absolute;
-    top: 30%;
-    margin-left: auto;
-    margin-right: auto;
   }
 </style>
