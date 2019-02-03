@@ -16,6 +16,7 @@
             <v-btn block color="success" v-on:click.stop="showLogin = true"> Zaloguj się</v-btn>
           </v-flex>
 
+
           <v-divider></v-divider>
 
           <v-flex justify-center xs8 offset-xs2>
@@ -28,7 +29,7 @@
         <v-dialog fullscreen v-if="showRegister" v-model="showRegister">
           <register-form @closeWindow="showRegister = false" />
         </v-dialog>
-        <v-dialog v-if="showRegister" v-model="showLogin">
+        <v-dialog v-if="showLogin" v-model="showLogin">
           <login-form v-on:closeLoginWindow="showLogin = false" />
         </v-dialog>
 
