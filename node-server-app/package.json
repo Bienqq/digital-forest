@@ -20,9 +20,9 @@
   "engines": {
     "node": "8.11.2"
   },
-  "author": "Dawid Krakowczyk Tomasz Bieniek",
+  "author": "Tomasz Bieniek",
   "email": "tomek-1996-1996@o2.pl",
-  "license": "Copyright (C) Dawid Krakowczyk Tomasz Bieniek, Inc - All Rights Reserved",
+  "license": "Copyright (C) Tomasz Bieniek, Inc - All Rights Reserved",
   "bugs": {
     "url": "https://github.com/Bienqq/forester-app/issues"
   },
