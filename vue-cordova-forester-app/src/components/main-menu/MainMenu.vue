@@ -16,12 +16,7 @@
             <v-btn block color="success" @click.stop="showLogin = true"> Zaloguj się</v-btn>
           </v-flex>
 
-<<<<<<< HEAD
-
-          <v-divider></v-divider>
-=======
           <v-divider class="ml-5 mr-5"></v-divider>
->>>>>>> e98b9c47531418eeb99fb6678827d4e108eaccd4
 
           <v-flex justify-center xs8 offset-xs2>
             <v-btn block small color="black" flat @click.stop="showRegister = true">Zarejestruj się !</v-btn>
