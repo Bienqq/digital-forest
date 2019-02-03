@@ -28,6 +28,12 @@ export default {
 </script>
 
 <style lang="scss" >
+
+
+$lightGray : #f9f9f9;
+$lightGreen :#4caf50;
+$darkGreen :#004d34; 
+
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
@@ -64,6 +70,12 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+h3{
+  font-size: 5vw;
+  font-family: Roboto,sans-serif!important;
+  font-weight: 400;
+}
+
 #app {
   position: absolute;
   width: 100%;
@@ -89,8 +101,7 @@ a {
 //main colors background and font schemes for the application
 .light-gray{
   background:#f9f9f9;
-}
-
+} 
 .light-green{
   background:#4caf50;
 }

@@ -11,7 +11,9 @@
     <allow-navigation href="http://192.168.0.73:8081" />
     <allow-navigation href="http://192.168.0.73:8080" />
     <allow-navigation href="http://192.168.1.103:8080" />
+    <content src="http://192.168.1.106:8080" />
     <allow-navigation href="http://192.168.1.106:8080" />
+    <allow-navigation href="http://192.168.1.103:8080" />
     <allow-navigation href="http://192.168.1.106:8081" />
     <allow-navigation href="http://192.168.0.73:8083" />
     <allow-navigation href="*" />
