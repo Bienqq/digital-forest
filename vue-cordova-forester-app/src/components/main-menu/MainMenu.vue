@@ -13,7 +13,7 @@
           </v-flex>
 
           <v-flex xs10 offset-xs1 class="bottom-spacer">
-            <v-btn block color="success" @click.stop="showLogin = true"> Zaloguj się</v-btn>
+            <v-btn block color="success" @click.stop="showLogin = true">Zaloguj się</v-btn>
           </v-flex>
 
           <v-divider class="ml-5 mr-5"></v-divider>
@@ -25,12 +25,17 @@
         </v-card>
 
         <!-- displayed window after clicked button  -->
-        <v-dialog fullscreen v-if="showRegister" v-model="showRegister">
-          <register-form @closeWindow="showRegister = false" />
-        </v-dialog>
-        <v-dialog v-if="showLogin" v-model="showLogin">
-          <login-form @closeLoginWindow="showLogin = false" />
-        </v-dialog>
+        <transition name="form-animated">
+          <v-dialog v-model="showRegister" hide-overlay >
+            <register-form  @closeWindow="showRegister = false" />
+          </v-dialog>
+        </transition>
+
+        <transition name="form-animated" >
+          <v-dialog  v-model="showLogin" hide-overlay>
+            <login-form @closeLoginWindow="showLogin = false"/>
+          </v-dialog>
+        </transition>
 
       </template>
     </v-layout>
@@ -80,5 +85,18 @@
 </script>
 
 <style scoped lang="scss">
+  .form-animated-enter-active {
+    animation: zoomIn .8s;
+  }
 
+  .form-animated-leave-active {
+    transition: zoomOut .8s;
+  }
+
+  .centered{
+    position: absolute;
+    top: 30%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 </style>

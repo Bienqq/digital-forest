@@ -21,10 +21,9 @@
                 <change-password />
             </div>
             <div v-else>
-                <p class="errorInfo animated infinite pulse">błędnie wpisane dane</P>
+                <p class="errorInfo animated infinite pulse">Błędnie wpisane dane</P>
             </div>
         </section>
-
 
     </div>
 </template>

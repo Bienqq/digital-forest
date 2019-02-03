@@ -1,83 +1,86 @@
 <template>
-  <v-form v-model="valid">
-    <v-container>
-      <v-layout align-center column>
-        <v-card width="90vw">
+  
+    <v-form v-model="valid">
+      <v-container fluid class="pa-2 overflow-hidden">
+        <v-layout align-center column >
+          <v-card width="100%" >
 
-          <!-- white toolbar -->
-          <v-toolbar dark color="#004d34">
-            <v-toolbar-title>Rejestracja {{accountTypeComputed}}</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn icon dark @click="closeWindow()">
-              <v-icon>close</v-icon>
-            </v-btn>
-          </v-toolbar>
+            <!-- white toolbar -->
+            <v-toolbar dark color="#004d34">
+              <v-toolbar-title>Rejestracja {{accountTypeComputed}}</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-btn icon dark @click="closeWindow()">
+                <v-icon>close</v-icon>
+              </v-btn>
+            </v-toolbar>
 
-          <v-flex xs12>
-            <v-select color="green" box :items="profilesList" label="Wybierz typ konta" v-model="profile"></v-select>
-          </v-flex>
-
-          <div v-if="profile === 'Leśniczy'" class="animated slideInDown">
-
-            <v-flex xs10 offset-xs1>
-              <v-text-field prepend-inner-icon="person_outline" v-model="firstname" :rules="nameRules"
-                :counter="15" label="Imie" required></v-text-field>
+            <v-flex xs12>
+              <v-select color="green" box :items="profilesList" label="Wybierz typ konta" v-model="profile"></v-select>
             </v-flex>
 
-            <v-flex xs10 offset-xs1>
-              <v-text-field prepend-inner-icon="person_outline" v-model="lastname" :rules="surnameRules"
-                :counter="30" label="Nazwisko" required></v-text-field>
-            </v-flex>
+            <transition name="dropdown-animated">
+              <div v-if="profile === 'Leśniczy'">
+                <v-flex xs10 offset-xs1>
+                  <v-text-field prepend-inner-icon="person_outline" v-model="firstname" :rules="nameRules" :counter="15"
+                    label="Imie" required></v-text-field>
+                </v-flex>
 
-            <v-flex xs10 offset-xs1>
-              <v-text-field prepend-inner-icon="fingerprint" v-model="pesel" :rules="peselRules" :counter="11"
-                label="Pesel" required></v-text-field>
-            </v-flex>
-            <v-divider class="top-spacer ml-3 mr-3" />
+                <v-flex xs10 offset-xs1>
+                  <v-text-field prepend-inner-icon="person_outline" v-model="lastname" :rules="surnameRules" :counter="30"
+                    label="Nazwisko" required></v-text-field>
+                </v-flex>
 
-          </div>
+                <v-flex xs10 offset-xs1>
+                  <v-text-field prepend-inner-icon="fingerprint" v-model="pesel" :rules="peselRules" :counter="11"
+                    label="Pesel" required></v-text-field>
+                </v-flex>
+                <v-divider class="top-spacer ml-3 mr-3" />
+              </div>
+            </transition>
 
-          <div class="animated slideInDown">
-            <v-flex xs10 offset-xs1>
-              <v-text-field color="green" v-model="login" prepend-inner-icon="person" :rules="loginRules"
-                :counter="20" label="Login" required></v-text-field>
-            </v-flex>
+            <div class="animated fadeIn zoomIn fast">
+              <v-flex xs10 offset-xs1>
+                <v-text-field color="green" v-model="login" prepend-inner-icon="person" :rules="loginRules" :counter="20"
+                  label="Login" required></v-text-field>
+              </v-flex>
 
-            <v-flex xs10 offset-xs1>
-              <v-text-field color="green" prepend-inner-icon="email" v-model="email" :rules="emailRules" label="E-mail"
-                required></v-text-field>
-            </v-flex>
+              <v-flex xs10 offset-xs1>
+                <v-text-field color="green" prepend-inner-icon="email" v-model="email" :rules="emailRules" label="E-mail"
+                  required></v-text-field>
+              </v-flex>
 
-            <v-flex xs10 offset-xs1>
-              <v-text-field v-model="password" color="green" prepend-inner-icon="lock" :rules="passwordRules"
-                :counter="30" label="Hasło" type="password" required></v-text-field>
-            </v-flex>
+              <v-flex xs10 offset-xs1>
+                <v-text-field v-model="password" color="green" prepend-inner-icon="lock" :rules="passwordRules"
+                  :counter="30" label="Hasło" type="password" required></v-text-field>
+              </v-flex>
 
-            <v-flex xs10 offset-xs1>
-              <v-text-field v-model="repeatPassword" color="green" prepend-inner-icon="lock" :rules="repeatPasswordRules"
-                :counter="30" label="Powtórz Hasło" type="password" required></v-text-field>
-            </v-flex>
+              <v-flex xs10 offset-xs1>
+                <v-text-field v-model="repeatPassword" color="green" prepend-inner-icon="lock" :rules="repeatPasswordRules"
+                  :counter="30" label="Powtórz hasło" type="password" required></v-text-field>
+              </v-flex>
 
-            <v-flex xs10 offset-xs1>
-              <v-checkbox color="green">
-                <div slot="label">Zgadzam się na przetwarzanie danych dla celów rejestracyjnych</div>
-              </v-checkbox>
-            </v-flex>
+              <v-flex xs10 offset-xs1>
+                <v-checkbox color="green">
+                  <div slot="label">Zgadzam się na przetwarzanie danych dla celów rejestracyjnych</div>
+                </v-checkbox>
+              </v-flex>
 
-            <v-flex xs10 offset-xs1>
-              <v-checkbox color="green">
-                <div slot="label">Akceptuję Regulamin</div>
-              </v-checkbox>
-            </v-flex>
+              <v-flex xs10 offset-xs1>
+                <v-checkbox color="green">
+                  <div slot="label">Akceptuję regulamin</div>
+                </v-checkbox>
+              </v-flex>
 
-            <v-flex justify-center xs8 offset-xs2>
-              <v-btn block color="black" flat>Dalej</v-btn>
-            </v-flex>
-          </div>
-        </v-card>
-      </v-layout>
-    </v-container>
-  </v-form>
+              <v-flex justify-center xs8 offset-xs2>
+                <v-btn block color="black" flat>Dalej</v-btn>
+              </v-flex>
+            </div>
+          </v-card>
+        </v-layout>
+      </v-container>
+    </v-form>
+  
+
 </template>
 
 <script>
@@ -91,7 +94,7 @@
         password: "",
         pesel: "",
         repeatPassword: "",
-        profile: "Użytkownik",
+        profile: "użytkownik",
         nameRules: [
           v => !!v || "Pole wymagane",
           v => v.length <= 15 || "Imię nie może zawierać więcej niż 15"
@@ -126,24 +129,28 @@
       };
     },
     methods: {
-      closeWindow() {
-        this.$emit("closeWindow");
-      },
+      closeWindow: function(){
+        this.$emit("closeWindow")
+      }
     },
     computed: {
       accountTypeComputed: function () {
-        return this.profile == "Użytkownik" ? "Użytkownika" : "Leśniczego"
+        return this.profile == "użytkownik" ? "użytkownika" : "leśniczego"
       }
     },
     created() {
-      document.addEventListener("backbutton", () => {
-        this.$emit("closeWindow")
-      })
+      document.addEventListener("backbutton", this.closeWindow)
     },
   };
 </script>
 
 <style scoped lang="scss">
+  .dropdown-animated-enter-active {
+    animation: slideInDown .6s;
+  }
 
+  .dropdown-animated-leave-active {
+    animation: slideInDown .6s reverse;
+  }
 
 </style>

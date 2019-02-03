@@ -1,11 +1,10 @@
 <template>
-
-  <v-container>
-    <v-layout align-center column>
+  <v-container class="pa-0 overflow-x-hidden">
+    <v-layout align-center column class="animated fadeIn zoomIn fast">
       <v-card width="90vw">
 
         <v-toolbar dark color="#004d34">
-          <v-toolbar-title>Logowanie</v-toolbar-title>
+          <v-toolbar-title>{{formTitle}}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn icon dark @click="closeWindow()">
             <v-icon>close</v-icon>
@@ -14,7 +13,7 @@
 
         <section id="login" v-if="loginToogle">
           <v-form>
-            <div class="animated slideInDown">
+            <div class="animated fadeIn zoomIn fast">
 
               <v-flex xs10 offset-xs1>
                 <v-text-field color="green" v-model="login" prepend-inner-icon="person" label="Login" required></v-text-field>
@@ -25,7 +24,7 @@
                   required></v-text-field>
               </v-flex>
 
-              <v-divider class="top-spacer ml-5 mr-5 mb-3"/>
+              <v-divider class="top-spacer ml-5 mr-5 mb-3" />
 
               <v-flex justify-center xs8 offset-xs2 class="bottom-spacer">
                 <v-btn block color="success" @click.stop="">Zaloguj</v-btn>
@@ -39,7 +38,7 @@
           </v-form>
         </section>
 
-        <section v-else>
+        <section v-else >
           <lost-password-form />
         </section>
 
@@ -50,27 +49,36 @@
 </template>
 
 <script>
-  import LostPassword from './LostPassword'
+  import LostPassword from "./LostPassword";
   export default {
     components: {
       "lost-password-form": LostPassword
     },
     data() {
-      return ({
+      return {
         login: "",
         password: "",
-        loginToogle: true,
-      });
+        loginToogle: true
+      };
     },
     methods: {
       closeWindow() {
-        this.loginToogle = true
-        this.$emit('closeLoginWindow')
+        this.loginToogle = true;
+        this.$emit("closeLoginWindow");
       }
-    }
-  }
+    },
+    computed: {
+      formTitle: function () {
+        return this.loginToogle == true ? "Logowanie" : "Odzyskiwanie hasła";
+      }
+    },
+    created() {
+      document.addEventListener("backbutton", () => {
+        this.$emit("closeLoginWindow")
+      })
+    },
+  };
 </script>
 
 <style>
-
 </style>

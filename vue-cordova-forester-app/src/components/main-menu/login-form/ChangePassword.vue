@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
 
         <v-flex xs10 offset-xs1>
             <v-text-field v-model="password" color="green" prepend-inner-icon="lock" :rules="passwordRules"
