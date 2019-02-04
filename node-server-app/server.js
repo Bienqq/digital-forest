@@ -5,12 +5,14 @@ const app = require("./app")
 
 const server = http.createServer(app)
 
+const port = process.env.SERVER_PORT 
+
 dns.lookup(os.hostname(), (error, address, fam) => {
-    server.listen(process.env.PORT, () => {
+    server.listen(port, () => {
         console.log("-------------------APLICATION STARTED--------------------");
         console.log("Hostname : " + os.hostname());
         console.log("IP : " + address);
-        const serverAddress = `http://${address}:${process.env.PORT}`;
+        const serverAddress = `http://${address}:${port}`;
         console.log(`Server is listening at : ${serverAddress}`);
     })
 });

@@ -33,10 +33,7 @@
     "express": "^4.16.4",
     "http": "0.0.0",
     "morgan": "^1.9.1",
-    "os": "^0.1.1",
-    "pg": "^7.7.1",
-    "pg-hstore": "^2.3.2",
-    "sequelize": "^4.42.0"
+    "os": "^0.1.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.9"

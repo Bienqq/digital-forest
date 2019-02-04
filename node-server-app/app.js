@@ -1,7 +1,6 @@
 const express = require("express")
 const app = express()
 const morgan = require("morgan")
-const usersRoutes = require("./api/routes/users")
 
 // logging some diagnostic information to the console
 app.use(morgan("dev"))
@@ -11,9 +10,6 @@ app.use((request, response, next) => {
     response.header("Access-Control-Allow-Origin", "*")
     next()
 })
-
-// routes which should handle requests
-app.use("/users", usersRoutes);
 
 // errors handling
 app.use((request, response, next) => {
