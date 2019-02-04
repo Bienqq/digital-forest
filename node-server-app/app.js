@@ -1,6 +1,9 @@
 const express = require("express")
 const app = express()
 const morgan = require("morgan")
+require("./api/database/db")
+
+
 
 // logging some diagnostic information to the console
 app.use(morgan("dev"))

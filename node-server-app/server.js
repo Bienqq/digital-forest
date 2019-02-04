@@ -9,7 +9,7 @@ const port = process.env.SERVER_PORT
 
 dns.lookup(os.hostname(), (error, address, fam) => {
     server.listen(port, () => {
-        console.log("-------------------APLICATION STARTED--------------------");
+        console.log("-------------------APLICATION STARTED-------------------");
         console.log("Hostname : " + os.hostname());
         console.log("IP : " + address);
         const serverAddress = `http://${address}:${port}`;
