@@ -1,6 +1,7 @@
 {
     "env": {
         "SERVER_PORT": "8090",
-        "MONGO_CONNECTION_STRING":"mongodb+srv://admin:admin1@cluster0-rqkel.gcp.mongodb.net/test?retryWrites=true"
+        "MONGO_CONNECTION_STRING":"mongodb+srv://admin:admin1@cluster0-rqkel.gcp.mongodb.net/foresterDB?retryWrites=true",
+        "SALT_ROUNDS":10
     }
 }
