@@ -34,11 +34,7 @@ router.post("/signup", [
         })
     }),
     check("role").not().isEmpty().withMessage("Property \"role\" cannot be empty"),
-    check("role").custom(profile => {
-        if(!ROLES.includes(profile)){
-            return Promise.reject("Unknown role, posible roles are: " + ROLES)
-        }
-    })
+    check("role").isIn(ROLES).withMessage("Unknown role, posible roles are: " + ROLES)
 ], (request, response, next) => {
     // check if any validation fails
     const validationErrors = validationResult(request)
