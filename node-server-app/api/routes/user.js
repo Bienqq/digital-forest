@@ -9,7 +9,7 @@ const bcrypt = require("bcryptjs")
 const User = require("../models/user");
 
 const saltRounds = parseInt(process.env.SALT_ROUNDS)
-
+const ROLES = process.env.ROLES.split(",") 
 
 router.post("/signup", [
     //validation rules
@@ -32,6 +32,12 @@ router.post("/signup", [
                 return Promise.reject("Login already exists")
             }
         })
+    }),
+    check("role").not().isEmpty().withMessage("Property \"role\" cannot be empty"),
+    check("role").custom(profile => {
+        if(!ROLES.includes(profile)){
+            return Promise.reject("Unknown role, posible roles are: " + ROLES)
+        }
     })
 ], (request, response, next) => {
     // check if any validation fails
@@ -42,11 +48,10 @@ router.post("/signup", [
         err.status = 400
         return next(err)
     }
-
     //process validated data
     bcrypt.hash(request.body.password, saltRounds, (err, hash) => {
         if (err) {
-            next(err)
+            return next(err)
         } else {
             const user = new User({
                 _id: new mongoose.Types.ObjectId(),
@@ -59,7 +64,7 @@ router.post("/signup", [
                 .then((result) => {
                     return response.status(201).end()
                 }).catch(err => {
-                    next(err)
+                    return next(err)
                 })
         }
     })

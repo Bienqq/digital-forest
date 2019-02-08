@@ -2,7 +2,14 @@ const express = require("express")
 const app = express()
 const morgan = require("morgan")
 
+const swaggerUi = require("swagger-ui-express")
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load("./api/docs/swagger.yaml")
+
 const userRoutes = require("./api/routes/user")
+
+//adding swagger docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // logging some diagnostic information to the console
 app.use(morgan("dev"))
