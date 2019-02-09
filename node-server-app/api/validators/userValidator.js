@@ -9,7 +9,7 @@ const ROLES = process.env.ROLES.split(",")
 exports.userSignUpValidator = [
    
     check("email").isEmail().withMessage("Email is not correct"),
-    check("login").not().isEmpty("Login cannot be empty"),
+    check("login").not().isEmpty().withMessage("Login cannot be empty"),
     check("password").matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/).withMessage("Password is not correct"),
     check("email").custom(email => {
         return User.find({
