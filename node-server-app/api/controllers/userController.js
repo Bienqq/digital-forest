@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs")
-const User = require("../models/User");
+const User = require("../models/user");
 const ApiError = require("../common/ApiError")
 const jwt = require("jsonwebtoken")
 const {validationResult} = require("express-validator/check")

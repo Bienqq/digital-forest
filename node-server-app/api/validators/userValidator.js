@@ -2,7 +2,7 @@ const {
     check
 } = require("express-validator/check")
 
-const User = require("../models/User");
+const User = require("../models/user");
 const ROLES = process.env.ROLES.split(",")
 
  //validation rules for each route
