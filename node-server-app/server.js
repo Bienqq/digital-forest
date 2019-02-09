@@ -14,6 +14,6 @@ dns.lookup(os.hostname(), (error, address, fam) => {
         console.log("IP : " + address);
         const serverAddress = `http://${address}:${port}`;
         console.log(`Server is listening at : ${serverAddress}`);
-        console.log(`Swagger docs on ${serverAddress}/api-docs`)
+        console.log(`Swagger api-docs at : ${serverAddress}/api-docs`)
     })
 });

@@ -29,7 +29,7 @@ paths:
       parameters:
         - name: login
           in: body
-          description: "User login e-mail or password cannot dublicate with existing ones in database. Password must contain at least eight characters, at least one uppercase letter, one lowercase letter and one number, \"profile\" is one of the following values: FORESTER, ADMIN, USER"
+          description: "User login or e-mail cannot dublicate with existing ones in database. Password must contain at least eight characters, at least one uppercase letter, one lowercase letter and one number. Property \"profile\" is one of the following values: FORESTER, ADMIN, USER"
           required: true
           schema:
            $ref: '#definitions/Login'
@@ -72,7 +72,6 @@ definitions:
         login:
           type: string
           example: user123
-
         password:
           type: string
           example: Password123

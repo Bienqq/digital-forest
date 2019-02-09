@@ -5,6 +5,7 @@ const morgan = require("morgan")
 const swaggerUi = require("swagger-ui-express")
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load("./api/docs/swagger.yaml")
+const ApiError = require("./api/common/ApiError")
 
 const userRoutes = require("./api/routes/user")
 
@@ -36,13 +37,12 @@ app.use((req, res, next) => {
 
 // errors handling
 app.use((req, res, next) => {
-    const error = new Error("Not found")
-    error.status = 404;
+    const error = new ApiError("Not found", 404)
     next(error)
 })
 
 app.use((error, req, res, next) => {
-    res.status(error.status || 500)
+    res.status(error.statusCode || 500)
     res.json({
         message: error.message,
         path: req.url,
