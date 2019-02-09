@@ -8,7 +8,7 @@ info:
     email: tomek-1996-1996@o2.pl
   license:
     name: Copyright (C) Tomasz Bieniek, Inc - All Rights Reserved
-host: localhost
+host: https://forester-node-server.herokuapp.com/
 basePath: /
 schemes:
   - http
