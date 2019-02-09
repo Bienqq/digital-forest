@@ -5,7 +5,7 @@ const app = require("./app")
 
 const server = http.createServer(app)
 
-const port = process.env.SERVER_PORT 
+const port = process.env.PORT || 5000
 
 dns.lookup(os.hostname(), (error, address, fam) => {
     server.listen(port, () => {
