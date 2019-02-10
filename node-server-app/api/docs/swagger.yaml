@@ -161,6 +161,9 @@ definitions:
       expiresIn:
         type: integer
         example: 1800
+      refreshToken: 
+        type: string
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InRvbWFzejEyMyIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTU0OTcyNjkxMiwiZXhwIjoxNTQ5NzI4NzEyfQ.zRnIv_-SIyL3uJYjs3dnki11xbptFZF0qxrW2B_Mt2U
   RefreshToken:
     properties:
       refreshToken:
