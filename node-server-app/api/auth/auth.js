@@ -3,6 +3,7 @@ const ApiError = require("../common/ApiError")
 
 const JWT_TOKEN_SECRET = process.env.JWT_TOKEN_SECRET
 
+//midleware for checking authorization
 module.exports = (request, response, next) => {
     try {
         //getting only token without "Bearer" word

@@ -1,12 +1,10 @@
 const express = require("express")
 const app = express()
 const morgan = require("morgan")
-
 const swaggerUi = require("swagger-ui-express")
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load("./api/docs/swagger.yaml")
 const ApiError = require("./api/common/ApiError")
-
 const userRoutes = require("./api/routes/user")
 
 //adding swagger docs
@@ -24,8 +22,7 @@ app.use(express.json());
 // Routes which should handle requests
 app.use("/user", userRoutes)
 
-
-// for CORS only
+// added CORS header in the same end of handling each request
 app.use((request, response, next) => {
     response.header("Access-Control-Allow-Origin", "*")
     response.header(

@@ -1,13 +1,14 @@
 const {
-    check
+    check,
+    validationResult
 } = require("express-validator/check")
-
 const User = require("../models/user");
+const ApiError = require("../common/ApiError")
+
 const ROLES = process.env.ROLES.split(",")
 
- //validation rules for each route
+ //validation rules for each /user route
 exports.userSignUpValidator = [
-   
     check("email").isEmail().withMessage("Email is not correct"),
     check("login").not().isEmpty().withMessage("Login cannot be empty"),
     check("password").matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/).withMessage("Password is not correct"),
@@ -37,3 +38,15 @@ exports.userLoginValidator = [
     check("login").not().isEmpty().withMessage("Login cannot be empty"),
     check("password").not().isEmpty().withMessage("Password cannot be empty")
 ]
+
+exports.refreshTokenValidator = [
+    check("refreshToken").not().isEmpty().withMessage("Refresh token is cannot be empty")
+]
+
+exports.checkValidation = (request) => {
+    const validationErrors = validationResult(request)
+    if (!validationErrors.isEmpty()) {
+        const message = validationErrors.array()[0].msg
+        return new ApiError(message, 400)
+    }
+}

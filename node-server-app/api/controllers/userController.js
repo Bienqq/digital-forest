@@ -3,31 +3,30 @@ const bcrypt = require("bcryptjs")
 const User = require("../models/user");
 const ApiError = require("../common/ApiError")
 const jwt = require("jsonwebtoken")
-const {
-    validationResult
-} = require("express-validator/check")
 const NodeCache = require("node-cache")
+const {
+    checkValidation
+} = require("../validators/userValidator")
 
-//bcrypt settings
+//bcrypt properties
 const saltRounds = parseInt(process.env.SALT_ROUNDS)
 
-//token settings
+//token properties
 const JWT_TOKEN_SECRET = process.env.JWT_TOKEN_SECRET
 const JWT_TOKEN_EXPIRATION_TIME = parseInt(process.env.JWT_TOKEN_EXPIRATION_TIME)
 const JWT_REFRESH_TOKEN_SECRET = process.env.JWT_REFRESH_TOKEN_SECRET
 const JWT_REFRESH_TOKEN_EXPIRATION_TIME = parseInt(process.env.JWT_REFRESH_TOKEN_EXPIRATION_TIME)
 
-//initialize cache, timeout for cache items is the same as for token
+//initialize cache, timeout for cache items is the same as for refresh token
 const cache = new NodeCache({
     stdTTL: JWT_REFRESH_TOKEN_EXPIRATION_TIME
 })
 
 exports.userSignUp = (request, response, next) => {
     // check if any validation fails
-    const validationErrors = validationResult(request)
-    if (!validationErrors.isEmpty()) {
-        const message = validationErrors.array()[0].msg
-        return next(new ApiError(message, 400))
+    const err = checkValidation(request)
+    if (err) {
+        return next(err)
     }
 
     //process validated data
@@ -54,11 +53,11 @@ exports.userSignUp = (request, response, next) => {
 
 exports.userLogin = (request, response, next) => {
     // check if any validation fails
-    const validationErrors = validationResult(request)
-    if (!validationErrors.isEmpty()) {
-        const message = validationErrors.array()[0].msg
-        return next(new ApiError(message, 400))
+    const err = checkValidation(request)
+    if (err) {
+        return next(err)
     }
+
     //find user and generate JWT
     User.find({
         login: request.body.login
@@ -109,26 +108,30 @@ exports.userLogin = (request, response, next) => {
 }
 
 exports.refreshToken = (request, response, next) => {
+    // check if any validation fails
+    const err = checkValidation(request)
+    if (err) {
+        return next(err)
+    }
     const requestedRefreshToken = request.body.refreshToken
     const {
         login,
         role
     } = jwt.decode(requestedRefreshToken, JWT_REFRESH_TOKEN_SECRET)
+
     //get refreshToken for given user from cache
     const cachedRefreshToken = cache.get(login)
     if (typeof cachedRefreshToken === "undefined") {
         return next(new ApiError("Authorization failed", 401))
     }
-
+    //send newly generated token to user
     const newToken = jwt.sign({
         login: login,
         role: role
     }, JWT_TOKEN_SECRET, {
         expiresIn: JWT_TOKEN_EXPIRATION_TIME
     })
-
     return response.status(200).json({
         token: newToken
     })
-
 }

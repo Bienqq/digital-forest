@@ -6,10 +6,9 @@ const userController = require("../controllers/userController")
 
 // routes below
 // params: router.<http_method>(path, authValidator?, dataValidator?, method)
-
 router.post("/signup", userValidator.userSignUpValidator, userController.userSignUp);
 router.post("/login", userValidator.userLoginValidator, userController.userLogin)
-router.post("/refresh-token", userController.refreshToken)
+router.post("/refresh-token", userValidator.refreshTokenValidator, userController.refreshToken)
 
 //for test purposes only
 router.get("/test", checkAuth, (request, response, next) => {
