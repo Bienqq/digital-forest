@@ -9,7 +9,9 @@ const userController = require("../controllers/userController")
 
 router.post("/signup", userValidator.userSignUpValidator, userController.userSignUp);
 router.post("/login", userValidator.userLoginValidator, userController.userLogin)
+router.post("/refresh-token", userController.refreshToken)
 
+//for test purposes only
 router.get("/test", checkAuth, (request, response, next) => {
     response.status(200).json({
         message: "Protected route"

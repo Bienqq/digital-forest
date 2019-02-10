@@ -1,12 +1,13 @@
 const jwt = require("jsonwebtoken")
 const ApiError = require("../common/ApiError")
-const JWT_SECRET = process.env.JWT_SECRET
+
+const JWT_TOKEN_SECRET = process.env.JWT_TOKEN_SECRET
 
 module.exports = (request, response, next) => {
     try {
         //getting only token without "Bearer" word
         const token = request.headers.authorization.split(" ")[1]
-        const decoded = jwt.verify(token, JWT_SECRET)
+        const decoded = jwt.verify(token, JWT_TOKEN_SECRET)
         request.userData = decoded
         next()
     } catch (error) {

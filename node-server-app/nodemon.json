@@ -4,7 +4,9 @@
         "MONGO_CONNECTION_STRING": "mongodb+srv://admin:admin1@cluster0-rqkel.gcp.mongodb.net/foresterDB?retryWrites=true",
         "SALT_ROUNDS": 10,
         "ROLES": "ADMIN,FORESTER,USER",
-        "JWT_SECRET": "la4DUlb9WXZKxZnowmgtO1vvTD2xK4",
-        "JWT_EXPIRATION_TIME":1800
+        "JWT_TOKEN_SECRET": "la4DUlb9WXZKxZnowmgtO1vvTD2xK4",
+        "JWT_TOKEN_EXPIRATION_TIME": 30,
+        "JWT_REFRESH_TOKEN_SECRET": "Anh8WHUQkaiYVD4SiHstAyWnt8WRL0",
+        "JWT_REFRESH_TOKEN_EXPIRATION_TIME": 86400
     }
 }

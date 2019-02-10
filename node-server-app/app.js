@@ -26,9 +26,9 @@ app.use("/user", userRoutes)
 
 
 // for CORS only
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*")
-    res.header(
+app.use((request, response, next) => {
+    response.header("Access-Control-Allow-Origin", "*")
+    response.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
@@ -36,16 +36,16 @@ app.use((req, res, next) => {
 })
 
 // errors handling
-app.use((req, res, next) => {
+app.use((request, response, next) => {
     const error = new ApiError("Not found", 404)
     next(error)
 })
 
-app.use((error, req, res, next) => {
-    res.status(error.statusCode || 500)
-    res.json({
+app.use((error, request, response, next) => {
+    response.status(error.statusCode || 500)
+    response.json({
         message: error.message,
-        path: req.url,
+        path: request.url,
         timestamp: new Date()
     })
 })
