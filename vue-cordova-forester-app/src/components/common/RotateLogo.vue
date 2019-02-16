@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12>
-    <v-img class="RotateLogo1" :src="logoSrc" aspect-ratio="1.8" min-width="60vw" min-height="60vw" contain></v-img>
-    <v-img class="RotateLogo2" :src="textSrc" aspect-ratio="1.8" min-width="20vw" min-height="20vw" contain></v-img>
+    <v-img class="RotateLogo1" :src="logoSrc" aspect-ratio="1.8" min-width="55vw" min-height="55vw" contain></v-img>
+    <v-img class="RotateLogo2" :src="textSrc" aspect-ratio="1.8" min-width="18vw" min-height="18vw" contain></v-img>
   </v-flex>
 </template>
 
@@ -28,7 +28,7 @@ export default {
   z-index: 2;
   position: relative;
   top: -55vw;
-  margin-bottom: -45vw;
+  margin-bottom: -55vw;
 }
 
 @-webkit-keyframes rotate-center {

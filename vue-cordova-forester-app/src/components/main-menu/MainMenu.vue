@@ -6,7 +6,7 @@
     <!-- white box with buttons -->
     <v-layout class="white--text font-weight-medium top-spacer" align-center column>
       
-      <v-card width="90%" class="light-gray">
+      <v-card v-if="formComponent === ''" width="90%" class="light-gray mt-5">
 
         <v-flex xs10 offset-xs1 class="top-spacer mt-4">
           <v-btn block xs12 color="success" to="/enter-the-forest">Wejdź do lasu</v-btn>
@@ -24,7 +24,7 @@
 
       </v-card>
  
-      <transition name="form-animated">
+      <transition name="form-animated" mode="out-in">
           <component :is="formComponent" @closeForm="formComponent = ''"></component> 
       </transition>
 
