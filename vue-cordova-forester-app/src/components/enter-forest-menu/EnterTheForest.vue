@@ -1,7 +1,7 @@
 <template>
   <v-container align-content-center>
 
-    <v-toolbar class="fullwidth">
+    <v-toolbar class="full-width">
       <v-toolbar-side-icon color="#4caf50"></v-toolbar-side-icon>
       <v-toolbar-title>Aktualności Nadleśnictwa</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -42,35 +42,39 @@
             headermsg: 'Artykuł numer 1'
           },
           {
-            thumbimg: "https://www.spotx.tv/wp-content/uploads/nature-3294681_1920.jpg",
-            headermsg: 'Artykuł numer 2 o dłuższej nazwie'
-          },
-          {
             thumbimg: "http://www.banktapet.pl/pictures/2013/0727/1/nature-trees-forests-paths-sunlight-wallpaper-543162.jpg",
             headermsg: 'Artykuł numer 3 o dłuższej nazwie i jeszcze dłuższej nazwie'
           },
         ],
       };
     },
-    created() {
-      document.addEventListener("backbutton", () => {
-        if (this.$route.path == "/enter-the-forest") {
-          history.back()
-        }
+    methods: {
+      handleBackButton() {
+        history.back()
+      }
+    },
+    // before route EnterTheForest component add backing to previous view by clicking backbutton
+    beforeRouteEnter(to, from, next) {
+      next(enterTheForestComponent => {
+        document.addEventListener("backbutton", enterTheForestComponent.handleBackButton)
       })
     },
+    // when leaving EnterTheForest remove event handler
+    beforeRouteLeave(to, from, next) {
+      document.removeEventListener("backbutton", this.handleBackButton)
+      next()
+    }
   };
 </script>
 
 <style scoped lang="scss">
-  .fullwidth {
+  .full-width {
     width: 100vw;
     position: fixed;
     left: 0;
     top: 0;
     background: #004d34 !important;
     color: white !important;
-
   }
 
   .header {
@@ -81,6 +85,5 @@
   .vcard-options {
     margin-top: 13vw;
     padding-top: 1vw;
-
   }
 </style>

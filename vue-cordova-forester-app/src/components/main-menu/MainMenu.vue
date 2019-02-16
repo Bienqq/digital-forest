@@ -1,11 +1,11 @@
 <template>
   <v-container fluid>
 
-    <rotate-logo v-if="formComponent !== 'register-form'" /> 
+    <rotate-logo v-if="formComponent !== 'register-form'" />
 
     <!-- white box with buttons -->
     <v-layout class="white--text font-weight-medium top-spacer" align-center column>
-      
+
       <v-card v-if="formComponent === ''" width="90%" class="light-gray mt-5">
 
         <v-flex xs10 offset-xs1 class="top-spacer mt-4">
@@ -23,9 +23,9 @@
         </v-flex>
 
       </v-card>
- 
+
       <transition name="form-animated" mode="out-in">
-          <component :is="formComponent" @closeForm="formComponent = ''"></component> 
+        <component :is="formComponent" @closeForm="formComponent = ''"></component>
       </transition>
 
     </v-layout>
@@ -49,13 +49,22 @@
         formComponent: ""
       };
     },
-    // when entering  MainMenu add backing to home with backbutton
+    methods: {
+      handleBackButton() {
+        if (this.formComponent) {
+          this.formComponent = ""
+        } else {
+          backAsHome.trigger()
+        }
+      }
+    },
+    // before route to MainMenu add backing to Android Home view by clicking backbutton
     beforeRouteEnter(to, from, next) {
       next(mainMenu => {
         document.addEventListener("backbutton", mainMenu.handleBackButton)
       })
     },
-    // when leaving MainMenu remove backing to home with backbutton
+    // when leaving MainMenu remove event handler
     beforeRouteLeave(to, from, next) {
       document.removeEventListener("backbutton", this.handleBackButton)
       next()
@@ -76,5 +85,4 @@
   .form-animated-leave-active {
     animation: zoomOut .4s;
   }
-
 </style>

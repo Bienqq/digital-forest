@@ -1,5 +1,4 @@
 <template>
-  
     <v-form v-model="valid">
       <v-container fluid class="pa-2 overflow-hidden">
         <v-layout align-center column >
@@ -8,10 +7,13 @@
             <!-- white toolbar -->
             <v-toolbar dark color="#004d34">
               <v-toolbar-title>Rejestracja {{accountTypeComputed}}</v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-btn icon dark @click="closeWindow()">
+
+              <v-spacer />
+
+              <v-btn icon dark @click="$emit('closeForm')">
                 <v-icon>close</v-icon>
               </v-btn>
+
             </v-toolbar>
 
             <v-flex xs12>
@@ -20,6 +22,7 @@
 
             <transition name="dropdown-animated">
               <div v-if="profile === 'Leśniczy'">
+
                 <v-flex xs10 offset-xs1>
                   <v-text-field prepend-inner-icon="person_outline" v-model="firstname" :rules="nameRules" :counter="15"
                     label="Imie" required></v-text-field>
@@ -35,10 +38,12 @@
                     label="Pesel" required></v-text-field>
                 </v-flex>
                 <v-divider class="top-spacer ml-3 mr-3" />
+                
               </div>
             </transition>
 
             <div class="animated fadeIn zoomIn fast">
+
               <v-flex xs10 offset-xs1>
                 <v-text-field color="green" v-model="login" prepend-inner-icon="person" :rules="loginRules" :counter="20"
                   label="Login" required></v-text-field>
@@ -74,13 +79,12 @@
               <v-flex justify-center xs8 offset-xs2>
                 <v-btn block color="black" flat>Dalej</v-btn>
               </v-flex>
+
             </div>
           </v-card>
         </v-layout>
       </v-container>
     </v-form>
-  
-
 </template>
 
 <script>
@@ -128,23 +132,11 @@
         profilesList: ["Użytkownik", "Leśniczy"]
       };
     },
-    methods: {
-      closeWindow: function(){
-        this.$emit("closeForm")
-      }
-    },
     computed: {
       accountTypeComputed: function () {
         return this.profile == "użytkownik" ? "użytkownika" : "leśniczego"
       }
     },
-    mounted() {
-      document.addEventListener("backbutton", function(event){
-        this.closeWindow()
-     
-      })
-    },
-
   };
 </script>
 
