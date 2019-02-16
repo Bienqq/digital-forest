@@ -21,7 +21,7 @@
                 <change-password />
             </div>
             <div v-else>
-                <p class="errorInfo animated infinite pulse">Błędnie wpisane dane</P>
+                <p class="error-info animated infinite pulse">Błędnie wpisane dane</P>
             </div>
         </section>
 
@@ -53,12 +53,12 @@
                     }, 2000);
                 }
             }
-        }
+        },
     }
 </script>
 
 <style lang="scss" scoped>
-    .errorInfo {
+    .error-info {
         text-align: center;
         color: red;
     }

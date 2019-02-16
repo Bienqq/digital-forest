@@ -29,7 +29,6 @@ export default {
 
 <style lang="scss" >
 
-
 $lightGray : #f9f9f9;
 $lightGreen :#4caf50;
 $darkGreen :#004d34; 
@@ -100,15 +99,14 @@ a {
 
 //main colors background and font schemes for the application
 .light-gray{
-  background:#f9f9f9;
+  background:$lightGray;
 } 
 .light-green{
-  background:#4caf50;
+  background:$lightGreen ;
 }
 .dark-green{
-background: #004d34;
+background: $darkGreen;
 }
-
 
 //auxiliaries for eg. spacers, dividers
 .top-spacer{

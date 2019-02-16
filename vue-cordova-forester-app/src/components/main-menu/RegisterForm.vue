@@ -130,7 +130,7 @@
     },
     methods: {
       closeWindow: function(){
-        this.$emit("closeWindow")
+        this.$emit("closeForm")
       }
     },
     computed: {
@@ -138,9 +138,13 @@
         return this.profile == "użytkownik" ? "użytkownika" : "leśniczego"
       }
     },
-    created() {
-      document.addEventListener("backbutton", this.closeWindow)
+    mounted() {
+      document.addEventListener("backbutton", function(event){
+        this.closeWindow()
+     
+      })
     },
+
   };
 </script>
 

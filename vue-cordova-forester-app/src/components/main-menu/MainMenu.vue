@@ -1,43 +1,33 @@
 <template>
-  <v-container fluid @click.self="hideRegisterForm()">
+  <v-container fluid>
 
-    <rotate-logo v-if="showLogo" />
+    <rotate-logo v-if="formComponent !== 'register-form'" /> 
 
     <!-- white box with buttons -->
     <v-layout class="white--text font-weight-medium top-spacer" align-center column>
-      <template>
-        <v-card width="90%" class="light-gray">
+      
+      <v-card width="90%" class="light-gray">
 
-          <v-flex xs10 offset-xs1 class="top-spacer mt-4">
-            <v-btn block xs12 color="success" to="/enter-the-forest">Wejdź do lasu</v-btn>
-          </v-flex>
+        <v-flex xs10 offset-xs1 class="top-spacer mt-4">
+          <v-btn block xs12 color="success" to="/enter-the-forest">Wejdź do lasu</v-btn>
+        </v-flex>
 
-          <v-flex xs10 offset-xs1 class="bottom-spacer">
-            <v-btn block color="success" @click.stop="showLogin = true">Zaloguj się</v-btn>
-          </v-flex>
+        <v-flex xs10 offset-xs1 class="bottom-spacer">
+          <v-btn block color="success" @click.stop="formComponent = 'login-form'">Zaloguj się</v-btn>
+        </v-flex>
 
-          <v-divider class="ml-5 mr-5"></v-divider>
+        <v-divider class="ml-5 mr-5"></v-divider>
 
-          <v-flex justify-center xs8 offset-xs2>
-            <v-btn block small color="black" flat @click.stop="showRegister = true">Zarejestruj się !</v-btn>
-          </v-flex>
+        <v-flex justify-center xs8 offset-xs2>
+          <v-btn block small color="black" flat @click.stop="formComponent = 'register-form'">Zarejestruj się !</v-btn>
+        </v-flex>
 
-        </v-card>
+      </v-card>
+ 
+      <transition name="form-animated">
+          <component :is="formComponent" @closeForm="formComponent = ''"></component> 
+      </transition>
 
-        <!-- displayed window after clicked button  -->
-        <transition name="form-animated">
-          <v-dialog v-model="showRegister" hide-overlay>
-            <register-form @closeWindow="showRegister = false" />
-          </v-dialog>
-        </transition>
-
-        <transition name="form-animated">
-          <v-dialog v-model="showLogin" hide-overlay>
-            <login-form @closeLoginWindow="showLogin = false" />
-          </v-dialog>
-        </transition>
-
-      </template>
     </v-layout>
   </v-container>
 </template>
@@ -56,47 +46,35 @@
     },
     data() {
       return {
-        showRegister: false,
-        showLogin: false,
-        showLogo: true
+        formComponent: ""
       };
     },
-    methods: {
-
-      hideRegisterForm() {
-        if (this.showRegister) {
-          this.showRegister = false
-          this.showLogo = true
-        }
-      },
-      hideLoginForm() {
-        if (this.showLogin) {
-          this.showLogin = false
-          this.showLogo = true
-        }
-      },
-      handleBackButton() {
-        if (this.showRegister == false && this.showLogin == false && this.$route.path == "/") {
-          backAsHome.trigger()
-        }
-      }
+    // when entering  MainMenu add backing to home with backbutton
+    beforeRouteEnter(to, from, next) {
+      next(mainMenu => {
+        document.addEventListener("backbutton", mainMenu.handleBackButton)
+      })
+    },
+    // when leaving MainMenu remove backing to home with backbutton
+    beforeRouteLeave(to, from, next) {
+      document.removeEventListener("backbutton", this.handleBackButton)
+      next()
     },
     created: function () {
       window.addEventListener("keyboardWillShow", () => {
         document.activeElement.scrollIntoViewIfNeeded()
       });
-      document.addEventListener("backbutton", this.handleBackButton)
     },
-
   };
 </script>
 
 <style scoped lang="scss">
   .form-animated-enter-active {
-    animation: zoomIn .8s;
+    animation: zoomIn .4s;
   }
 
   .form-animated-leave-active {
-    transition: zoomOut .8s;
+    animation: zoomOut .4s;
   }
+
 </style>

@@ -12,8 +12,6 @@
       </v-toolbar-items>
     </v-toolbar>
 
-
-
     <v-layout align-center column fill-height width="100vw">
       <v-card width="96vw" class="vcard-options" color="rgba(240,240,240,1)">
 
@@ -55,7 +53,7 @@
       };
     },
     created() {
-      document.addEventListener("backbutton", (event) => {
+      document.addEventListener("backbutton", () => {
         if (this.$route.path == "/enter-the-forest") {
           history.back()
         }
