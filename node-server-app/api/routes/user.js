@@ -16,5 +16,5 @@ router.get("/test", checkAuth, (request, response, next) => {
         message: "Protected route"
     })
 })
-
+ 
 module.exports = router

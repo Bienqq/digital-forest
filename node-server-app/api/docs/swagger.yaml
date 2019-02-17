@@ -32,7 +32,24 @@ paths:
       parameters:
         - name: register
           in: body
-          description: "User login or e-mail cannot dublicate with existing ones in database. Password must contain at least eight characters, at least one uppercase letter, one lowercase letter and one number. Property \"profile\" is one of the following values: FORESTER, ADMIN, USER"
+          description: | 
+            User `login` or `e-mail` cannot dublicate with existing ones in database. 
+
+              `password` must contain: 
+              *  at least eight characters 
+              *  at least one uppercase letter 
+              *  one lowercase letter 
+              *  one number
+                
+              Property `profile` has one of the following values:
+              * `FORESTER`
+              * `USER`
+              
+              In case of regular user following fields are optional:
+              * `personalId`
+              * `firstName`
+              * `lastName`
+
           required: true
           schema:
            $ref: '#definitions/Register'
@@ -126,6 +143,9 @@ definitions:
         - password
         - email
         - profile
+        - personalId
+        - firstName
+        - lastName
       properties:
         login:
           type: string
@@ -138,7 +158,16 @@ definitions:
           example: example@gmail.com
         profile:
           type: string
-          example: USER
+          example: FORESTER
+        personalId:
+          type: integer
+          example: 90090515836
+        firstName:
+          type: string
+          example: Jan
+        lastName:
+          type: string
+          example: Kowalski
   Login:
     required:
     - login

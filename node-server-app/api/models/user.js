@@ -18,6 +18,16 @@ const userSchema = mongo.Schema({
     role: {
         type: String,
         required: true,
+    },
+    // forester only 
+    personalId: {
+        type: Number,
+    },
+    firstName: {
+        type: String
+    },
+    lastName:{
+        type: String
     }
 })
 

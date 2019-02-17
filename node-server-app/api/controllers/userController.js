@@ -29,25 +29,54 @@ exports.userSignUp = (request, response, next) => {
         return next(err)
     }
 
-    //process validated data
-    bcrypt.hash(request.body.password, saltRounds, (err, hash) => {
-        if (err) {
-            return next(err)
-        } else {
-            const user = new User({
-                _id: new mongoose.Types.ObjectId(),
-                login: request.body.login,
-                password: hash,
-                email: request.body.email,
-                role: request.body.role
-            });
-            user.save()
-                .then((result) => {
-                    return response.status(201).end()
-                }).catch(err => {
-                    return next(err)
-                })
+    //check if login or e-mail does not dublicate with exiting ones in database
+    User.find({
+        login: request.body.login
+    }).then(result => {
+        if (result.length >= 1) {
+            return next(new ApiError("Login already exists", 409))
         }
+        User.find({
+            email: request.body.email
+        }).then(async result => {
+            if (result.length >= 1) {
+                return next(new ApiError("Email already in use", 409))
+            }
+            if (request.body.personalId) {
+                const result = await User.find({
+                    personalId: request.body.personalId
+                })
+                if (result.length >= 1) {
+                    return next(new ApiError("Given personalId already exists", 409))
+                }
+            }
+
+            //process request
+            bcrypt.hash(request.body.password, saltRounds, (err, hash) => {
+                if (err) {
+                    return next(err)
+                } else {
+                    const user = new User({
+                        _id: new mongoose.Types.ObjectId(),
+                        login: request.body.login,
+                        password: hash,
+                        email: request.body.email,
+                        role: request.body.role,
+                        firstName: request.body.firstName,
+                        lastName: request.body.lastName,
+                        personalId: request.body.personalId
+                    })
+
+                    user.save().then(() => {
+                        return response.status(201).end()
+                    }).catch(err => {
+                        return next(err)
+                    })
+                }
+            })
+        })
+    }).catch(err => {
+        return next(err)
     })
 }
 
@@ -57,14 +86,14 @@ exports.userLogin = (request, response, next) => {
     if (err) {
         return next(err)
     }
-
     //find user and generate JWT
     User.find({
         login: request.body.login
-    }).exec().then(user => {
+    }).then(user => {
         if (user.length < 1) {
             return next(new ApiError("Authorization failed", 401))
         }
+
         bcrypt.compare(request.body.password, user[0].password, (err, result) => {
             if (err) {
                 return next(err)
