@@ -62,6 +62,10 @@ paths:
           description: BAD REQUEST
           schema:
             $ref: '#definitions/Error'
+        409:
+          description: CONFLICT
+          schema:
+            $ref: '#definitions/Error'
         500: 
           description: INTERNAL SERVER ERROR
   /user/login:
@@ -121,7 +125,6 @@ paths:
         500: 
           description: INTERNAL SERVER ERROR
       
-
 securityDefinitions:
   api_key:
     type: apiKey
@@ -143,9 +146,6 @@ definitions:
         - password
         - email
         - profile
-        - personalId
-        - firstName
-        - lastName
       properties:
         login:
           type: string
