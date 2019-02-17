@@ -19,9 +19,6 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 
-// Routes which should handle requests
-app.use("/user", userRoutes)
-
 // added CORS header in the same end of handling each request
 app.use((request, response, next) => {
     response.header("Access-Control-Allow-Origin", "*")
@@ -31,6 +28,9 @@ app.use((request, response, next) => {
     );
     next()
 })
+
+// Routes which should handle requests
+app.use("/user", userRoutes)
 
 // errors handling
 app.use((request, response, next) => {
