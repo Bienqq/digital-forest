@@ -41,7 +41,7 @@ paths:
               *  one lowercase letter 
               *  one number
                 
-              Property `profile` has one of the following values:
+              Property `role` has one of the following values:
               * `FORESTER`
               * `USER`
               
@@ -145,7 +145,7 @@ definitions:
         - login
         - password
         - email
-        - profile
+        - role
       properties:
         login:
           type: string
@@ -156,7 +156,7 @@ definitions:
         email:
           type: string
           example: example@gmail.com
-        profile:
+        role:
           type: string
           example: FORESTER
         personalId:

@@ -19,7 +19,7 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 
-// added CORS header in the same end of handling each request
+// added CORS header in the same begin of handling each request
 app.use((request, response, next) => {
     response.header("Access-Control-Allow-Origin", "*")
     response.header(
