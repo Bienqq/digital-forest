@@ -67,13 +67,20 @@
 
             <v-flex xs10 offset-xs1>
               <v-checkbox color="green" :rules="checkboxRules1" required>
-                <div slot="label">Zgadzam się na przetwarzanie danych dla celów rejestracyjnych</div>
+                <div slot="label">Zgadzam się na przetwarzanie danych dla celów rejestracyjnych
+                  <br />
+                  <span @click.stop="dialogComponent ='terms-of-use'" class="blue--text text--darken-3 caption">Warunki
+                    korzystania</span>
+                </div>
               </v-checkbox>
             </v-flex>
 
             <v-flex xs10 offset-xs1>
               <v-checkbox color="green" :rules="checkboxRules2" required>
-                <div slot="label">Akceptuję regulamin</div>
+                <div slot="label">Akceptuję regulamin
+                  <br />
+                  <span @click.stop="dialogComponent='statute'" class="blue--text text--darken-3 caption">Regulamin</span>
+                </div>
               </v-checkbox>
             </v-flex>
 
@@ -89,7 +96,7 @@
           </v-snackbar>
 
         </v-card>
-
+        <component :is="dialogComponent" @closeDialog="dialogComponent = ''"></component>
       </v-layout>
     </v-container>
 
@@ -97,19 +104,33 @@
 </template>
 
 <script>
-  const registerUrl = process.env.VUE_APP_API_SIGN_UP_URL
+  import statute from "./Statute"
+  import termsOfUse from "./TermsOfUse"
   import axios from "axios"
+  import {
+    formatName
+  } from "@/utils/formatter";
+
+
+  const registerUrl = process.env.VUE_APP_API_SIGN_UP_URL
 
   export default {
+    components: {
+      "statute": statute,
+      "terms-of-use": termsOfUse
+    },
     data() {
       return {
         loading: false,
         valid: true,
-        snackbar:{
+        snackbar: {
           show: false,
           text: "",
           icon: null
         },
+        dialogComponent: "",
+        showStatute: false,
+        showTermsOfUse: false,
         firstName: "",
         lastName: "",
         login: "",
@@ -120,11 +141,13 @@
         email: "",
         nameRules: [
           v => !!v || "Pole wymagane",
-          v => (v && v.length <= 15) || "Imię nie może zawierać więcej niż 15 znaków"
+          v => (v && v.length <= 15) || "Imię nie może zawierać więcej niż 15 znaków",
+          v => /^[\\p{L} .'-]+$/.test(v) || "Imię zawiera niedozwolone znaki"
         ],
         surnameRules: [
           v => !!v || "Pole wymagane",
-          v => (v && v.length <= 30) || "Nazwisko nie może zawierać więcej niż 30 znaków"
+          v => (v && v.length <= 30) || "Nazwisko nie może zawierać więcej niż 30 znaków",
+          v => /^[\\p{L} .'-]+$/.test(v) || "Nazwisko zawiera niedozwolone znaki"
         ],
         loginRules: [
           v => !!v || "Pole wymagane",
@@ -170,13 +193,19 @@
         // validate form
         if (this.$refs.form.validate()) {
           const request = {
-            login: this.login,
-            password: this.password,
-            email: this.email,
+            login: this.login.trim(),
+            password: this.password.trim(),
+            email: this.email.trim(),
             role: this.role === "Użytkownik" ? "USER" : "FORESTER",
-            firstName: this.firstName === "" ? undefined : this.firstName,
-            lastName: this.lastName === "" ? undefined : this.lastName,
-            personalId: this.personalId === "" ? undefined : parseInt(this.personalId)
+          }
+
+          if (this.role === "Leśniczy") {
+            const forester = {
+              firstName: formatName(this.firstName.trim()),
+              lastName: formatName(this.lastName.trim()),
+              personalId: parseInt(this.personalId.trim())
+            }
+            Object.assign(request, forester)
           }
 
           this.loading = true

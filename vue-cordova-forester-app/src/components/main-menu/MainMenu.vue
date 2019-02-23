@@ -34,7 +34,7 @@
 
 <script>
   import RotateLogo from "../common/RotateLogo";
-  import RegisterForm from "./RegisterForm";
+  import RegisterForm from "./register-form/RegisterForm";
   import LoginForm from "./login-form/LoginForm.vue"
 
   export default {
