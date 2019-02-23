@@ -55,9 +55,7 @@
     },
     // before route EnterTheForest component add backing to previous view by clicking backbutton
     beforeRouteEnter(to, from, next) {
-      next(enterTheForestComponent => {
-        document.addEventListener("backbutton", enterTheForestComponent.handleBackButton)
-      })
+      next(enterTheForestComponent => document.addEventListener("backbutton", enterTheForestComponent.handleBackButton))
     },
     // when leaving EnterTheForest remove event handler
     beforeRouteLeave(to, from, next) {

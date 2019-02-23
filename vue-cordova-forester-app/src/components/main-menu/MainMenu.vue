@@ -60,9 +60,7 @@
     },
     // before route to MainMenu add backing to Android Home view by clicking backbutton
     beforeRouteEnter(to, from, next) {
-      next(mainMenu => {
-        document.addEventListener("backbutton", mainMenu.handleBackButton)
-      })
+      next(mainMenu => document.addEventListener("backbutton", mainMenu.handleBackButton))
     },
     // when leaving MainMenu remove event handler
     beforeRouteLeave(to, from, next) {

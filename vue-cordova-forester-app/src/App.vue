@@ -71,7 +71,7 @@ body {
 
 h3{
   font-size: 5vw;
-  font-family: Roboto,sans-serif!important;
+  font-family: Roboto,sans-serif !important;
   font-weight: 400;
 }
 
@@ -82,7 +82,7 @@ h3{
   top: 0;
   z-index: -1;
   background-repeat: no-repeat;
-  background-size: 100vw auto;
+  background-size: 100vw 100vh;
   background-image: url("./assets/img/bg_menu_portrait.png");
   overflow-x: hidden;
   overflow-y: auto;

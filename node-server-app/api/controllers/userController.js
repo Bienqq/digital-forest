@@ -34,20 +34,20 @@ exports.userSignUp = (request, response, next) => {
         login: request.body.login
     }).then(result => {
         if (result.length >= 1) {
-            return next(new ApiError("Login already exists", 409))
+            return next(new ApiError("Podany login już istnieje", 409))
         }
         User.find({
             email: request.body.email
         }).then(async result => {
             if (result.length >= 1) {
-                return next(new ApiError("Email already in use", 409))
+                return next(new ApiError("Podany e-mail już istnieje", 409))
             }
             if (request.body.personalId) {
                 const result = await User.find({
                     personalId: request.body.personalId
                 })
                 if (result.length >= 1) {
-                    return next(new ApiError("Given personalId already exists", 409))
+                    return next(new ApiError("Podany numer PESEL już istnieje", 409))
                 }
             }
 

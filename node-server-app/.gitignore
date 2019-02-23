@@ -6,6 +6,7 @@ package-lock.json
 dist/
 npm-debug.log
 yarn-error.log
+nodemon.json
 
 # local env files
 .env.local
