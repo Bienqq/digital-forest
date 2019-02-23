@@ -6,7 +6,7 @@ Based on: [vue-cli-plugin-cordova](https://github.com/m0dch3n/vue-cli-plugin-cor
 
 SwaggerUI: [docs](https://forester-node-server.herokuapp.com/api-docs)
 
-## required dependencies
+## Required dependencies
 * Node.js with npm
 * Gradle
 * Android virtual device (AVD)
