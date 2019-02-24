@@ -1,5 +1,6 @@
 <template>
   <v-app id="app">
+    <snackbar />
     <transition :name="transitionName" mode="out-in">
       <router-view class="fast"/>
     </transition>
@@ -7,7 +8,12 @@
 </template>
 
 <script>
+import Snackbar from "./components/common/Snackbar"
+
 export default {
+  components:{
+    "snackbar": Snackbar
+  },
   name: "App",
   data() {
     return {

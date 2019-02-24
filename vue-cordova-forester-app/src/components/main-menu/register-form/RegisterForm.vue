@@ -90,11 +90,6 @@
 
           </div>
 
-          <v-snackbar class="ml-2 mr-2 custom-snackbar" v-model="snackbar.show" :timeout="2500" top>
-            <v-img :src="snackbar.icon" contain height="40px" width="40px"></v-img>
-            <span class="ml-5 title">{{ snackbar.text }}</span>
-          </v-snackbar>
-
         </v-card>
         <component :is="dialogComponent" @closeDialog="dialogComponent = ''"></component>
       </v-layout>
@@ -110,9 +105,9 @@
   import {
     formatName
   } from "@/utils/formatter";
+  import {mapMutations} from "vuex"
 
-
-  const registerUrl = process.env.VUE_APP_API_SIGN_UP_URL
+  const signUpUrl = process.env.VUE_APP_API_SIGN_UP_URL
 
   export default {
     components: {
@@ -123,11 +118,6 @@
       return {
         loading: false,
         valid: true,
-        snackbar: {
-          show: false,
-          text: "",
-          icon: null
-        },
         dialogComponent: "",
         showStatute: false,
         showTermsOfUse: false,
@@ -142,16 +132,17 @@
         nameRules: [
           v => !!v || "Pole wymagane",
           v => (v && v.length <= 15) || "Imię nie może zawierać więcej niż 15 znaków",
-          v => /^[\\p{L} .'-]+$/.test(v) || "Imię zawiera niedozwolone znaki"
+          v => /^(?=.{1,40}$)[a-zA-Z]+(?:[-'\s][a-zA-Z]+)*$/.test(v) || "Imię zawiera niedozwolone znaki"
         ],
         surnameRules: [
           v => !!v || "Pole wymagane",
           v => (v && v.length <= 30) || "Nazwisko nie może zawierać więcej niż 30 znaków",
-          v => /^[\\p{L} .'-]+$/.test(v) || "Nazwisko zawiera niedozwolone znaki"
+          v => /^(?=.{1,40}$)[a-zA-Z]+(?:[-'\s][a-zA-Z]+)*$/.test(v) || "Nazwisko zawiera niedozwolone znaki",
         ],
         loginRules: [
           v => !!v || "Pole wymagane",
-          v => (v && v.length <= 20) || "Login nie może zawierać więcej niż 20 znaków"
+          v => (v && v.length <= 20) || "Login nie może zawierać więcej niż 20 znaków",
+          v => /^\w+( \w+)*$/.test(v) || "Login zawiera niedozwolone znaki"
         ],
         personalIdRules: [
           v => !!v || "Pole wymagane",
@@ -168,11 +159,13 @@
         ],
         emailRules: [
           v => !!v || "Pole wymagane",
-          v => /.+@.+/.test(v) || "Błędnie wpisany E-mail",
+          v =>
+          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          .test(v) || "Błędnie wpisany e-mail",
           v => (v && v.length <= 30) || "E-mail nie może zawierać więcej niż 30 znaków"
         ],
         checkboxRules1: [
-          v => !!v || "Musisz zaakceptować aby kontynuować"
+          v => !!v || "Musisz zaakceptować warunki korzystania aby kontynuować"
         ],
         checkboxRules2: [
           v => !!v || "Musisz zaakceptować regulamin aby kontynuować"
@@ -209,29 +202,24 @@
           }
 
           this.loading = true
-          axios.post(registerUrl, request)
+          axios.post(signUpUrl, request)
             .then(response => {
               this.$refs.form.reset()
-              this.snackbarSuccesfull()
+              this.showSnackbar({
+                message: "Zarejestrowano pomyślnie",
+                icon: require('@/assets/img/check.png')
+              })
             })
-            .catch(err => {
-              this.snackbarError(err.response.data.message)
-            })
-            .finally(() => {
-              this.loading = false
-            })
+            .catch(err => this.showSnackbar({
+              message: err.response.data.message,
+              icon: require('@/assets/img/error.png')
+            }))
+            .finally(() => this.loading = false)
         }
       },
-      snackbarSuccesfull() {
-        this.snackbar.icon = require('@/assets/img/check.png')
-        this.snackbar.text = "Zarejestrowano pomyślnie"
-        this.snackbar.show = true
-      },
-      snackbarError(errorMessage) {
-        this.snackbar.icon = require('@/assets/img/error.png')
-        this.snackbar.text = errorMessage
-        this.snackbar.show = true
-      }
+      ...mapMutations({
+        showSnackbar: "showSnackbar"
+      })
     },
   };
 </script>
