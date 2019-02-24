@@ -91,7 +91,7 @@ exports.userLogin = (request, response, next) => {
         login: request.body.login
     }).then(user => {
         if (user.length < 1) {
-            return next(new ApiError("Authorization failed", 401))
+            return next(new ApiError("Podany login i/lub hasło są nieprawidłowe", 401))
         }
 
         bcrypt.compare(request.body.password, user[0].password, (err, result) => {
@@ -123,13 +123,13 @@ exports.userLogin = (request, response, next) => {
                 cache.set(login, refreshToken)
 
                 return response.status(200).json({
-                    message: "Authorization successful",
+                    message: "Zalogowano pomyślnie",
                     token: token,
                     expiresIn: JWT_TOKEN_EXPIRATION_TIME,
                     refreshToken: refreshToken
                 })
             }
-            return next(new ApiError("Authorization failed", 401))
+            return next(new ApiError("Podany login i/lub hasło są nieprawidłowe", 401))
         })
     }).catch(err => {
         return next(err)
@@ -151,7 +151,7 @@ exports.refreshToken = (request, response, next) => {
     //get refreshToken for given user from cache
     const cachedRefreshToken = cache.get(login)
     if (typeof cachedRefreshToken === "undefined") {
-        return next(new ApiError("Authorization failed", 401))
+        return next(new ApiError("Podany login i/lub hasło są nieprawidłowe", 401))
     }
     //send newly generated token to user
     const newToken = jwt.sign({
