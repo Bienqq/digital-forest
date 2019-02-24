@@ -10,6 +10,7 @@ import 'animate.css'
 import initCordova from "./plugins" 
 
 Vue.config.productionTip = false
+
 Vue.use(Vuetify)
 Vue.use(Vuex)
 

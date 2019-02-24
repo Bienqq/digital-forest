@@ -105,7 +105,9 @@
   import {
     formatName
   } from "@/utils/formatter";
-  import {mapMutations} from "vuex"
+  import {
+    mapMutations
+  } from "vuex"
 
   const signUpUrl = process.env.VUE_APP_API_SIGN_UP_URL
 
@@ -185,6 +187,7 @@
       handleRegisterButton() {
         // validate form
         if (this.$refs.form.validate()) {
+          //building request
           const request = {
             login: this.login.trim(),
             password: this.password.trim(),
@@ -192,6 +195,7 @@
             role: this.role === "Użytkownik" ? "USER" : "FORESTER",
           }
 
+          // if role is FORESTER add extra part of request
           if (this.role === "Leśniczy") {
             const forester = {
               firstName: formatName(this.firstName.trim()),
@@ -200,7 +204,7 @@
             }
             Object.assign(request, forester)
           }
-
+          //perform request
           this.loading = true
           axios.post(signUpUrl, request)
             .then(response => {

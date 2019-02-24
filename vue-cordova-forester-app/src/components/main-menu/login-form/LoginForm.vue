@@ -5,7 +5,7 @@
 
       <v-card width="90vw">
         <v-toolbar dark color="#004d34">
-          <v-toolbar-title>{{formTitle}}</v-toolbar-title>
+          <v-toolbar-title>{{ formTitle }}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn icon dark @click="$emit('closeForm')">
             <v-icon>close</v-icon>
@@ -26,7 +26,7 @@
                   :rules="passwordRules" required></v-text-field>
               </v-flex>
 
-              <v-divider class="top-spacer ml-5 mr-5 mb-3" />
+              <v-divider class="mt-2 ml-5 mr-5 mb-3" />
 
               <v-flex justify-center xs8 offset-xs2 class="bottom-spacer">
                 <v-btn block color="success" :loading="loading" :disabled="!valid" @click.stop="signInButton()">Zaloguj</v-btn>
@@ -53,6 +53,9 @@
 <script>
   import LostPassword from "./LostPassword"
   import axios from "axios"
+  import {
+    mapMutations
+  } from "vuex"
 
   const signInUrl = process.env.VUE_APP_API_SIGN_IN_URL
 
@@ -83,19 +86,40 @@
     methods: {
       signInButton() {
         if (this.$refs.form.validate()) {
+          //building request
           const request = {
             login: this.login.trim(),
             password: this.password
           }
+
           this.loading = true
           axios.post(signInUrl, request)
             .then(response => {
-              console.log(response)
+              this.showSnackbar({
+                message: "Zarejestrowano pomyślnie",
+                icon: require('@/assets/img/check.png')
+              })
+              const token = response.data.token
+              const refreshToken = response.data.refreshToken
+              this.saveTokensToLocalStorage(token, refreshToken)
+              this.$router.push("/user-dashboard")
             })
-            .catch(err => console.log(err.response.data.message))
+            .catch(err => {
+              this.showSnackbar({
+                message: err.response.data.message,
+                icon: require('@/assets/img/error.png')
+              })
+            })
             .finally(() => this.loading = false)
         }
-      }
+      },
+      saveTokensToLocalStorage(token, refreshToken){
+        localStorage.setItem("token", token)
+        localStorage.setItem("refreshToken", refreshToken)
+      },
+      ...mapMutations({
+        showSnackbar: "showSnackbar"
+      })
     }
   };
 </script>
