@@ -52,9 +52,8 @@
 
 <script>
   import LostPassword from "./LostPassword"
-  import axios from "axios"
   import {
-    mapMutations
+    mapActions
   } from "vuex"
 
   const signInUrl = process.env.VUE_APP_API_SIGN_IN_URL
@@ -91,34 +90,18 @@
             login: this.login.trim(),
             password: this.password
           }
-
-          this.loading = true
-          axios.post(signInUrl, request)
-            .then(response => {
-              this.showSnackbar({
-                message: "Zarejestrowano pomyślnie",
-                icon: require('@/assets/img/check.png')
-              })
-              const token = response.data.token
-              const refreshToken = response.data.refreshToken
-              this.saveTokensToLocalStorage(token, refreshToken)
-              this.$router.push("/user-dashboard")
-            })
-            .catch(err => {
-              this.showSnackbar({
-                message: err.response.data.message,
-                icon: require('@/assets/img/error.png')
-              })
-            })
-            .finally(() => this.loading = false)
+          //perform action
+          this.signIn(request)
         }
       },
-      saveTokensToLocalStorage(token, refreshToken){
-        localStorage.setItem("token", token)
-        localStorage.setItem("refreshToken", refreshToken)
-      },
-      ...mapMutations({
-        showSnackbar: "showSnackbar"
+      ...mapActions({
+        signIn: "doLogin"
+      })
+    },
+    created: function () {
+      this.$store.watch(state => state.loggingIn, () => {
+        // loading (loggingIn) in progress
+        this.loading = this.$store.state.loggingIn
       })
     }
   };
