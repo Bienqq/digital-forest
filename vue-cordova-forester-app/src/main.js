@@ -4,10 +4,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Vuetify from 'vuetify'
+import initCordova from "./plugins" 
+
 import 'vuetify/dist/vuetify.min.css'
 import "vue2-animate/dist/vue2-animate.min.css"
 import 'animate.css'
-import initCordova from "./plugins" 
 
 Vue.config.productionTip = false
 

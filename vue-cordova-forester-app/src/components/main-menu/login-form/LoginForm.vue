@@ -26,10 +26,17 @@
                   :rules="passwordRules" required></v-text-field>
               </v-flex>
 
-              <v-divider class="mt-2 ml-5 mr-5 mb-3" />
-
-              <v-flex justify-center xs8 offset-xs2 class="bottom-spacer">
+              <v-flex justify-center xs8 offset-xs2 class="bottom-spacer ">
                 <v-btn block color="success" :loading="loading" :disabled="!valid" @click.stop="signInButton()">Zaloguj</v-btn>
+              </v-flex>
+
+              <v-divider class="ml-5 mr-5 mb-3" />
+
+              <v-flex justify-center xs8 offset-xs2 class="top-spacer mt-0">
+                
+                <v-btn class="white--text caption" block small color="rgb(59,89,152)">
+                  <font-awesome-icon :icon="['fab', 'facebook-f']" class="mr-2" size="lg"/> Zaloguj się Facebookiem
+                </v-btn>
               </v-flex>
 
               <v-flex justify-center xs8 offset-xs2 class="top-spacer">
@@ -55,12 +62,24 @@
   import {
     mapActions
   } from "vuex"
+  import {
+    library
+  } from '@fortawesome/fontawesome-svg-core'
+  import {
+    faFacebookF
+  } from '@fortawesome/free-brands-svg-icons'
+  import {
+    FontAwesomeIcon
+  } from '@fortawesome/vue-fontawesome'
+
+  library.add(faFacebookF)
 
   const signInUrl = process.env.VUE_APP_API_SIGN_IN_URL
 
   export default {
     components: {
-      "lost-password-form": LostPassword
+      "lost-password-form": LostPassword,
+      "font-awesome-icon": FontAwesomeIcon,
     },
     data() {
       return {
