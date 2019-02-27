@@ -47,8 +47,6 @@ paths:
               
               In case of regular user following fields are optional:
               * `personalId`
-              * `firstName`
-              * `lastName`
 
           required: true
           schema:
@@ -146,6 +144,8 @@ definitions:
         - password
         - email
         - role
+        - firstName
+        - lastName
       properties:
         login:
           type: string

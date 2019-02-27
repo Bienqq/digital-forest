@@ -1,5 +1,7 @@
 const mongo = require("../database/mongo")
 
+const ROLES = process.env.ROLES.split(",")
+
 const userSchema = mongo.Schema({
     _id: mongo.Schema.Types.ObjectId,
     login: {
@@ -13,21 +15,24 @@ const userSchema = mongo.Schema({
     email:{
         type: String,
         required: true,
-        match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+        match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     },
     role: {
+        type: String,
+        enum: ROLES,
+        required: true,
+    },
+    firstName: {
+        type: String,
+        required: true,
+    },
+    lastName:{
         type: String,
         required: true,
     },
     // forester only 
     personalId: {
         type: Number,
-    },
-    firstName: {
-        type: String
-    },
-    lastName:{
-        type: String
     }
 })
 

@@ -12,22 +12,19 @@ const PERSONAL_ID_LENGTH = 11
 
 //validation rules for each /user route
 exports.userSignUpValidator = [
-    check("email").isEmail().withMessage("Email is not correct"),
+    check("email").not().isEmpty().withMessage("Email cannot be empty"),
+    check("email").matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).withMessage("Email is not correct"),
     check("login").not().isEmpty().withMessage("Login cannot be empty"),
-    check("password").matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/).withMessage("Password is too weak"),
+    check("password").matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/).withMessage("Password is too weak"),
     check("role").not().isEmpty().withMessage("Role cannot be empty"),
     check("role").isIn(ROLES).withMessage("Unknown role, posible roles are: " + ROLES),
+    check("firstName").not().isEmpty().withMessage("First name cannot be empty"),
+    check("lastName").not().isEmpty().withMessage("Last name cannot be empty"),
     // optional validator for FORESTER role
     body("role").custom((role, {
         req
     }) => {
         if (role === FORESTER_ROLE) {
-            if (!req.body.firstName) {
-                throw new ApiError("First name cannot be empty", 400)
-            }
-            if (!req.body.lastName) {
-                throw new ApiError("Last name cannot be empty", 400)
-            }
             let personalId = req.body.personalId
             if (!personalId) {
                 throw new ApiError("Field \"personalId\" cannot be empty", 400)

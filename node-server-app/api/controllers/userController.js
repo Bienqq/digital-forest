@@ -8,6 +8,8 @@ const {
     checkValidation
 } = require("../validators/userValidator")
 
+const FORESTER_ROLE = "FORESTER"
+
 //bcrypt properties
 const saltRounds = parseInt(process.env.SALT_ROUNDS)
 
@@ -64,7 +66,7 @@ exports.userSignUp = (request, response, next) => {
                         role: request.body.role,
                         firstName: request.body.firstName,
                         lastName: request.body.lastName,
-                        personalId: request.body.personalId
+                        personalId: request.body.role === FORESTER_ROLE ? request.body.personalId : undefined
                     })
 
                     user.save().then(() => {
