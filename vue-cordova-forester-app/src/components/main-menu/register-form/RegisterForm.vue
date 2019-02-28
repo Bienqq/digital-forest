@@ -215,15 +215,15 @@
               // reset form and set default role as USER
               this.$refs.form.reset()
               this.role = "Użytkownik"
-              
+
               this.showSnackbar({
                 message: "Zarejestrowano pomyślnie",
-                icon: require('@/assets/img/check.png')
+                icon: "check"
               })
             })
             .catch(err => this.showSnackbar({
               message: err.response.data.message,
-              icon: require('@/assets/img/error.png')
+              icon: "error"
             }))
             .finally(() => this.loading = false)
         }

@@ -127,7 +127,7 @@
           }).catch(err => {
             this.showSnackbar({
               message: err.response.data.message,
-              icon: require('@/assets/img/error.png')
+              icon: "error"
             })
           })
           .finally(() => this.loading = false)
@@ -140,13 +140,13 @@
             }, (error) => {
               this.showSnackbar({
                 message: "Adres e-mail jest wymagany",
-                icon: require('@/assets/img/error.png')
+                icon: "error"
               })
             })
           }, (error) => {
             this.showSnackbar({
               message: "Błąd połączenia z Facebookiem",
-              icon: require('@/assets/img/error.png')
+              icon: "error"
             })
           })
       },
@@ -172,7 +172,7 @@
         })
         this.showSnackbar({
           message: "Zalogowano pomyślnie",
-          icon: require('@/assets/img/check.png')
+          icon: "check"
         })
         router.push("/user-dashboard")
       },

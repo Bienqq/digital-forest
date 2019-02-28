@@ -16,10 +16,20 @@
             return {
 
             }
+            
         },
         methods: {
+            handleLogoutButton(){
+                this.logout()
+                this.showSnackbar({
+                    message: "Wylogowano",
+                    icon: "check"
+                })
+                router.push("/")
+            },
             ...mapActions([
-                "logout"
+                "logout",
+                "showSnackbar"
             ])
         },
     }

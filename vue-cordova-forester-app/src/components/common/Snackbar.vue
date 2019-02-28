@@ -1,6 +1,6 @@
 <template>
     <v-snackbar class="ml-2 mr-2" v-model="show" :timeout="3000" top>
-        <v-img :src="icon" contain height="40px" width="40px"></v-img>
+        <v-img :src="iconComputed" contain height="40px" width="40px"></v-img>
         <span class="ml-5 title">{{ message }}</span>
     </v-snackbar>
 </template>
@@ -12,6 +12,11 @@
                 show: false,
                 message: "",
                 icon: null
+            }
+        },
+        computed: {
+            iconComputed: function(){
+                return require(`@/assets/img/${this.icon}.png`)
             }
         },
         created: function () {

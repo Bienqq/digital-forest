@@ -64,7 +64,6 @@ export default new Vuex.Store({
         token: null,
         refreshToken: null
       })
-      router.push("/")
     }
   },
   getters: {
