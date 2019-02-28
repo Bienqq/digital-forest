@@ -153,7 +153,6 @@ paths:
         500: 
           description: INTERNAL SERVER ERROR
 
-      
 securityDefinitions:
   api_key:
     type: apiKey
@@ -190,15 +189,15 @@ definitions:
         role:
           type: string
           example: FORESTER
-        personalId:
-          type: integer
-          example: 90090515836
         firstName:
           type: string
           example: Jan
         lastName:
           type: string
           example: Kowalski
+        personalId:
+          type: integer
+          example: 90090515836
   Login:
     required:
     - login
