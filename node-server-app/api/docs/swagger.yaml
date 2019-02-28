@@ -96,6 +96,32 @@ paths:
             $ref: '#definitions/Error'
         500: 
           description: INTERNAL SERVER ERROR
+  /user/login-facebook:
+    post:
+      tags:
+      - Users
+      summary: Login with Facebook
+      description: Login with Facebook account
+      parameters:
+        - name: "facebookId"
+          in: body
+          description: User's `facebookId` number
+          required: true
+          schema:
+            $ref: '#definitions/LoginWithFacebook'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#definitions/LoginResponse'
+        400:
+          description: BAD REQUEST
+          schema:
+            $ref: '#definitions/Error'
+        500: 
+          description: INTERNAL SERVER ERROR
   /user/refresh-token:
     post:
       tags:
@@ -120,8 +146,13 @@ paths:
           description: BAD REQUEST
           schema:
             $ref: '#definitions/Error'
+        401:
+          description: UNAUTHORIZED
+          schema:
+            $ref: '#definitions/Error'
         500: 
           description: INTERNAL SERVER ERROR
+
       
 securityDefinitions:
   api_key:
@@ -194,6 +225,8 @@ definitions:
         type: string
         example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InRvbWFzejEyMyIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTU0OTcyNjkxMiwiZXhwIjoxNTQ5NzI4NzEyfQ.zRnIv_-SIyL3uJYjs3dnki11xbptFZF0qxrW2B_Mt2U
   RefreshToken:
+    required:
+      - refreshToken
     properties:
       refreshToken:
         type: string
@@ -203,6 +236,13 @@ definitions:
       token:
         type: string
         example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InRvbWVrMSIsInJvbGUiOiJGT1JFU1RFUiIsImlhdCI6MTU0OTgyMjI4MSwiZXhwIjoxNTQ5OTA4NjgxfQ.Y4qSNGFblEm73LRxxKG-Ruf9p6hjn-4HfOzQHZn751A
+  LoginWithFacebook:
+    required:
+      - facebookId
+    properties:
+      facebookId:
+        type: integer
+        example: 1231231 
     
 
 

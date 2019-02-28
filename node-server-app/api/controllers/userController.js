@@ -59,6 +59,7 @@ exports.userSignUp = (request, response, next) => {
                     return next(err)
                 } else {
                     const user = new User({
+                        //regular user
                         _id: new mongoose.Types.ObjectId(),
                         login: request.body.login,
                         password: hash,
@@ -66,7 +67,9 @@ exports.userSignUp = (request, response, next) => {
                         role: request.body.role,
                         firstName: request.body.firstName,
                         lastName: request.body.lastName,
+                        //forester only
                         personalId: request.body.role === FORESTER_ROLE ? request.body.personalId : undefined,
+                        //login with facebook only
                         facebookId: typeof request.body.facebookId === undefined ? undefined : request.body.facebookId
                     })
 
@@ -122,6 +125,36 @@ exports.userLogin = (request, response, next) => {
     })
 }
 
+exports.loginWithFacebook = (request, response, next) => {
+    const err = checkValidation(request)
+    if (err) {
+        return next(err)
+    }
+
+    User.find({
+        facebookId: request.body.facebookId
+    }).then(user => {
+        if (user.length < 1) {
+            return next(new ApiError("Nie znaleziono użytkownika", 401))
+        }
+
+        const {
+            token,
+            refreshToken
+        } = generateTokens(user[0])
+
+        return response.status(200).json({
+            message: "Zalogowano pomyślnie",
+            token: token,
+            expiresIn: JWT_TOKEN_EXPIRATION_TIME,
+            refreshToken: refreshToken
+        })
+
+    }).catch(err => {
+        return next(err)
+    })
+}
+
 function generateTokens(user) {
     const {
         login,
@@ -145,6 +178,7 @@ function generateTokens(user) {
 
     //add refresh token for user to node cache
     cache.set(login, refreshToken)
+
     return {
         token: token,
         refreshToken: refreshToken

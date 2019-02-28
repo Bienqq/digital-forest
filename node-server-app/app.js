@@ -2,13 +2,13 @@ const express = require("express")
 const app = express()
 const morgan = require("morgan")
 const swaggerUi = require("swagger-ui-express")
-const YAML = require('yamljs');
+const YAML = require('yamljs')
 const swaggerDocument = YAML.load("./api/docs/swagger.yaml")
 const ApiError = require("./api/common/ApiError")
 const userRoutes = require("./api/routes/user")
 
 //adding swagger docs
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // logging some diagnostic information to the console
 app.use(morgan("dev"))
@@ -16,8 +16,8 @@ app.use(morgan("dev"))
 //parsing request body
 app.use(express.urlencoded({
     extended: false
-}));
-app.use(express.json());
+}))
+app.use(express.json())
 
 // added CORS header in the same begin of handling each request
 app.use((request, response, next) => {
@@ -25,7 +25,7 @@ app.use((request, response, next) => {
     response.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
+    )
     next()
 })
 
@@ -47,4 +47,4 @@ app.use((error, request, response, next) => {
     })
 })
 
-module.exports = app;
+module.exports = app

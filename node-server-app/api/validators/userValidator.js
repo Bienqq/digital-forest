@@ -44,7 +44,11 @@ exports.userLoginValidator = [
 ]
 
 exports.refreshTokenValidator = [
-    check("refreshToken").not().isEmpty().withMessage("Refresh token is cannot be empty")
+    check("refreshToken").not().isEmpty().withMessage("Refresh token cannot be empty")
+]
+
+exports.loginWithFacebookValidator = [
+    check("facebookId").not().isEmpty().withMessage("FacebookId cannot be empty")
 ]
 
 exports.checkValidation = (request) => {

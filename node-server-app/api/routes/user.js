@@ -9,6 +9,7 @@ const userController = require("../controllers/userController")
 router.post("/signup", userValidator.userSignUpValidator, userController.userSignUp);
 router.post("/login", userValidator.userLoginValidator, userController.userLogin)
 router.post("/refresh-token", userValidator.refreshTokenValidator, userController.refreshToken)
+router.post("/login-facebook", userValidator.loginWithFacebookValidator, userController.loginWithFacebook)
 
 //for test purposes only
 router.get("/test", checkAuth, (request, response, next) => {
