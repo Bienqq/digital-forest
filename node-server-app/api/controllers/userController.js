@@ -118,7 +118,7 @@ exports.userLogin = (request, response, next) => {
                     refreshToken: refreshToken
                 })
             }
-            return next(new ApiError("Podany login i/lub hasło są nieprawidłowe", 401))
+            return next(new ApiError("Niepoprawne dane logowania", 401))
         })
     }).catch(err => {
         return next(err)

@@ -27,16 +27,18 @@
               </v-flex>
 
               <v-flex justify-center xs8 offset-xs2 class="bottom-spacer ">
-                <v-btn block color="success" :loading="loading" :disabled="!valid" @click.stop="signInButton()">Zaloguj</v-btn>
+                <v-btn block color="success" :loading="loading" :disabled="!valid" @click.stop="hadnleSignInButton()">Zaloguj</v-btn>
               </v-flex>
 
               <v-divider class="ml-5 mr-5 mb-3" />
 
               <v-flex justify-center xs8 offset-xs2 class="top-spacer mt-0">
-                
-                <v-btn class="white--text caption" block small color="rgb(59,89,152)">
-                  <font-awesome-icon :icon="['fab', 'facebook-f']" class="mr-2" size="lg"/> Zaloguj się Facebookiem
+
+                <v-btn class="white--text caption" block small color="rgb(59,89,152)" @click.stop="handleFacebookButton()">
+                  <font-awesome-icon :icon="['fab', 'facebook-f']" class="mr-2" size="lg" />
+                  Zaloguj się Facebookiem
                 </v-btn>
+
               </v-flex>
 
               <v-flex justify-center xs8 offset-xs2 class="top-spacer">
@@ -60,8 +62,11 @@
 <script>
   import LostPassword from "./LostPassword"
   import {
-    mapActions
+    mapActions,
+    mapMutations
   } from "vuex"
+  import router from "@/router"
+  import axios from "axios"
   import {
     library
   } from '@fortawesome/fontawesome-svg-core'
@@ -75,11 +80,12 @@
   library.add(faFacebookF)
 
   const signInUrl = process.env.VUE_APP_API_SIGN_IN_URL
+  const signInWithFacebookUrl = process.env.VUE_APP_API_SIGN_IN_WITH_FACEBOOK_URL
 
   export default {
     components: {
       "lost-password-form": LostPassword,
-      "font-awesome-icon": FontAwesomeIcon,
+      "font-awesome-icon": FontAwesomeIcon
     },
     data() {
       return {
@@ -102,9 +108,10 @@
       }
     },
     methods: {
-      signInButton() {
+      hadnleSignInButton() {
         if (this.$refs.form.validate()) {
           //building request
+          this.loading = true
           const request = {
             login: this.login.trim(),
             password: this.password
@@ -113,15 +120,68 @@
           this.signIn(request)
         }
       },
-      ...mapActions({
-        signIn: "doLogin"
-      })
-    },
-    created: function () {
-      this.$store.watch(state => state.loggingIn, () => {
-        // loading (loggingIn) in progress
-        this.loading = this.$store.state.loggingIn
-      })
+      signIn(request) {
+        axios.post(signInUrl, request)
+          .then(response => {
+            this.handleLogin(response)
+          }).catch(err => {
+            this.showSnackbar({
+              message: err.response.data.message,
+              icon: require('@/assets/img/error.png')
+            })
+          })
+          .finally(() => this.loading = false)
+      },
+      handleFacebookButton() {
+        facebookConnectPlugin.login(["public_profile", "email"],
+          (response) => {
+            facebookConnectPlugin.api("/me?fields=email,name", ["public_profile", "email"], (userData) => {
+              this.loginWithFacebook(userData)
+            }, (error) => {
+              this.showSnackbar({
+                message: "Adres e-mail jest wymagany",
+                icon: require('@/assets/img/error.png')
+              })
+            })
+          }, (error) => {
+            this.showSnackbar({
+              message: "Błąd połączenia z Facebookiem",
+              icon: require('@/assets/img/error.png')
+            })
+          })
+      },
+      loginWithFacebook(userData) {
+        axios.post(signInWithFacebookUrl, {
+            facebookId: userData.id
+          })
+          .then(response => {
+            this.handleLogin(response)
+          })
+          .catch(() => {
+            this.$emit("facebookRegistration", userData)
+          })
+      },
+      handleLogin(response) {
+        const {
+          refreshToken,
+          token
+        } = response.data
+        this.updateTokens({
+          token,
+          refreshToken
+        })
+        this.showSnackbar({
+          message: "Zalogowano pomyślnie",
+          icon: require('@/assets/img/check.png')
+        })
+        router.push("/user-dashboard")
+      },
+      ...mapActions([
+        "updateTokens"
+      ]),
+      ...mapMutations([
+        "showSnackbar",
+      ])
     }
   };
 </script>

@@ -25,16 +25,6 @@
             <div v-if="role === 'Leśniczy'">
 
               <v-flex xs10 offset-xs1>
-                <v-text-field prepend-inner-icon="person_outline" v-model="firstName" :rules="nameRules" :counter="15"
-                  label="Imię" required></v-text-field>
-              </v-flex>
-
-              <v-flex xs10 offset-xs1>
-                <v-text-field prepend-inner-icon="person_outline" v-model="lastName" :rules="surnameRules" :counter="30"
-                  label="Nazwisko" required></v-text-field>
-              </v-flex>
-
-              <v-flex xs10 offset-xs1>
                 <v-text-field prepend-inner-icon="fingerprint" v-model="personalId" :rules="personalIdRules" :counter="11"
                   label="Pesel" required></v-text-field>
               </v-flex>
@@ -48,6 +38,16 @@
             <v-flex xs10 offset-xs1>
               <v-text-field color="green" v-model="login" prepend-inner-icon="person" :rules="loginRules" :counter="20"
                 label="Login" required></v-text-field>
+            </v-flex>
+
+            <v-flex xs10 offset-xs1>
+              <v-text-field prepend-inner-icon="person_outline" v-model="firstName" :rules="nameRules" :counter="15"
+                label="Imię" required></v-text-field>
+            </v-flex>
+
+            <v-flex xs10 offset-xs1>
+              <v-text-field prepend-inner-icon="person_outline" v-model="lastName" :rules="surnameRules" :counter="30"
+                label="Nazwisko" required></v-text-field>
             </v-flex>
 
             <v-flex xs10 offset-xs1>
@@ -92,6 +92,7 @@
 
         </v-card>
         <component :is="dialogComponent" @closeDialog="dialogComponent = ''"></component>
+     
       </v-layout>
     </v-container>
 
@@ -130,6 +131,7 @@
         personalId: "",
         repeatPassword: "",
         role: "Użytkownik",
+        facebookId: undefined,
         email: "",
         nameRules: [
           v => !!v || "Pole wymagane",
@@ -143,6 +145,7 @@
         ],
         loginRules: [
           v => !!v || "Pole wymagane",
+          v => v.length >=8 || "Login musi zawierać min. 8 znaków",
           v => (v && v.length <= 20) || "Login nie może zawierać więcej niż 20 znaków",
           v => /^\w+( \w+)*$/.test(v) || "Login zawiera niedozwolone znaki"
         ],
@@ -193,13 +196,14 @@
             password: this.password.trim(),
             email: this.email.trim(),
             role: this.role === "Użytkownik" ? "USER" : "FORESTER",
+            firstName: formatName(this.firstName.trim()),
+            lastName: formatName(this.lastName.trim()),
+            facebookId: typeof this.facebookId === undefined ? undefined : this.facebookId
           }
 
           // if role is FORESTER add extra part of request
           if (this.role === "Leśniczy") {
             const forester = {
-              firstName: formatName(this.firstName.trim()),
-              lastName: formatName(this.lastName.trim()),
               personalId: parseInt(this.personalId.trim())
             }
             Object.assign(request, forester)
@@ -208,7 +212,10 @@
           this.loading = true
           axios.post(signUpUrl, request)
             .then(response => {
+              // reset form and set default role as USER
               this.$refs.form.reset()
+              this.role = "Użytkownik"
+              
               this.showSnackbar({
                 message: "Zarejestrowano pomyślnie",
                 icon: require('@/assets/img/check.png')
@@ -221,10 +228,25 @@
             .finally(() => this.loading = false)
         }
       },
-      ...mapMutations({
-        showSnackbar: "showSnackbar"
-      })
+      fillFormWithUserFacebookData(userFacebookData) {
+        this.email = userFacebookData.email
+        this.firstName = userFacebookData.firstName
+        this.lastName = userFacebookData.lastName
+        this.facebookId = userFacebookData.facebookId
+      },
+      ...mapMutations([
+        "showSnackbar",
+        "clearUserFacebookData"
+      ])
     },
+    mounted: function () {
+      const userFacebookData = this.$store.state.userFacebookData
+      if (typeof userFacebookData.facebookId !== undefined) {
+        this.fillFormWithUserFacebookData(userFacebookData)
+        //clear user data in Vuex store
+        this.clearUserFacebookData()
+      }
+    }
   };
 </script>
 

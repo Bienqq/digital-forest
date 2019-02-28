@@ -25,7 +25,7 @@
       </v-card>
 
       <transition name="form-animated" mode="out-in">
-        <component :is="formComponent" @closeForm="formComponent = ''"></component>
+        <component :is="formComponent" @facebookRegistration="handleFacebookRegistration" @closeForm="formComponent = ''"></component>
       </transition>
 
     </v-layout>
@@ -36,6 +36,7 @@
   import RotateLogo from "../common/RotateLogo";
   import RegisterForm from "./register-form/RegisterForm";
   import LoginForm from "./login-form/LoginForm.vue"
+  import {mapMutations} from "vuex"
 
   export default {
     name: "MainMenu",
@@ -56,7 +57,14 @@
         } else {
           backAsHome.trigger()
         }
-      }
+      },
+      handleFacebookRegistration(userData){
+        this.formComponent = "register-form"
+        this.fillUserFacebookData(userData)       
+      },
+      ...mapMutations([
+        "fillUserFacebookData"
+      ])
     },
     // before route to MainMenu add backing to Android Home view by clicking backbutton
     beforeRouteEnter(to, from, next) {
