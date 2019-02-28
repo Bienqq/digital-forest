@@ -30,6 +30,10 @@ const userSchema = mongo.Schema({
         type: String,
         required: true,
     },
+    //only for registration with facebook
+    facebookId: {
+        type: Number
+    },
     // forester only 
     personalId: {
         type: Number,

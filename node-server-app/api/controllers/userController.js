@@ -66,7 +66,8 @@ exports.userSignUp = (request, response, next) => {
                         role: request.body.role,
                         firstName: request.body.firstName,
                         lastName: request.body.lastName,
-                        personalId: request.body.role === FORESTER_ROLE ? request.body.personalId : undefined
+                        personalId: request.body.role === FORESTER_ROLE ? request.body.personalId : undefined,
+                        facebookId: typeof request.body.facebookId === undefined ? undefined : request.body.facebookId
                     })
 
                     user.save().then(() => {
@@ -88,7 +89,8 @@ exports.userLogin = (request, response, next) => {
     if (err) {
         return next(err)
     }
-    //find user and generate JWT
+
+    //find non-facebook user and generate JWT
     User.find({
         login: request.body.login
     }).then(user => {
@@ -101,28 +103,10 @@ exports.userLogin = (request, response, next) => {
                 return next(err)
             }
             if (result) {
-
-                const login = user[0].login
-                const role = user[0].role
-
-                //generate token
-                const token = jwt.sign({
-                    login: login,
-                    role: role
-                }, JWT_TOKEN_SECRET, {
-                    expiresIn: JWT_TOKEN_EXPIRATION_TIME
-                })
-
-                //generate refreshToken
-                const refreshToken = jwt.sign({
-                    login: login,
-                    role: role
-                }, JWT_REFRESH_TOKEN_SECRET, {
-                    expiresIn: JWT_REFRESH_TOKEN_EXPIRATION_TIME
-                })
-
-                //add token for user to node cache
-                cache.set(login, refreshToken)
+                const {
+                    token,
+                    refreshToken
+                } = generateTokens(user[0])
 
                 return response.status(200).json({
                     message: "Zalogowano pomyślnie",
@@ -136,6 +120,35 @@ exports.userLogin = (request, response, next) => {
     }).catch(err => {
         return next(err)
     })
+}
+
+function generateTokens(user) {
+    const {
+        login,
+        role
+    } = user
+    //generate token
+    const token = jwt.sign({
+        login: login,
+        role: role
+    }, JWT_TOKEN_SECRET, {
+        expiresIn: JWT_TOKEN_EXPIRATION_TIME
+    })
+
+    //generate refreshToken
+    const refreshToken = jwt.sign({
+        login: login,
+        role: role
+    }, JWT_REFRESH_TOKEN_SECRET, {
+        expiresIn: JWT_REFRESH_TOKEN_EXPIRATION_TIME
+    })
+
+    //add refresh token for user to node cache
+    cache.set(login, refreshToken)
+    return {
+        token: token,
+        refreshToken: refreshToken
+    }
 }
 
 exports.refreshToken = (request, response, next) => {
