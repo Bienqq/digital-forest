@@ -98,7 +98,7 @@ exports.userLogin = (request, response, next) => {
         login: request.body.login
     }).then(user => {
         if (user.length < 1) {
-            return next(new ApiError("Podany login i/lub hasło są nieprawidłowe", 401))
+            return next(new ApiError("Niepoprawne dane logowania", 401))
         }
 
         bcrypt.compare(request.body.password, user[0].password, (err, result) => {
