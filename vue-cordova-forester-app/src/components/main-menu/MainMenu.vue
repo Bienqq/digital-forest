@@ -36,7 +36,9 @@
   import RotateLogo from "../common/RotateLogo";
   import RegisterForm from "./register-form/RegisterForm";
   import LoginForm from "./login-form/LoginForm.vue"
-  import {mapMutations} from "vuex"
+  import {
+    mapMutations
+  } from "vuex"
 
   export default {
     name: "MainMenu",
@@ -58,9 +60,9 @@
           backAsHome.trigger()
         }
       },
-      handleFacebookRegistration(userData){
+      handleFacebookRegistration(userData) {
         this.formComponent = "register-form"
-        this.fillUserFacebookData(userData)       
+        this.fillUserFacebookData(userData)
       },
       ...mapMutations([
         "fillUserFacebookData"
@@ -76,7 +78,7 @@
       next()
     },
     created: function () {
-      window.addEventListener("keyboardWillShow", () => {
+      window.addEventListener("native.keyboardshow", () => {
         document.activeElement.scrollIntoViewIfNeeded()
       });
     },

@@ -4,16 +4,12 @@
       <v-layout align-center column>
         <v-card width="100%" class="wrapper">
 
-          <!-- white toolbar -->
-          <v-toolbar dark color="#004d34">
+          <v-toolbar dark card dense color="#004d34">
             <v-toolbar-title>Rejestracja {{accountTypeComputed}}</v-toolbar-title>
-
             <v-spacer />
-
             <v-btn icon dark @click="$emit('closeForm')">
               <v-icon>close</v-icon>
             </v-btn>
-
           </v-toolbar>
 
           <v-flex xs12>

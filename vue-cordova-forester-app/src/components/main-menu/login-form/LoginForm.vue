@@ -4,7 +4,8 @@
     <v-layout align-center column class="animated fadeIn zoomIn fast">
 
       <v-card width="90vw">
-        <v-toolbar dark color="#004d34">
+
+        <v-toolbar dark card dense color="#004d34">
           <v-toolbar-title>{{ formTitle }}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn icon dark @click="$emit('closeForm')">
@@ -26,7 +27,7 @@
                   :rules="passwordRules" required></v-text-field>
               </v-flex>
 
-              <v-flex justify-center xs8 offset-xs2 class="bottom-spacer ">
+              <v-flex justify-center xs8 offset-xs2 class="mt-1 mb-3">
                 <v-btn block color="success" :loading="loading" :disabled="!valid" @click.stop="hadnleSignInButton()">Zaloguj</v-btn>
               </v-flex>
 
@@ -41,7 +42,7 @@
 
               </v-flex>
 
-              <v-flex justify-center xs8 offset-xs2 class="top-spacer">
+              <v-flex justify-center xs8 offset-xs2 class="top-spacer mt-0">
                 <v-btn block small color="black" flat @click="loginToogle = false"> Zapomniałeś hasła? Kliknij tutaj!</v-btn>
               </v-flex>
 

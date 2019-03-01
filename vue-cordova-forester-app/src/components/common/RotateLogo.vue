@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12>
-    <v-img class="logo-circle" :src="logoSrc" aspect-ratio="1.8" min-width="55vw" min-height="55vw" contain></v-img>
-    <v-img class="logo-text" :src="textSrc" aspect-ratio="1.8" min-width="18vw" min-height="18vw" contain></v-img>
+    <v-img class="logo-circle" :src="logoSrc" aspect-ratio="2.0" min-width="55vw" min-height="55vw" contain></v-img>
+    <v-img class="logo-text" :src="textSrc" aspect-ratio="2.0" min-width="18vw" min-height="18vw" contain></v-img>
   </v-flex>
 </template>
 
@@ -19,7 +19,7 @@
 
 <style scoped lang="scss">
   .logo-circle {
-    z-index: 1;
+    z-index: 0;
     position: relative;
     -webkit-animation: rotate-center 15s linear infinite both;
     animation: rotate-center 15s linear infinite both;
@@ -28,7 +28,7 @@
   .logo-text {
     z-index: 2;
     position: relative;
-    top: -55vw;
+    top: -52vw;
     margin-bottom: -55vw;
   }
 

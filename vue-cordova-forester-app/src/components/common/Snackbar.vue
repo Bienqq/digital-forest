@@ -16,7 +16,9 @@
         },
         computed: {
             iconComputed: function(){
-                return require(`@/assets/img/${this.icon}.png`)
+                if(this.icon != null){
+                    return require(`@/assets/img/${this.icon}.png`)
+                }
             }
         },
         created: function () {
