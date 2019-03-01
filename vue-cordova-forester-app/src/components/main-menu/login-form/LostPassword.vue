@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div >
 
         <!-- input login -->
         <v-flex xs10 offset-xs1>
-            <v-text-field color="green" v-model="login" prepend-inner-icon="person" label="Login" required></v-text-field>
+            <v-text-field class="mt-2" color="green" v-model="login" prepend-inner-icon="person" label="Login" required></v-text-field>
         </v-flex>
 
         <!-- input email -->
@@ -14,8 +14,9 @@
 
         <!-- button -->
         <v-flex justify-center xs8 offset-xs2 class="bottom-spacer">
-            <v-btn block color="success" @click="checkChangePassword()">Zmień hasło</v-btn>
+            <v-btn block color="success" @click="remindPassword()">Przypomnij hasło</v-btn>
         </v-flex>
+
         <section id="changePasswordInput" v-if="confirmed">
             <div v-if="isCorrect">
                 <change-password />
@@ -44,7 +45,7 @@
             }
         },
         methods: {
-            checkChangePassword() {
+            remindPassword() {
                 this.confirmed = true
                 this.visible = !this.visible
                 if (this.isCorrect == false) {
@@ -62,4 +63,6 @@
         text-align: center;
         color: red;
     }
+
+
 </style>

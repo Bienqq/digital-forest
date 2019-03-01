@@ -6,6 +6,7 @@
       <v-card width="90vw">
 
         <v-toolbar dark card dense color="#004d34">
+          <!-- add transition for every form content change -->
           <v-toolbar-title>{{ formTitle }}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn icon dark @click="$emit('closeForm')">
@@ -13,9 +14,8 @@
           </v-btn>
         </v-toolbar>
 
-        <section id="login" v-if="loginToogle" class="pt-1">
-          <v-form ref="form" v-model="valid" lazy-validation>
-            <div class="animated fadeIn zoomIn fast">
+        <section class="pt-1">
+          <v-form ref="form" v-if="loginToogle" v-model="valid" lazy-validation class="animated fadeIn zoomIn fast">
 
               <v-flex xs10 offset-xs1>
                 <v-text-field color="green" v-model="login" prepend-inner-icon="person" label="Login" :rules="loginRules"
@@ -42,16 +42,14 @@
 
               </v-flex>
 
-              <v-flex justify-center xs8 offset-xs2 class="top-spacer mt-0">
+              <v-flex justify-center xs8 offset-xs2 class="top-spacer mt-3">
                 <v-btn block small color="black" flat @click="loginToogle = false"> Zapomniałeś hasła? Kliknij tutaj!</v-btn>
               </v-flex>
-
-            </div>
+       
           </v-form>
-        </section>
-
-        <section v-else>
-          <lost-password-form />
+ 
+           <lost-password-form class="animated fadeIn zoomIn fast" v-if="!loginToogle"/>
+        
         </section>
 
       </v-card>
@@ -188,5 +186,11 @@
 </script>
 
 <style lang="scss" scoped>
+  .form-animated-enter-active {
+    animation: zoomIn .4s;
+  }
 
+  .form-animated-leave-active {
+    animation: zoomOut .4s;
+  }
 </style>
