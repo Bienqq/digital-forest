@@ -41,7 +41,7 @@ const articleSchema = mongo.Schema({
         },
         required: false,
     }],
-    publisher: mongo.Schema.Types.ObjectId
+    publisherUserId: mongo.Schema.Types.ObjectId
 })
 
 module.exports = mongo.model("Article", articleSchema)

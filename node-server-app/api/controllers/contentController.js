@@ -2,37 +2,41 @@ const ApiError = require("../common/ApiError")
 const Article = require("../models/article")
 const User = require("../models/user")
 const checkValidation = require("../validators/checkValidation")
-const multer = require('multer')
+const multer = require("multer")
 const crypto = require("crypto")
 const mongoose = require("mongoose")
-const sizeOf = require('image-size');
-const fs = require('fs');
-const VideoLib = require('node-video-lib');
-
+const sizeOf = require("image-size");
+const fs = require("fs");
+const VideoLib = require("node-video-lib");
 
 const UPLOAD_FILES_MAX_AMOUNT = process.env.UPLOAD_FILES_MAX_AMOUNT
 const UPLOAD_FILE_MAX_SIZE = process.env.UPLOAD_FILE_MAX_SIZE
 const UPLOAD_FILES_ACCEPTED_FORMATS = process.env.UPLOAD_FILES_ACCEPTED_FORMATS.split(",")
 
+// uploading files storge config
 const storageConfig = multer.diskStorage({
     destination: (request, file, callback) => {
+        //path to folder with uploaded files
         callback(null, "./uploads")
     },
     filename: (request, file, callback) => {
+        // naming of saved  files
         callback(null, crypto.randomBytes(10).toString("hex") + file.originalname)
     }
 })
 
+// filter properties
 const fileFilterConfig = (request, file, callback) => {
-    //save onluy accepted file formats
+    //save only accepted file formats
     if (UPLOAD_FILES_ACCEPTED_FORMATS.includes(file.mimetype)) {
         callback(null, true)
     } else {
-        //reject a restricted file formats
+    //reject a restricted file formats
         callback(new ApiError("Zły format pliku", 400), false)
     }
 }
 
+//uploading files config
 const uploader = multer({
     storage: storageConfig,
     limits: {
@@ -43,12 +47,18 @@ const uploader = multer({
 
 // upload is a midleware before handling request itself
 exports.uploadContent = [uploader.array("medias", UPLOAD_FILES_MAX_AMOUNT), (request, response, next) => {
+    const err = checkValidation(request)
+    if (err) {
+        return next(err)
+    }
+
     const publisherLogin = request.userData.login
     User.find({
             login: publisherLogin
         })
         .select("_id")
         .then(publisher => {
+            // save content in database
             const article = new Article({
                 _id: new mongoose.Types.ObjectId(),
                 title: request.body.title,
@@ -56,7 +66,7 @@ exports.uploadContent = [uploader.array("medias", UPLOAD_FILES_MAX_AMOUNT), (req
                 description: request.body.description,
                 publishDate: new Date(),
                 media: getMediaFromRequest(request),
-                publisher: publisher[0]._id,
+                publisherUserId: publisher[0]._id,
             })
 
             article.save()
@@ -65,6 +75,7 @@ exports.uploadContent = [uploader.array("medias", UPLOAD_FILES_MAX_AMOUNT), (req
                 }).catch(err => {
                     return next(err)
                 })
+                
         }).catch(err => {
             return next(err)
         })
