@@ -1,12 +1,10 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs")
-const User = require("../models/user");
+const User = require("../models/user")
 const ApiError = require("../common/ApiError")
 const jwt = require("jsonwebtoken")
 const NodeCache = require("node-cache")
-const {
-    checkValidation
-} = require("../validators/userValidator")
+const checkValidation = require("../validators/checkValidation")
 
 const FORESTER_ROLE = "FORESTER"
 

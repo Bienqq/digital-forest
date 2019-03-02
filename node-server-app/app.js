@@ -6,6 +6,7 @@ const YAML = require('yamljs')
 const swaggerDocument = YAML.load("./api/docs/swagger.yaml")
 const ApiError = require("./api/common/ApiError")
 const userRoutes = require("./api/routes/user")
+const contentRoutes = require("./api/routes/content")
 
 //adding swagger docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
@@ -31,6 +32,7 @@ app.use((request, response, next) => {
 
 // Routes which should handle requests
 app.use("/user", userRoutes)
+app.use("/content", contentRoutes)
 
 // errors handling
 app.use((request, response, next) => {

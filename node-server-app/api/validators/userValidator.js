@@ -1,7 +1,6 @@
 const {
     check,
     body,
-    validationResult
 } = require("express-validator/check")
 const ApiError = require("../common/ApiError")
 
@@ -50,11 +49,3 @@ exports.refreshTokenValidator = [
 exports.loginWithFacebookValidator = [
     check("facebookId").not().isEmpty().withMessage("FacebookId cannot be empty")
 ]
-
-exports.checkValidation = (request) => {
-    const validationErrors = validationResult(request)
-    if (!validationErrors.isEmpty()) {
-        const message = validationErrors.array()[0].msg
-        return new ApiError(message, 400)
-    }
-}
