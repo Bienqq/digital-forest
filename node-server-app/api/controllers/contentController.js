@@ -31,7 +31,7 @@ const fileFilterConfig = (request, file, callback) => {
     if (UPLOAD_FILES_ACCEPTED_FORMATS.includes(file.mimetype)) {
         callback(null, true)
     } else {
-    //reject a restricted file formats
+        //reject a restricted file formats
         callback(new ApiError("Zły format pliku", 400), false)
     }
 }
@@ -52,6 +52,7 @@ exports.uploadContent = [uploader.array("medias", UPLOAD_FILES_MAX_AMOUNT), (req
         return next(err)
     }
 
+    // get publisher _id from userData in request
     const publisherLogin = request.userData.login
     User.find({
             login: publisherLogin
@@ -75,7 +76,7 @@ exports.uploadContent = [uploader.array("medias", UPLOAD_FILES_MAX_AMOUNT), (req
                 }).catch(err => {
                     return next(err)
                 })
-                
+
         }).catch(err => {
             return next(err)
         })
@@ -96,7 +97,6 @@ function getMediaFromRequest(request) {
 }
 
 function getMediaDimensions(mediaFile) {
-    let dimensions
     if (mediaFile.mimetype.includes("video")) {
         const fd = fs.openSync(mediaFile.path, "r")
         const movie = VideoLib.MovieParser.parse(fd)
@@ -105,7 +105,7 @@ function getMediaDimensions(mediaFile) {
             height: movie.tracks[0].height
         }
     } else {
-        dimensions = sizeOf(mediaFile.path)
+        const dimensions = sizeOf(mediaFile.path)
         return {
             width: dimensions.width,
             height: dimensions.height
