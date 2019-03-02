@@ -1,36 +1,29 @@
 <template>
-    <div >
+    <v-form ref="form" v-model="valid" lazy-validation class="animated fadeIn zoomIn fast">
 
-        <!-- input login -->
         <v-flex xs10 offset-xs1>
-            <v-text-field class="mt-2" color="green" v-model="login" prepend-inner-icon="person" label="Login" required></v-text-field>
+            <v-text-field class="mt-2" color="green" :rules="loginRules" v-model="login" prepend-inner-icon="person"
+                label="Login" required></v-text-field>
         </v-flex>
 
-        <!-- input email -->
         <v-flex xs10 offset-xs1>
-            <v-text-field color="green" prepend-inner-icon="email" v-model="email" label="E-mail" required>
+            <v-text-field color="green" :rules="emailRules" prepend-inner-icon="email" v-model="email" label="E-mail"
+                required>
             </v-text-field>
         </v-flex>
 
-        <!-- button -->
         <v-flex justify-center xs8 offset-xs2 class="bottom-spacer">
-            <v-btn block color="success" @click="remindPassword()">Przypomnij hasło</v-btn>
+            <v-btn block color="success" :disabled="!valid" @click="remindPassword()">Przypomnij hasło</v-btn>
         </v-flex>
 
-        <section id="changePasswordInput" v-if="confirmed">
-            <div v-if="isCorrect">
-                <change-password />
-            </div>
-            <div v-else>
-                <p class="error-info animated infinite pulse">Błędnie wpisane dane</P>
-            </div>
-        </section>
-
-    </div>
+    </v-form>
 </template>
 
 <script>
-    import ChangePassword from './ChangePassword'
+    import ChangePassword from "./ChangePassword"
+    import {
+        mapMutations
+    } from "vuex"
     export default {
         components: {
             "change-password": ChangePassword
@@ -39,30 +32,36 @@
             return {
                 login: "",
                 email: "",
-                confirmed: false,
-                isCorrect: false,
-                visible: true
+                valid: true,
+                loginRules: [
+                    v => !!v || "Login nie może być pusty"
+                ],
+                emailRules: [
+                    v => v && !!v || "Email nie może być pusty",
+                    v =>
+                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                    .test(v) || "Błędnie wpisany e-mail",
+                ],
+
             }
         },
         methods: {
             remindPassword() {
-                this.confirmed = true
-                this.visible = !this.visible
-                if (this.isCorrect == false) {
-                    setTimeout(() => {
-                        this.confirmed = false
-                    }, 2000);
+                if (this.$refs.form.validate()) {
+                    this.$refs.form.reset()
+                    this.showSnackbar({
+                        message: "Hasło zostało wysłane na podany adres email",
+                        icon: "check"
+                    })
                 }
-            }
+            },
+            ...mapMutations([
+                "showSnackbar",
+            ])
         },
     }
 </script>
 
 <style lang="scss" scoped>
-    .error-info {
-        text-align: center;
-        color: red;
-    }
-
 
 </style>
