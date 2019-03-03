@@ -1,22 +1,29 @@
 const ApiError = require("../common/ApiError")
 const multer = require("multer")
 const crypto = require("crypto")
-const path = require("path")
+const fs = require("fs")
 
 const UPLOAD_FILES_MAX_AMOUNT = process.env.UPLOAD_FILES_MAX_AMOUNT
 const UPLOAD_FILE_MAX_SIZE = process.env.UPLOAD_FILE_MAX_SIZE
 const UPLOAD_FILES_ACCEPTED_FORMATS = process.env.UPLOAD_FILES_ACCEPTED_FORMATS.split(",")
+const UPLOAD_FILES_DIRECTORY = process.env.UPLOAD_FILES_DIRECTORY
+
+// creating directory for uploading files 
+if (!fs.existsSync(UPLOAD_FILES_DIRECTORY)) {
+	fs.mkdirSync(UPLOAD_FILES_DIRECTORY)
+}
 
 // uploading files storge config
 const storageConfig = multer.diskStorage({
 	destination: (request, file, callback) => {
 		//path to folder with uploaded files
-		callback(null, "./uploads")
+		callback(null, UPLOAD_FILES_DIRECTORY)
 	},
 	filename: (request, file, callback) => {
 		// naming of saved  files
-		const extension = path.extname(file.originalname)
-		callback(null, crypto.randomBytes(10).toString("hex") + extension)
+		const fileExtension = file.mimetype.split("/")[1]
+		const fileName = `${crypto.randomBytes(10).toString("hex")}.${fileExtension}`
+		callback(null, fileName)
 	}
 })
 

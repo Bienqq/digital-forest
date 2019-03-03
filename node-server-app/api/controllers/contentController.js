@@ -48,8 +48,8 @@ function getMediaFromRequest(request) {
 	const medias = []
 	for (let mediaFile of mediaFiles) {
 		const media = {
-			title: mediaFile.originalname,
-			path: mediaFile.path,
+			name: mediaFile.originalname,
+			path: mediaFile.path.replace(/\\/g, "/"), // replacing backslash with forwardslash
 			dimensions: getMediaDimensions(mediaFile)
 		}
 		medias.push(media)
@@ -76,14 +76,44 @@ function getMediaDimensions(mediaFile) {
 
 exports.getAllContent = (request, response, next) => {
 	Article.find()
-		.then(articles => {
+		.select("_id title subtitle description publishDate media publisherUserId publisher")
+		.then(async articles => {
+			const contentResultList = []
+			for (let article of articles) {
+				const user = await User.findById(article.publisherUserId)
+				const publisher = `${user.firstName} ${user.lastName}`
+				const contentResult = {
+					_id: article._id,
+					title: article.title,
+					subTitle: article.subTitle,
+					description: article.description,
+					media: getMedia(request, article.media),
+					publisher: publisher
+				}
+				contentResultList.push(contentResult)
+			}
 			const res = {
 				count: articles.length,
-				content: articles
+				content: contentResultList
 			}
 			return response.status(200).json(res)
 		})
 		.catch(err => {
 			return next(err)
 		})
+}
+
+function getMedia(request, medias) {
+	const resultMediasList = []
+	for (media of medias) {
+		let { name, dimensions, path } = media
+		path = `${request.protocol}://${request.hostname}:${process.env.PORT || 8080}/${path}`
+		const mediaResult = {
+			name,
+			dimensions,
+			path
+		}
+		resultMediasList.push(mediaResult)
+	}
+	return resultMediasList
 }

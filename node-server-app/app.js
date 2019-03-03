@@ -8,6 +8,8 @@ const ApiError = require("./api/common/ApiError")
 const userRoutes = require("./api/routes/user")
 const contentRoutes = require("./api/routes/content")
 
+const UPLOAD_FILES_DIRECTORY = process.env.UPLOAD_FILES_DIRECTORY
+
 //adding swagger docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
@@ -17,6 +19,9 @@ app.use(morgan("dev"))
 //parsing request body
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+
+//folder for uploaded files
+app.use("/" + UPLOAD_FILES_DIRECTORY, express.static(UPLOAD_FILES_DIRECTORY))
 
 // added CORS header in the same begin of handling each request
 app.use((request, response, next) => {

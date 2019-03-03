@@ -21,7 +21,7 @@ const articleSchema = mongo.Schema({
 		required: true,
 	},
 	media: [{
-		title: {
+		name: {
 			type: String,
 			required: true,
 		},

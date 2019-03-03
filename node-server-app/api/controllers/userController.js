@@ -182,7 +182,7 @@ exports.refreshToken = (request, response, next) => {
 	//get refreshToken for given user from cache
 	const cachedRefreshToken = cache.get(login)
 	if (typeof cachedRefreshToken === "undefined") {
-		return next(new ApiError("Podany login i/lub hasło są nieprawidłowe", 401))
+		return next(new ApiError("Nie znaleziono refresh tokenu", 401))
 	}
 	//send newly generated token to user
 	const newToken = jwt.sign({
