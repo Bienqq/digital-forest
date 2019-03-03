@@ -39,7 +39,6 @@ const articleSchema = mongo.Schema({
 			type: String,
 			required: true,
 		},
-		required: false,
 	}],
 	publisherUserId: mongo.Schema.Types.ObjectId
 })

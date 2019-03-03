@@ -1,5 +1,5 @@
 <template>
-    <v-snackbar class="ml-2 mr-2" v-model="show" :timeout="3000" top>
+    <v-snackbar class="ml-2 mr-2" v-model="show" :timeout="3500" top>
         <v-img :src="iconComputed" contain height="40px" width="40px"></v-img>
         <span class="ml-5 subheading">{{ message }}</span>
     </v-snackbar>
