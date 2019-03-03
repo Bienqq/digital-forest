@@ -11,14 +11,14 @@ const PERSONAL_ID_LENGTH = 11
 
 //validation rules for each /user route
 exports.userSignUpValidator = [
-    check("email").not().isEmpty().withMessage("Email cannot be empty"),
-    check("email").matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).withMessage("Email is not correct"),
-    check("login").not().isEmpty().withMessage("Login cannot be empty"),
-    check("password").matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/).withMessage("Password is too weak"),
-    check("role").not().isEmpty().withMessage("Role cannot be empty"),
-    check("role").isIn(ROLES).withMessage("Unknown role, posible roles are: " + ROLES),
-    check("firstName").not().isEmpty().withMessage("First name cannot be empty"),
-    check("lastName").not().isEmpty().withMessage("Last name cannot be empty"),
+    check("email").not().isEmpty().withMessage("E-mail nie może być pusty"),
+    check("email").matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).withMessage("Padany e-mail jest niepoprawny"),
+    check("login").not().isEmpty().withMessage("Login nie może być pusty"),
+    check("password").matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/).withMessage("Hasło jest zbyt słabe"),
+    check("role").not().isEmpty().withMessage("Rola użytkownika nie może być pustya"),
+    check("role").isIn(ROLES).withMessage("Nieznana rola użytkownika, możliwe role: " + ROLES),
+    check("firstName").not().isEmpty().withMessage("Imię nie może być puste"),
+    check("lastName").not().isEmpty().withMessage("Nazwosko nie może być puste"),
     // optional validator for FORESTER role
     body("role").custom((role, {
         req
@@ -26,11 +26,11 @@ exports.userSignUpValidator = [
         if (role === FORESTER_ROLE) {
             let personalId = req.body.personalId
             if (!personalId) {
-                throw new ApiError("Field \"personalId\" cannot be empty", 400)
+                throw new ApiError("PESEL nie może być pusty", 400)
             }
             personalId = personalId.toString()
             if (personalId.length < PERSONAL_ID_LENGTH) {
-                throw new ApiError("Field \"personalId\" has invalid format", 400)
+                throw new ApiError("PESEL ma niepoprawny format", 400)
             }
         } 
         return true
@@ -38,14 +38,14 @@ exports.userSignUpValidator = [
 ]
 
 exports.userLoginValidator = [
-    check("login").not().isEmpty().withMessage("Login cannot be empty"),
-    check("password").not().isEmpty().withMessage("Password cannot be empty")
+    check("login").not().isEmpty().withMessage("Login nie może być pusty"),
+    check("password").not().isEmpty().withMessage("Hasło nie może być puste")
 ]
 
 exports.refreshTokenValidator = [
-    check("refreshToken").not().isEmpty().withMessage("Refresh token cannot be empty")
+    check("refreshToken").not().isEmpty().withMessage("Refresh token nie może być pusty")
 ]
 
 exports.loginWithFacebookValidator = [
-    check("facebookId").not().isEmpty().withMessage("FacebookId cannot be empty")
+    check("facebookId").not().isEmpty().withMessage("FacebookId nie może być puste")
 ]
