@@ -28,3 +28,6 @@ yarn-error.log*
 
 # uploads folder
 uploads/
+
+#formatter
+.jsbeautifyrc

@@ -16,18 +16,18 @@ app.use(morgan("dev"))
 
 //parsing request body
 app.use(express.urlencoded({
-    extended: false
+	extended: false
 }))
 app.use(express.json())
 
 // added CORS header in the same begin of handling each request
 app.use((request, response, next) => {
-    response.header("Access-Control-Allow-Origin", "*")
-    response.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    )
-    next()
+	response.header("Access-Control-Allow-Origin", "*")
+	response.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept, Authorization"
+	)
+	next()
 })
 
 // Routes which should handle requests
@@ -36,17 +36,17 @@ app.use("/content", contentRoutes)
 
 // errors handling
 app.use((request, response, next) => {
-    const error = new ApiError("Not found", 404)
-    next(error)
+	const error = new ApiError("Not found", 404)
+	next(error)
 })
 
 app.use((error, request, response, next) => {
-    response.status(error.statusCode || 500)
-    response.json({
-        message: error.message,
-        path: request.url,
-        timestamp: new Date()
-    })
+	response.status(error.statusCode || 500)
+	response.json({
+		message: error.message,
+		path: request.url,
+		timestamp: new Date()
+	})
 })
 
 module.exports = app

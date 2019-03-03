@@ -1,52 +1,13 @@
-const ApiError = require("../common/ApiError")
 const Article = require("../models/article")
 const User = require("../models/user")
 const checkValidation = require("../validators/checkValidation")
-const multer = require("multer")
-const crypto = require("crypto")
 const mongoose = require("mongoose")
 const sizeOf = require("image-size");
 const fs = require("fs");
 const VideoLib = require("node-video-lib");
 
-const UPLOAD_FILES_MAX_AMOUNT = process.env.UPLOAD_FILES_MAX_AMOUNT
-const UPLOAD_FILE_MAX_SIZE = process.env.UPLOAD_FILE_MAX_SIZE
-const UPLOAD_FILES_ACCEPTED_FORMATS = process.env.UPLOAD_FILES_ACCEPTED_FORMATS.split(",")
-
-// uploading files storge config
-const storageConfig = multer.diskStorage({
-    destination: (request, file, callback) => {
-        //path to folder with uploaded files
-        callback(null, "./uploads")
-    },
-    filename: (request, file, callback) => {
-        // naming of saved  files
-        callback(null, crypto.randomBytes(10).toString("hex") + file.originalname)
-    }
-})
-
-// filter properties
-const fileFilterConfig = (request, file, callback) => {
-    //save only accepted file formats
-    if (UPLOAD_FILES_ACCEPTED_FORMATS.includes(file.mimetype)) {
-        callback(null, true)
-    } else {
-        //reject a restricted file formats
-        callback(new ApiError("Zły format pliku", 400), false)
-    }
-}
-
-//uploading files config
-const uploader = multer({
-    storage: storageConfig,
-    limits: {
-        fileSize: UPLOAD_FILE_MAX_SIZE
-    },
-    fileFilter: fileFilterConfig,
-})
-
 // upload is a midleware before handling request itself
-exports.uploadContent = [uploader.array("medias", UPLOAD_FILES_MAX_AMOUNT), (request, response, next) => {
+exports.uploadContent = (request, response, next) => {
     const err = checkValidation(request)
     if (err) {
         return next(err)
@@ -80,7 +41,7 @@ exports.uploadContent = [uploader.array("medias", UPLOAD_FILES_MAX_AMOUNT), (req
         }).catch(err => {
             return next(err)
         })
-}]
+}
 
 function getMediaFromRequest(request) {
     const mediaFiles = request.files
@@ -111,4 +72,18 @@ function getMediaDimensions(mediaFile) {
             height: dimensions.height
         }
     }
+}
+
+exports.getAllContent = (request, response, next) => {
+    Article.find()
+        .then(articles => {
+            const res = {
+                count: articles.length,
+                content: articles
+            }
+            return response.status(200).json(res)
+        })
+        .catch(err => {
+            return next(err)
+        })
 }

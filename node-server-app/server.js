@@ -8,12 +8,12 @@ const server = http.createServer(app)
 const port = process.env.PORT || 8080
 
 dns.lookup(os.hostname(), (error, address, fam) => {
-    server.listen(port, () => {
-        console.log("-------------------APLICATION STARTED-------------------");
-        console.log("Hostname : " + os.hostname());
-        console.log("IP : " + address);
-        const serverAddress = `http://${address}:${port}`;
-        console.log(`Server is listening at : ${serverAddress}`);
-        console.log(`Swagger api-docs at : ${serverAddress}/api-docs`)
-    })
+	server.listen(port, () => {
+		console.log("-------------------APLICATION STARTED-------------------");
+		console.log("Hostname : " + os.hostname());
+		console.log("IP : " + address);
+		const serverAddress = `http://${address}:${port}`;
+		console.log(`Server is listening at : ${serverAddress}`);
+		console.log(`Swagger api-docs at : ${serverAddress}/api-docs`)
+	})
 });

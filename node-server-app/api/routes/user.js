@@ -9,5 +9,5 @@ router.post("/signup", userValidator.userSignUpValidator, userController.userSig
 router.post("/login", userValidator.userLoginValidator, userController.userLogin)
 router.post("/refresh-token", userValidator.refreshTokenValidator, userController.refreshToken)
 router.post("/login-facebook", userValidator.loginWithFacebookValidator, userController.loginWithFacebook)
- 
+
 module.exports = router
