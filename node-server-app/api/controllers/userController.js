@@ -18,9 +18,7 @@ const JWT_REFRESH_TOKEN_SECRET = process.env.JWT_REFRESH_TOKEN_SECRET
 const JWT_REFRESH_TOKEN_EXPIRATION_TIME = parseInt(process.env.JWT_REFRESH_TOKEN_EXPIRATION_TIME)
 
 //initialize cache, timeout for cache items is the same as for refresh token
-const cache = new NodeCache({
-	stdTTL: JWT_REFRESH_TOKEN_EXPIRATION_TIME
-})
+const cache = new NodeCache({ stdTTL: JWT_REFRESH_TOKEN_EXPIRATION_TIME })
 
 exports.userSignUp = (request, response, next) => {
 	// check if any validation fails
@@ -43,9 +41,7 @@ exports.userSignUp = (request, response, next) => {
 				return next(new ApiError("Podany e-mail już istnieje", 409))
 			}
 			if (request.body.personalId) {
-				const result = await User.find({
-					personalId: request.body.personalId
-				})
+				const result = await User.find({ personalId: request.body.personalId })
 				if (result.length >= 1) {
 					return next(new ApiError("Podany numer PESEL już istnieje", 409))
 				}
@@ -104,10 +100,7 @@ exports.userLogin = (request, response, next) => {
 				return next(err)
 			}
 			if (result) {
-				const {
-					token,
-					refreshToken
-				} = generateTokens(user[0])
+				const { token, refreshToken } = generateTokens(user[0])
 
 				return response.status(200).json({
 					message: "Zalogowano pomyślnie",
@@ -136,10 +129,7 @@ exports.loginWithFacebook = (request, response, next) => {
 			return next(new ApiError("Nie znaleziono użytkownika", 401))
 		}
 
-		const {
-			token,
-			refreshToken
-		} = generateTokens(user[0])
+		const { token, refreshToken } = generateTokens(user[0])
 
 		return response.status(200).json({
 			message: "Zalogowano pomyślnie",
@@ -154,10 +144,7 @@ exports.loginWithFacebook = (request, response, next) => {
 }
 
 function generateTokens(user) {
-	const {
-		login,
-		role
-	} = user
+	const { login, role } = user
 	//generate token
 	const token = jwt.sign({
 		login: login,
@@ -190,10 +177,7 @@ exports.refreshToken = (request, response, next) => {
 		return next(err)
 	}
 	const requestedRefreshToken = request.body.refreshToken
-	const {
-		login,
-		role
-	} = jwt.decode(requestedRefreshToken, JWT_REFRESH_TOKEN_SECRET)
+	const { login, role } = jwt.decode(requestedRefreshToken, JWT_REFRESH_TOKEN_SECRET)
 
 	//get refreshToken for given user from cache
 	const cachedRefreshToken = cache.get(login)

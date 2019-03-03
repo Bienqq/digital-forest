@@ -15,9 +15,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use(morgan("dev"))
 
 //parsing request body
-app.use(express.urlencoded({
-	extended: false
-}))
+app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 // added CORS header in the same begin of handling each request
