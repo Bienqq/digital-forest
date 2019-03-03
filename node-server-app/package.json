@@ -18,7 +18,8 @@
     "API"
   ],
   "engines": {
-    "node": "10.15.1"
+    "node": "10.15.1",
+    "npm": "6.8.0"
   },
   "author": "Tomasz Bieniek",
   "email": "tomek-1996-1996@o2.pl",
