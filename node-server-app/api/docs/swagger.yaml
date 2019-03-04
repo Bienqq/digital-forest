@@ -1,8 +1,8 @@
-swagger: "2.0"
+swagger: "2.0.0"
 info:
-  title: Forester App RESTful API
+  title: Digital Forest RESTful API
   description: | 
-    Documentation for Forester App REST API
+    Documentation for Digital Forest REST API
     
      For consuming some endpoints it is required to authenticate with API access`token`. If token expires you will need to refresh him with `refreshToken`
   version: 1.0.0
@@ -11,7 +11,7 @@ info:
     email: tomek-1996-1996@o2.pl
   license:
     name: Copyright (C) Tomasz Bieniek, Inc - All Rights Reserved
-host: "forester-node-server.herokuapp.com"
+host: "http://35.234.82.79:8090"
 basePath: /
 schemes:
   - http
@@ -22,6 +22,8 @@ produces:
 tags:
   - name: Users
     description: Users operations
+  - name: Content
+    description: Content operations
 paths:
   /user/singup:
     post:
@@ -152,9 +154,60 @@ paths:
             $ref: '#definitions/Error'
         500: 
           description: INTERNAL SERVER ERROR
+  /content/upload:
+    post:
+      security:
+      - Bearer: []
+      tags:
+      - Content 
+      summary: Upload new content 
+      description: This endpoint enable to upload new content such as images and videos
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: medias
+          description: |
+            Files to upload, up to 10 files can be send 
+
+            Accepted files: 
+              *  mp4
+              *  png 
+              *  jpeg 
+
+          in: formData
+          type: file
+        - name:  title
+          description: Article title
+          in: formData
+          type: string
+          required: true
+        - name: subTitle
+          description: Article subtitle
+          in: formData
+          type: string
+        - name: description
+          description: Whole content of article
+          in: formData
+          type: string
+          required: true
+      produces:
+        - application/json
+      responses:
+        201:
+          description: CREATED
+        400:
+          description: BAD REQUEST
+          schema:
+            $ref: '#definitions/Error'
+        401:
+          description: UNAUTHORIZED
+          schema:
+            $ref: '#definitions/Error'
+        500: 
+          description: INTERNAL SERVER ERROR
 
 securityDefinitions:
-  api_key:
+  Bearer:
     type: apiKey
     name: Authorization
     in: Header
@@ -189,6 +242,9 @@ definitions:
         role:
           type: string
           example: FORESTER
+          enum:
+          - FORESTER
+          - USER
         firstName:
           type: string
           example: Jan
