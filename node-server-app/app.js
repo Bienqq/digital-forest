@@ -9,7 +9,6 @@ const userRoutes = require("./api/routes/user")
 const contentRoutes = require("./api/routes/content")
 
 const UPLOAD_FILES_DIRECTORY = process.env.UPLOAD_FILES_DIRECTORY
-Z
 //adding swagger docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
