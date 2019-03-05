@@ -24,7 +24,7 @@ exports.uploadContent = (request, response, next) => {
 			const article = new Article({
 				_id: new mongoose.Types.ObjectId(),
 				title: request.body.title,
-				subTitle: request.body.subtitle,
+				subTitle: request.body.subTitle,
 				description: request.body.description,
 				publishDate: new Date(),
 				media: getMediaFromRequest(request),
@@ -49,7 +49,7 @@ function getMediaFromRequest(request) {
 	for (let mediaFile of mediaFiles) {
 		const media = {
 			name: mediaFile.originalname,
-			path: mediaFile.path.replace(/\\/g, "/"), // replacing backslash with forwardslash
+			path: mediaFile.path.replace(/\\/g, "/"), // replacing backslash in path with forwardslash
 			dimensions: getMediaDimensions(mediaFile)
 		}
 		medias.push(media)
@@ -76,14 +76,14 @@ function getMediaDimensions(mediaFile) {
 
 exports.getAllContent = (request, response, next) => {
 	Article.find()
-		.select("_id title subtitle description publishDate media publisherUserId publisher")
+		.select("_id title subTitle description publishDate media publisherUserId publisher")
 		.then(async articles => {
 			const contentResultList = []
 			for (let article of articles) {
 				const user = await User.findById(article.publisherUserId)
 				const publisher = `${user.firstName} ${user.lastName}`
 				const contentResult = {
-					_id: article._id,
+					id: article._id,
 					title: article.title,
 					subTitle: article.subTitle,
 					description: article.description,
