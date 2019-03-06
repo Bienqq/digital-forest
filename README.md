@@ -4,7 +4,7 @@ Based on: [vue-cli-plugin-cordova](https://github.com/m0dch3n/vue-cli-plugin-cor
 
 ## API documentation:
 
-SwaggerUI: [docs](https://forester-node-server.herokuapp.com/api-docs)
+SwaggerUI: [docs](http://35.234.82.79:8090/api-docs/)
 
 ## Required dependencies
 * Node.js with npm
