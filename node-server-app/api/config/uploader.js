@@ -47,5 +47,4 @@ const uploader = multer({
 	fileFilter: fileFilterConfig,
 })
 
-//TODO add validation for uploaded files
 module.exports = uploader.array("medias", UPLOAD_FILES_MAX_AMOUNT)

@@ -230,7 +230,32 @@ paths:
             $ref: '#definitions/Error'
         500: 
           description: INTERNAL SERVER ERROR
-    
+  /content/{contentId}:
+    delete:
+      security:
+      - Bearer: []
+      tags:
+      - Content
+      summary: Delete content by ID
+      description: This endpoint enable delete uploaded content by its ID
+      parameters:
+      - name: contentId 
+        in: path
+        type: string
+        required: true
+        description: Id of content to be removed
+      produces:
+        - application/json
+      responses:
+        204:
+          description: NO CONTENT
+        401:
+          description: UNAUTHORIZED
+          schema:
+            $ref: '#definitions/Error'
+        500: 
+          description: INTERNAL SERVER ERROR
+
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -364,7 +389,7 @@ definitions:
         type: object
         properties:
             width:
-              type: intege
+              type: integer
               example: 500
             height:
               type: integer
@@ -372,4 +397,3 @@ definitions:
       path: 
         type: string
         example: "http://192.168.0.73:8090/uploads/764a6a20f92050fd0ae1.png"
-# TypeError: Failed to fetch swagger ui issue

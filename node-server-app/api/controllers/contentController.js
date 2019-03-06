@@ -15,16 +15,14 @@ exports.uploadContent = (request, response, next) => {
 
 	// get publisher _id from userData in request
 	const publisherLogin = request.userData.login
-	User.find({
-			login: publisherLogin
-		})
+	User.find({ login: publisherLogin })
 		.select("_id")
 		.then(publisher => {
 			// save content in database
 			const article = new Article({
 				_id: new mongoose.Types.ObjectId(),
 				title: request.body.title,
-				subTitle: request.body.subTitle,
+				subTitle: request.body.subTitle !== undefined ? request.body.subTitle : undefined,
 				description: request.body.description,
 				publishDate: new Date(),
 				media: getMediaFromRequest(request),
@@ -69,7 +67,7 @@ function getMediaDimensions(mediaFile) {
 		const dimensions = sizeOf(mediaFile.path)
 		return {
 			width: dimensions.width,
-			height: dimensions.height
+			height: dimensions.height 
 		}
 	}
 }
@@ -116,4 +114,10 @@ function getMedia(request, medias) {
 		resultMediasList.push(mediaResult)
 	}
 	return resultMediasList
+}
+
+exports.deleteContent = (request, response, next) => {
+	Article.deleteOne({ _id: request.params.contentId })
+		.then(() => { return response.status(204).end() })
+		.catch(err => { return next(err) })
 }
