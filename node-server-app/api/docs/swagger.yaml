@@ -11,7 +11,7 @@ info:
     email: tomek-1996-1996@o2.pl
   license:
     name: Copyright (C) Tomasz Bieniek, Inc - All Rights Reserved
-host: "http://35.234.82.79:8090"
+host: "35.234.82.79:8090"
 basePath: /
 schemes:
   - http
@@ -25,7 +25,7 @@ tags:
   - name: Content
     description: Content operations
 paths:
-  /user/singup:
+  /user/signup:
     post:
       tags: 
       - Users
@@ -118,8 +118,8 @@ paths:
           description: OK
           schema:
             $ref: '#definitions/LoginResponse'
-        400:
-          description: BAD REQUEST
+        401:
+          description: UNAUTHORIZED
           schema:
             $ref: '#definitions/Error'
         500: 
@@ -372,3 +372,4 @@ definitions:
       path: 
         type: string
         example: "http://192.168.0.73:8090/uploads/764a6a20f92050fd0ae1.png"
+# TypeError: Failed to fetch swagger ui issue
