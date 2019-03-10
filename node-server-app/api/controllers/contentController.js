@@ -1,6 +1,7 @@
 const Article = require("../models/article")
 const User = require("../models/user")
 const checkValidation = require("../validators/checkValidation")
+const ApiError = require("../common/ApiError")
 const mongoose = require("mongoose")
 const sizeOf = require("image-size");
 const fs = require("fs");
@@ -13,32 +14,24 @@ exports.uploadContent = (request, response, next) => {
 		return next(err)
 	}
 
-	// get publisher _id from userData in request
-	const publisherLogin = request.userData.login
-	User.find({ login: publisherLogin })
-		.select("_id")
-		.then(publisher => {
-			// save content in database
-			const article = new Article({
-				_id: new mongoose.Types.ObjectId(),
-				title: request.body.title,
-				subTitle: request.body.subTitle !== undefined ? request.body.subTitle : undefined,
-				description: request.body.description,
-				publishDate: new Date(),
-				media: getMediaFromRequest(request),
-				publisherUserId: publisher[0]._id,
-			})
+	// save content in database
+	const article = new Article({
+		_id: new mongoose.Types.ObjectId(),
+		title: request.body.title,
+		subTitle: request.body.subTitle !== undefined ? request.body.subTitle : undefined,
+		description: request.body.description,
+		publishDate: new Date(),
+		media: getMediaFromRequest(request),
+		publisherUserId: request.userContext.id
+	})
 
-			article.save()
-				.then(() => {
-					return response.status(201).end()
-				}).catch(err => {
-					return next(err)
-				})
-
+	article.save()
+		.then(() => {
+			return response.status(201).end()
 		}).catch(err => {
 			return next(err)
 		})
+		
 }
 
 function getMediaFromRequest(request) {
@@ -67,7 +60,7 @@ function getMediaDimensions(mediaFile) {
 		const dimensions = sizeOf(mediaFile.path)
 		return {
 			width: dimensions.width,
-			height: dimensions.height 
+			height: dimensions.height
 		}
 	}
 }
@@ -118,6 +111,13 @@ function getMedia(request, medias) {
 
 exports.deleteContent = (request, response, next) => {
 	Article.deleteOne({ _id: request.params.contentId })
-		.then(() => { return response.status(204).end() })
-		.catch(err => { return next(err) })
+		.then(() => {
+			return response.status(204).end()
+		})
+		.catch(err => {
+			if (err.name === "CastError") {
+				return next(new ApiError("Niepoprawny format id", 400))
+			}
+			return next(err)
+		})
 }

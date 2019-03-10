@@ -9,7 +9,7 @@ module.exports = (request, response, next) => {
 		//getting only token without "Bearer" word
 		const token = request.headers.authorization.split(" ")[1]
 		const decoded = jwt.verify(token, JWT_TOKEN_SECRET)
-		request.userData = decoded
+		request.userContext = decoded
 		next()
 	} catch (error) {
 		return next(new ApiError("Authorization failed", 401))

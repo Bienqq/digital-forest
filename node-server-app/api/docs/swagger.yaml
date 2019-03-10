@@ -154,6 +154,42 @@ paths:
             $ref: '#definitions/Error'
         500: 
           description: INTERNAL SERVER ERROR
+  /user/{userId}:
+    get:
+      security:
+      - Bearer: []
+      tags:
+      - Users
+      summary: Get information about user
+      description: This endpoint enable to get information about given user
+      parameters:
+      - name: userId
+        in: path
+        type: string
+        required: true
+        description: User's ID
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#definitions/UserInfo'
+        400:
+          description: BAD REQUEST
+          schema:
+            $ref: '#definitions/Error'  
+        401:
+          description: UNAUTHORIZED
+          schema:
+            $ref: '#definitions/Error'
+        404:
+          description: NOT FOUND
+          schema:
+            $ref: '#definitions/Error'
+        500: 
+          description: INTERNAL SERVER ERROR
+
   /content/upload:
     post:
       security:
@@ -249,6 +285,10 @@ paths:
       responses:
         204:
           description: NO CONTENT
+        400:
+          description: BAD REQUEST
+          schema:
+            $ref: '#definitions/Error'  
         401:
           description: UNAUTHORIZED
           schema:
@@ -397,3 +437,18 @@ definitions:
       path: 
         type: string
         example: "http://192.168.0.73:8090/uploads/764a6a20f92050fd0ae1.png"
+  UserInfo:
+    properties:
+      firstName:
+        type: string
+        example: John
+      lastName:
+        type: string
+        example: Doe
+      email:
+        type: string
+        example: johndoe@gmail.com
+      role:
+        type: string
+        example: USER
+

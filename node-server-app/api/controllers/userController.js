@@ -144,10 +144,11 @@ exports.loginWithFacebook = (request, response, next) => {
 }
 
 function generateTokens(user) {
-	const { login, role } = user
+	let { _id, role } = user
+	_id = _id.toHexString()
 	//generate token
 	const token = jwt.sign({
-		login: login,
+		id: _id,
 		role: role
 	}, JWT_TOKEN_SECRET, {
 		expiresIn: JWT_TOKEN_EXPIRATION_TIME
@@ -155,14 +156,14 @@ function generateTokens(user) {
 
 	//generate refreshToken
 	const refreshToken = jwt.sign({
-		login: login,
+		id: _id,
 		role: role
 	}, JWT_REFRESH_TOKEN_SECRET, {
 		expiresIn: JWT_REFRESH_TOKEN_EXPIRATION_TIME
 	})
 
 	//add refresh token for user to node cache
-	cache.set(login, refreshToken)
+	cache.set(_id, refreshToken)
 
 	return {
 		token: token,
@@ -177,16 +178,16 @@ exports.refreshToken = (request, response, next) => {
 		return next(err)
 	}
 	const requestedRefreshToken = request.body.refreshToken
-	const { login, role } = jwt.decode(requestedRefreshToken, JWT_REFRESH_TOKEN_SECRET)
+	const { id, role } = jwt.decode(requestedRefreshToken, JWT_REFRESH_TOKEN_SECRET)
 
 	//get refreshToken for given user from cache
-	const cachedRefreshToken = cache.get(login)
+	const cachedRefreshToken = cache.get(id)
 	if (typeof cachedRefreshToken === "undefined") {
 		return next(new ApiError("Nie znaleziono refresh tokenu", 401))
 	}
 	//send newly generated token to user
 	const newToken = jwt.sign({
-		login: login,
+		id: id,
 		role: role
 	}, JWT_TOKEN_SECRET, {
 		expiresIn: JWT_TOKEN_EXPIRATION_TIME
@@ -194,4 +195,28 @@ exports.refreshToken = (request, response, next) => {
 	return response.status(200).json({
 		token: newToken
 	})
+}
+
+exports.getUserInfo = (request, response, next) => {
+	User.find({ _id: request.params.userId })
+		.then(user => {
+			if (user.length >= 1) {
+				const res = {
+					firstName: user[0].firstName,
+					lastName: user[0].lastName,
+					email: user[0].email,
+					personalId: user[0].personalId,
+					role: user[0].role
+				}
+				return response.status(200).json(res)
+
+			}
+			return next(new ApiError("Nie znaleziono podanego użytkownika", 404))
+		})
+		.catch(err => {
+			if (err.name === "CastError") {
+				return next(new ApiError("Niepoprawny format id", 400))
+			}
+			return next(err)
+		})
 }
