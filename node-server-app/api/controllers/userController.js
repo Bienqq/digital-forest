@@ -197,26 +197,19 @@ exports.refreshToken = (request, response, next) => {
 	})
 }
 
-exports.getUserInfo = (request, response, next) => {
-	User.find({ _id: request.params.userId })
+exports.aboutMe = (request, response, next) => {
+	User.findById(request.userContext.id)
 		.then(user => {
-			if (user.length >= 1) {
-				const res = {
-					firstName: user[0].firstName,
-					lastName: user[0].lastName,
-					email: user[0].email,
-					personalId: user[0].personalId,
-					role: user[0].role
-				}
-				return response.status(200).json(res)
-
+			const res = {
+				firstName: user.firstName,
+				lastName: user.lastName,
+				email: user.email,
+				personalId: user.personalId,
+				role: user.role
 			}
-			return next(new ApiError("Nie znaleziono podanego użytkownika", 404))
+			return response.status(200).json(res)
 		})
 		.catch(err => {
-			if (err.name === "CastError") {
-				return next(new ApiError("Niepoprawny format id", 400))
-			}
 			return next(err)
 		})
 }
