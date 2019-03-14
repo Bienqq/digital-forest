@@ -87,6 +87,7 @@
           </div>
 
         </v-card>
+       
         <component :is="dialogComponent" @closeDialog="dialogComponent = ''"></component>
      
       </v-layout>
@@ -98,7 +99,6 @@
 <script>
   import statute from "./Statute"
   import termsOfUse from "./TermsOfUse"
-  import axios from "axios"
   import {
     formatName
   } from "@/utils/formatter";
@@ -206,7 +206,7 @@
           }
           //perform request
           this.loading = true
-          axios.post(signUpUrl, request)
+          this.$http.post(signUpUrl, request)
             .then(response => {
               // reset form and set default role as USER
               this.$refs.form.reset()
@@ -232,7 +232,7 @@
       },
       ...mapMutations([
         "showSnackbar",
-        "clearUserFacebookData"
+        "clearUserContext"
       ])
     },
     mounted: function () {
@@ -240,7 +240,7 @@
       if (typeof userFacebookData.facebookId !== undefined) {
         this.fillFormWithUserFacebookData(userFacebookData)
         //clear user data in Vuex store
-        this.clearUserFacebookData()
+        this.clearUserContext()
       }
     }
   };

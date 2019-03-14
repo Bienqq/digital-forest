@@ -18,12 +18,12 @@
 
             <v-flex xs10 offset-xs1>
               <v-text-field color="green" v-model="login" prepend-inner-icon="person" label="Login" :rules="loginRules"
-                required></v-text-field>
+                required autocomplete></v-text-field>
             </v-flex>
 
             <v-flex xs10 offset-xs1>
               <v-text-field v-model="password" color="green" prepend-inner-icon="lock" label="Hasło" type="password"
-                :rules="passwordRules" required></v-text-field>
+                :rules="passwordRules" required autocomplete></v-text-field>
             </v-flex>
 
             <v-flex justify-center xs8 offset-xs2 class="mt-1 mb-3">
@@ -60,11 +60,9 @@
 <script>
   import LostPassword from "./LostPassword"
   import {
-    mapActions,
     mapMutations
   } from "vuex"
   import router from "@/router"
-  import axios from "axios"
   import {
     library
   } from '@fortawesome/fontawesome-svg-core'
@@ -120,7 +118,7 @@
         }
       },
       signIn(request) {
-        axios.post(signInUrl, request)
+        this.$http.post(signInUrl, request)
           .then(response => {
             this.handleLogin(response)
           }).catch(err => {
@@ -153,7 +151,7 @@
           })
       },
       loginWithFacebook(userData) {
-        axios.post(signInWithFacebookUrl, {
+        this.$http.post(signInWithFacebookUrl, {
             facebookId: userData.id
           })
           .then(response => {
@@ -169,7 +167,7 @@
           refreshToken,
           token
         } = response.data
-        this.updateTokens({
+        this.addTokensToLocalStorage({
           token,
           refreshToken
         })
@@ -179,11 +177,9 @@
         })
         router.push("/user-dashboard")
       },
-      ...mapActions([
-        "updateTokens"
-      ]),
       ...mapMutations([
         "showSnackbar",
+        "addTokensToLocalStorage"
       ])
     }
   };

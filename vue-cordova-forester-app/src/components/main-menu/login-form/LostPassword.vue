@@ -2,13 +2,11 @@
     <v-form ref="form" v-model="valid" lazy-validation class="animated fadeIn zoomIn fast">
 
         <v-flex xs10 offset-xs1>
-            <v-text-field class="mt-2" color="green" :rules="loginRules" v-model="login" prepend-inner-icon="person"
-                label="Login" required></v-text-field>
+            <v-text-field class="mt-2" color="green" :rules="loginRules" v-model="login" prepend-inner-icon="person" label="Login" required></v-text-field>
         </v-flex>
 
         <v-flex xs10 offset-xs1>
-            <v-text-field color="green" :rules="emailRules" prepend-inner-icon="email" v-model="email" label="E-mail"
-                required>
+            <v-text-field color="green" :rules="emailRules" prepend-inner-icon="email" v-model="email" label="E-mail" required>
             </v-text-field>
         </v-flex>
 
@@ -20,14 +18,10 @@
 </template>
 
 <script>
-    import ChangePassword from "./ChangePassword"
     import {
         mapMutations
     } from "vuex"
     export default {
-        components: {
-            "change-password": ChangePassword
-        },
         data() {
             return {
                 login: "",

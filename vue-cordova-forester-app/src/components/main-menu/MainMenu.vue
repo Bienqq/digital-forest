@@ -62,10 +62,10 @@
       },
       handleFacebookRegistration(userData) {
         this.formComponent = "register-form"
-        this.fillUserFacebookData(userData)
+        this.fillUserContext(userData)
       },
       ...mapMutations([
-        "fillUserFacebookData"
+        "fillUserContext"
       ])
     },
     // before route to MainMenu add backing to Android Home view by clicking backbutton
