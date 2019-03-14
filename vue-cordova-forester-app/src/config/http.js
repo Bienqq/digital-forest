@@ -1,4 +1,5 @@
 import axios from "axios"
+import createAuthRefreshInterceptor from "axios-auth-refresh"
 import store from "../store"
 
 export default function configureHttp(Vue) {
@@ -9,25 +10,17 @@ export default function configureHttp(Vue) {
 		}
 	})
 
-	instance.interceptors.response.use(undefined, (err) => {
-		return new Promise((resolve, reject) => {
-			if (err.status === 401) {
-
-				console.log(instance)
-				instance.post(process.env.VUE_APP_API_REFRESH_TOKEN_URL, {
-						refreshToken: store.getters.getRefreshTokenFromLocalStorage
-					}).then(response => {
-						store.updateTokenInLocalStorage(response.data.token)
-					})
-					.catch(error => {
-						reject(error)
-					})
-			}
-			console.log("Interceptor error")
-			console.log(err)
-			throw err
+	const refreshAuthLogic = failedRequest => instance.post(process.env.VUE_APP_API_REFRESH_TOKEN_URL, {
+			refreshToken: store.getters.getRefreshTokenFromLocalStorage
 		})
-	})
+		.then(tokenRefreshResponse => {
+			const newToken = tokenRefreshResponse.data.token
+			store.commit("updateTokenInLocalStorage", newToken)
+			failedRequest.response.config.headers["Authorization"] = "Bearer " + newToken
+			return Promise.resolve()
+		})
+
+	createAuthRefreshInterceptor(instance, refreshAuthLogic)
 
 	Vue.prototype.$http = instance
 }

@@ -71,6 +71,7 @@
                         })
                     })
                     .catch(err => {
+                        console.log("err in user dashboard")
                         this.showSnackbar({
                             message: err,
                             icon: "error"
