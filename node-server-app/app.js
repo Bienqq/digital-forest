@@ -29,8 +29,14 @@ app.use((request, response, next) => {
 		"Access-Control-Allow-Headers",
 		"Origin, X-Requested-With, Content-Type, Accept, Authorization"
 	)
+	response.header("Access-Control-Allow-Methods", "DELETE, POST, PUT, PATCH, GET, OPTIONS")
+	if(request.method == "OPTIONS"){
+		return response.status(200).end()
+	}
 	next()
 })
+
+
 
 // Routes which should handle requests
 app.use("/user", userRoutes)
