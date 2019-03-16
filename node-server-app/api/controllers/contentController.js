@@ -31,7 +31,6 @@ exports.uploadContent = (request, response, next) => {
 		}).catch(err => {
 			return next(err)
 		})
-		
 }
 
 function getMediaFromRequest(request) {
@@ -110,8 +109,13 @@ function getMedia(request, medias) {
 }
 
 exports.deleteContent = (request, response, next) => {
-	Article.deleteOne({ _id: request.params.contentId })
-		.then(() => {
+	//deleting content data from database
+	Article.findByIdAndDelete(request.params.contentId)
+		.then(article => {
+			// delete content from static directory
+			for (media of article.media) {
+				fs.unlinkSync(`${__dirname}\\..\\..\\${media.path}`)
+			}
 			return response.status(204).end()
 		})
 		.catch(err => {
