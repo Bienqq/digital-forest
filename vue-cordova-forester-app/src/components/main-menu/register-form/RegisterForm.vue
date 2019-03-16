@@ -236,7 +236,7 @@
       ])
     },
     mounted: function () {
-      const userFacebookData = this.$store.state.userFacebookData
+      const userFacebookData = this.$store.state.userContext
       if (typeof userFacebookData.facebookId !== undefined) {
         this.fillFormWithUserFacebookData(userFacebookData)
         //clear user data in Vuex store

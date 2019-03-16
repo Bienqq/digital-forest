@@ -1,6 +1,6 @@
 <template>
-    <v-snackbar class="ml-2 mr-2" v-model="show" :timeout="3500" top>
-        <v-img  :src="iconComputed" max-width="40px" contain height="40px" width="40px"></v-img>
+    <v-snackbar v-model="show" :timeout="2800" top>
+        <v-img :src="iconComputed" max-width="40px" contain height="40px" width="40px"></v-img>
         <span class="subheading mr-4">{{ message }}</span>
     </v-snackbar>
 </template>
@@ -15,13 +15,13 @@
             }
         },
         computed: {
-            iconComputed: function(){
-                if(this.icon != null){
+            iconComputed: function() {
+                if (this.icon != null) {
                     return require(`@/assets/img/${this.icon}.png`)
                 }
             }
         },
-        created: function () {
+        created: function() {
             this.$store.watch(state => state.globalSnackbar.message, () => {
                 const msg = this.$store.state.globalSnackbar.message
                 if (msg !== "") {

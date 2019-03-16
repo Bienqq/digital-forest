@@ -57,9 +57,7 @@
                 })
                 router.push("/")
             },
-
-            //TODO fix this method
-            // verify login/register with facebook if it works correctly
+            // getting all informations about user when enters dashboard
             getUserInfo() {
                 this.$http.get(aboutMeUrl)
                     .then(response => {
@@ -71,7 +69,6 @@
                         })
                     })
                     .catch(err => {
-                        console.log("err in user dashboard")
                         this.showSnackbar({
                             message: err,
                             icon: "error"
@@ -93,7 +90,7 @@
         },
         // before route EnterTheForest component add backing to previous view by clicking backbutton
         beforeRouteEnter(to, from, next) {
-            next(userDashboard => document.addEventLtisener("backbutton", userDashboard.handleBackButton))
+            next(userDashboard => document.addEventListener("backbutton", userDashboard.handleBackButton))
         },
         // when leaving EnterTheForest remove event handler
         beforeRouteLeave(to, from, next) {

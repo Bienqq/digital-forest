@@ -1,17 +1,17 @@
 import axios from "axios"
 import createAuthRefreshInterceptor from "axios-auth-refresh"
-import store from "../store"
+import store from "@/store"
 
 export default function configureHttp(Vue) {
 	const instance = axios.create({
 		baseURL: process.env.VUE_APP_API_BASE_URL,
 		headers: {
-			"Authorization": `Bearer ${store.getters.getTokenFromLocalStorage}`
+			"Authorization": `Bearer ${localStorage.getItem("token")}`
 		}
 	})
-
+	
 	const refreshAuthLogic = failedRequest => instance.post(process.env.VUE_APP_API_REFRESH_TOKEN_URL, {
-			refreshToken: store.getters.getRefreshTokenFromLocalStorage
+			refreshToken: localStorage.getItem("refreshToken")
 		})
 		.then(tokenRefreshResponse => {
 			const newToken = tokenRefreshResponse.data.token

@@ -46,7 +46,6 @@ export default new Vuex.Store({
 		},
 		updateTokenInLocalStorage(store, token) {
 			localStorage.setItem("token", token)
-			console.log("token in local store updated")
 		},
 		removeTokensFromLocalStorage() {
 			localStorage.removeItem("token")
