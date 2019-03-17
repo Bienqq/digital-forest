@@ -78,7 +78,9 @@ exports.getAllContent = (request, response, next) => {
 					subTitle: article.subTitle,
 					description: article.description,
 					media: getMedia(request, article.media),
-					publisher: publisher
+					publisher: publisher,
+					publishDate: article.publishDate.toISOString().substring(0, 10)
+
 				}
 				contentResultList.push(contentResult)
 			}

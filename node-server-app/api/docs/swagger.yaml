@@ -401,6 +401,9 @@ definitions:
       publisher:
         type: string
         example: "John Doe"
+      publishDate:
+        type: string
+        example: "2019-03-16"
       media:
         type: array
         items: 
