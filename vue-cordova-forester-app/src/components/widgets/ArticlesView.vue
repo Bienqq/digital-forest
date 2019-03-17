@@ -1,68 +1,64 @@
 <template>
-  <v-container align-content-center>
+    <v-container align-content-center>
 
-    <v-toolbar class="full-width">
-      <v-toolbar-side-icon color="#4caf50"></v-toolbar-side-icon>
-      <v-toolbar-title>Panel użytkownika</v-toolbar-title>
-      <v-spacer></v-spacer>
-    </v-toolbar>
+        <v-layout align-center column fill-height width="100vw">
+            <v-card width="96vw" class="vcard-options" color="rgba(240,240,240,1)">
 
-    <v-layout align-center column fill-height width="100vw">
-      <v-card width="96vw" class="vcard-options" color="rgba(240,240,240,1)">
+                <main-article :content-data="contentList[0]" />
+                
+                <h3 class="header pt-1 pl-2">Reszta aktualności:</h3>
 
-        <main-article />
+                <v-article v-for="(content, index) in contentList.slice(1)" :content-data="content" :index="index" :key="content.id" />
 
-        <h3 class="header">Reszta Aktualności:</h3>
+            </v-card>
 
-        <articles-slider v-for="(property,index) in articlesList" :prop="property" :key="index"></articles-slider>
-      </v-card>
-      <router-view />
-    </v-layout>
-  </v-container>
+        </v-layout>
+        <router-view />
+    </v-container>
 </template>
 
 <script>
-  import MainArtice from "./MainArticle"
-  import ArticlesSlider from './ArticlesSlider'
-  export default {
-    name: "EnterTheForest",
-    components: {
-      "main-article": MainArtice,
-      "articles-slider": ArticlesSlider
-    },
-    data() {
-      return {
-        articlesList: [{
-            thumbimg: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Epping_Forest_Centenary_Walk_2_-_Sept_2008.jpg/1200px-Epping_Forest_Centenary_Walk_2_-_Sept_2008.jpg",
-            headermsg: 'Artykuł numer 1'
-          },
-          {
-            thumbimg: "http://www.banktapet.pl/pictures/2013/0727/1/nature-trees-forests-paths-sunlight-wallpaper-543162.jpg",
-            headermsg: 'Artykuł numer 3 o dłuższej nazwie i jeszcze dłuższej nazwie'
-          },
-        ],
-      };
-    },
-  };
+    import MainArtice from "./MainArticle"
+    import Article from "./Article"
+
+    export default {
+        components: {
+            "main-article": MainArtice,
+            "v-article": Article
+        },
+        props: {
+            contentList: {
+                type: Array,
+            },
+            contentAmount: {
+                type: Number
+            }
+        },
+        data() {
+            return {
+
+            }
+        },
+    };
 </script>
 
 <style scoped lang="scss">
-  .full-width {
-    width: 100vw;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: #004d34 !important;
-    color: white !important;
-  }
+    .full-width {
+        width: 100vw;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background: #004d34 !important;
+        color: white !important;
+    }
 
-  .header {
-    margin-left: 2vw;
-    margin-top: 1vw;
-  }
+    .header {
+        margin-left: 2vw;
+        margin-top: 1vw;
+    }
 
-  .vcard-options {
-    margin-top: 13vw;
-    padding-top: 1vw;
-  }
+    .vcard-options {
+        margin-top: 10vw;
+        padding-top: 1vw;
+    }
 </style>

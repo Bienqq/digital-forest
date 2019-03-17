@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import MainMenu from "./components/main-menu/MainMenu"
 import EnterTheForest from "./components/enter-forest-menu/EnterTheForest"
-import UserDashboard from "./components/user-dashboard/UserDashboard"
+import Dashboard from "./components/user-dashboard/Dashboard"
 
 Vue.use(Router)
 
@@ -25,9 +25,9 @@ export default new Router({
       component: EnterTheForest,
     },
     {
-      path: "/user-dashboard",
-      name: "UserDashboard",
-      component: UserDashboard
+      path: "/dashboard",
+      name: "Dashboard",
+      component: Dashboard
     }
   ]
 })

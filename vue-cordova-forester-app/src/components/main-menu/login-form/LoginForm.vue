@@ -166,11 +166,13 @@
                     token,
                     refreshToken
                 })
+                // update Authorizationheader in global axios instance
+                this.$http.defaults.headers.Authorization = `Bearer ${token}`
                 this.showSnackbar({
                     message: "Zalogowano pomyślnie",
                     icon: "check"
                 })
-                router.push("/user-dashboard")
+                router.push("/dashboard")
             },
             ...mapMutations([
                 "showSnackbar",

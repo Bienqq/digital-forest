@@ -3,11 +3,11 @@
 
         <v-toolbar class="white--text" fixed color="#004d34">
             <v-toolbar-side-icon color="#4caf50" @click.stop="showNavigation = true"></v-toolbar-side-icon>
-            <v-toolbar-title>Panel użytkownika</v-toolbar-title>
+            <v-toolbar-title> Panel {{userDashboardNameComputed}}</v-toolbar-title>
             <v-spacer></v-spacer>
         </v-toolbar>
 
-        <v-navigation-drawer v-model="showNavigation" absolute temporary width="240px">
+        <v-navigation-drawer v-model="showNavigation" v-touch="{left: () => handleSwipe('left')}" fixed temporary width="240px" >
             <v-list class="pa-0">
                 <v-list-tile avatar>
 
@@ -74,16 +74,33 @@
                 showNavigation: false,
             }
         },
+        methods: {
+            //  this method has been caled from its parent component
+            handleSwipe(direction) {
+                if (direction == "left") {
+                    this.showNavigation = false
+                }
+                if (direction == "right") {
+                    this.showNavigation = true
+                }
+            }
+        },
         computed: {
             userNameComputed() {
                 const firstName = this.$store.state.userContext.firstName
                 const lastName = this.$store.state.userContext.lastName
                 return `${firstName} ${lastName}`
-            }
+            },
+            userDashboardNameComputed() {
+                const userRole = this.$store.state.userContext.role
+                return userRole === "USER" ? "użytkownika" : "leśniczego"
+            },
         },
     }
 </script>
 
-<style>
-
+<style scoped lang="scss">
+    .first-plan {
+        z-index: 11000 !important;
+    }
 </style>
