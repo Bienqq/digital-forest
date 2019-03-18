@@ -114,6 +114,9 @@ exports.deleteContent = (request, response, next) => {
 	//deleting content data from database
 	Article.findByIdAndDelete(request.params.contentId)
 		.then(article => {
+			if(!article){
+				return response.status(204).end()
+			}
 			// delete content from static directory
 			for (media of article.media) {
 				fs.unlinkSync(`${__dirname}/../../${media.path}`)
