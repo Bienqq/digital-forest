@@ -1,15 +1,23 @@
 <template>
     <v-flex xs12 class="ma-2">
-        <v-card class="v-card mt-1 white--text elevation-8 gradient-light-dark">
-            <v-img :src="content.media[0].path" :alt="content.name" contain> </v-img>
+        <v-card class="v-card mt-1 white--text elevation-8 gradient-light-dark animated fadeIn">
+
+            <v-img v-if="content.media.length == 1" :src="content.media[0].path" :alt="content.media[0].name" contain></v-img>
+
+            <v-carousel v-else hide-delimiters hide-controls height="60vw">
+                <v-carousel-item v-for="(media, index) in content.media" :key="index" :src="media.path"></v-carousel-item>
+            </v-carousel>
 
             <v-card-title primary-title>
-                <div class="headline">{{ content.title }}</div>
-                <span class="grey--text">{{ content.subTitle }}</span>
+                <div>
+                    <div class="headline">{{content.title}}</div>
+                    <div class="subheading">{{content.subTitle}}</div>
+                </div>
             </v-card-title>
-            <v-divider></v-divider>
+            <v-divider dark class="mx-2"></v-divider>
 
             <v-card-actions>
+                <span class="pl-1">{{content.publishDate}}</span>
                 <v-spacer></v-spacer>
                 <p @click="showMore = !showMore"> Czytaj więcej </p>
                 <v-btn icon @click="showMore = !showMore">
@@ -24,8 +32,8 @@
                     </v-card-text>
 
                     <v-card-text class="publisher body-2 text-xs-right">
-                        <v-divider class="pa-1"></v-divider>
-                        {{content.publisher}}
+                        <v-divider dark class="pa-1"></v-divider>
+                        <span class="font-italic">{{content.publisher}}</span>
                     </v-card-text>
                 </div>
             </v-slide-y-transition>

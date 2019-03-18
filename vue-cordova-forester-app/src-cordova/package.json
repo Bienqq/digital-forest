@@ -11,7 +11,7 @@
     "dependencies": {
         "com.danielsogl.backashome": "~0.1.0",
         "cordova-android": "^7.1.4",
-        "cordova-browser": "^5.0.4",
+        "cordova-browser": "5.0.4",
         "cordova-plugin-back-as-home": "^1.0.1",
         "cordova-plugin-background-mode": "~0.7.2",
         "cordova-plugin-facebook4": "4.2.1",

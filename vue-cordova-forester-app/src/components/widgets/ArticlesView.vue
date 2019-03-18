@@ -9,7 +9,7 @@
                 <h3 class="header pt-1 pl-2">Reszta aktualności:</h3>
 
                 <v-article v-for="(content, index) in contentList.slice(1)" :content-data="content" :index="index" :key="content.id" />
-
+    
             </v-card>
 
         </v-layout>

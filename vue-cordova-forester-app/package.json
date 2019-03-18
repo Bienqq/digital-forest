@@ -10,8 +10,7 @@
     "cordova-build-ios": "vue-cli-service cordova-build-ios",
     "cordova-serve-android": "vue-cli-service cordova-serve-android",
     "cordova-serve-browser": "vue-cli-service cordova-serve-browser",
-    "cordova-serve-ios": "vue-cli-service cordova-serve-ios",
-    "cordova-debug-android": "vue-cli-service cordova-serve-android"
+    "cordova-serve-ios": "vue-cli-service cordova-serve-ios"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
