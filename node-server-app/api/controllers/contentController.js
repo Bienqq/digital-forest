@@ -116,7 +116,7 @@ exports.deleteContent = (request, response, next) => {
 		.then(article => {
 			// delete content from static directory
 			for (media of article.media) {
-				fs.unlinkSync(`${__dirname}\\..\\..\\${media.path}`)
+				fs.unlinkSync(`${__dirname}/../../${media.path}`)
 			}
 			return response.status(204).end()
 		})
