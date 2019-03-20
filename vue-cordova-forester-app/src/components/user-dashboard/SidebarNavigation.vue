@@ -30,7 +30,7 @@
                         <v-icon>dashboard</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content class="pt-1">
-                        <v-list-tile-title class="subheading">Dashboard</v-list-tile-title>
+                        <v-list-tile-title class="subheading">Panel {{userDashboardNameComputed}}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
 

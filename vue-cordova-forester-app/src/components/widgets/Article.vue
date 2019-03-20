@@ -9,20 +9,23 @@
                     <v-flex xs5 class="pa-1">
 
                         <v-img v-if="content.media.length == 1" :src="content.media[0].path" :alt="content.media[0].name" height="33vw"></v-img>
-                       
+
                         <v-carousel v-else hide-delimiters hide-controls height="33vw">
-                            <v-carousel-item v-for="(media, index) in content.media" :key="index" :src="media.path"></v-carousel-item>            
+                            <v-carousel-item v-for="(media, index) in content.media" :key="index" :src="media.path"></v-carousel-item>
                         </v-carousel>
 
                     </v-flex>
-                    <v-flex xs7>
+                    <v-flex xs7 class="wrapper">
                         <v-card-title primary-title class="pa-2">
                             <div>
                                 <div class="headline">{{content.title}}</div>
                                 <div class="subheading">{{content.subTitle}}</div>
                             </div>
                         </v-card-title>
-
+                        <div class="location-left text-xs-right">
+                            <v-icon class="white--text" medium>location_on</v-icon>
+                            <span>Warszawa</span>
+                        </div>
                     </v-flex>
                 </v-layout>
 
@@ -55,27 +58,37 @@
 
         <!-- Right image card  -->
         <v-flex v-else xs12 class="pa-2">
-           
-            <v-card color="purple" class="white--text elevation-8 gradient-light-dark animated fadeIn">
+
+            <v-card class="white--text elevation-8 gradient-light-dark animated fadeIn">
                 <v-layout row class="pa-2">
-                    <v-flex xs7>
+                    <v-flex xs7 class="wrapper">
                         <v-card-title primary-title class="pa-2">
                             <div>
                                 <div class="headline">{{ content.title}}</div>
                                 <div class="subheading">{{ content.subtitle }}</div>
                             </div>
                         </v-card-title>
+
+                        <div class="location-right  pr-2">
+                            <v-icon class="white--text" medium>location_on</v-icon>
+                            <span>Warszawa</span>
+                        </div>
+
                     </v-flex>
+
                     <v-flex xs5>
 
                         <v-img v-if="content.media.length == 1" :src="content.media[0].path" :alt="content.media[0].name" height="33vw"></v-img>
-                    
+
                         <v-carousel v-else hide-delimiters hide-controls height="33vw">
                             <v-carousel-item v-for="(media, index) in content.media" :key="index" :src="media.path"></v-carousel-item>
                         </v-carousel>
 
+
                     </v-flex>
+
                 </v-layout>
+
 
                 <v-divider dark class="mx-2"></v-divider>
 
@@ -134,4 +147,20 @@
         background-image: linear-gradient(to top, #004d34, #08653e, #1c7d47, #32964c, #4caf50);
     }
 
+    .wrapper {
+        position: relative;
+    }
+
+    .location-right {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: right;
+    }
+
+    .location-left {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
 </style>

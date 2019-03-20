@@ -4,16 +4,22 @@
 
             <v-img v-if="content.media.length == 1" :src="content.media[0].path" :alt="content.media[0].name" contain></v-img>
 
-            <v-carousel v-else hide-delimiters hide-controls height="60vw">
+            <v-carousel v-else hide-delimiters hide-controls height="50vw">
                 <v-carousel-item v-for="(media, index) in content.media" :key="index" :src="media.path"></v-carousel-item>
             </v-carousel>
+
 
             <v-card-title primary-title>
                 <div>
                     <div class="headline">{{content.title}}</div>
                     <div class="subheading">{{content.subTitle}}</div>
                 </div>
+
             </v-card-title>
+                <div class="text-xs-right pb-2 px-3">
+                    <v-icon class="white--text" medium>location_on</v-icon> 
+                     <span>Warszawa</span> 
+                </div>
             <v-divider dark class="mx-2"></v-divider>
 
             <v-card-actions>
