@@ -5,26 +5,29 @@
         <v-flex v-if="index % 2 == 0" xs12 class="pa-2">
 
             <v-card class="white--text elevation-8 gradient-dark-light animated fadeIn">
-                <v-layout class="pa-2">
-                    <v-flex xs5 class="pa-1">
+                <v-layout row class="pa-2">
+                    <v-flex xs5 align-self-center>
 
-                        <v-img v-if="content.media.length == 1" :src="content.media[0].path" :alt="content.media[0].name" height="33vw"></v-img>
+                        <div v-if="content.media.length != 0">
+                            <v-img v-if="content.media.length == 1" :src="content.media[0].path" :alt="content.media[0].name" height="33vw"></v-img>
 
-                        <v-carousel v-else hide-delimiters hide-controls height="33vw">
-                            <v-carousel-item v-for="(media, index) in content.media" :key="index" :src="media.path"></v-carousel-item>
-                        </v-carousel>
+                            <v-carousel v-else hide-delimiters hide-controls height="33vw">
+                                <v-carousel-item v-for="(media, index) in content.media" :key="index" :src="media.path"></v-carousel-item>
+                            </v-carousel>
+                        </div>
 
                     </v-flex>
-                    <v-flex xs7 class="wrapper">
-                        <v-card-title primary-title class="pa-2">
+
+                    <v-flex xs7 class="wrapper-relative">
+                        <v-card-title primary-title class="pa-2 mb-2">
                             <div>
                                 <div class="headline">{{content.title}}</div>
                                 <div class="subheading">{{content.subTitle}}</div>
                             </div>
                         </v-card-title>
-                        <div class="location-left text-xs-right">
-                            <v-icon class="white--text" medium>location_on</v-icon>
-                            <span>Warszawa</span>
+                        <div class="location-left pl-1 text-xs-right caption">
+                            <v-icon class="white--text" small>location_on</v-icon>
+                            <span>Polska, Warszawa</span>
                         </div>
                     </v-flex>
                 </v-layout>
@@ -61,28 +64,30 @@
 
             <v-card class="white--text elevation-8 gradient-light-dark animated fadeIn">
                 <v-layout row class="pa-2">
-                    <v-flex xs7 class="wrapper">
-                        <v-card-title primary-title class="pa-2">
+                    <v-flex xs7 class="wrapper-relative">
+                        <v-card-title primary-title class="pa-2 mb-2">
                             <div>
                                 <div class="headline">{{ content.title}}</div>
                                 <div class="subheading">{{ content.subtitle }}</div>
                             </div>
                         </v-card-title>
 
-                        <div class="location-right  pr-2">
-                            <v-icon class="white--text" medium>location_on</v-icon>
-                            <span>Warszawa</span>
+                        <div class="location-left pl-1 caption">
+                            <v-icon class="white--text" small>location_on</v-icon>
+                            <span>Polska, Warszawa</span>
                         </div>
 
                     </v-flex>
 
-                    <v-flex xs5>
+                    <v-flex xs5 align-self-center>
 
-                        <v-img v-if="content.media.length == 1" :src="content.media[0].path" :alt="content.media[0].name" height="33vw"></v-img>
+                        <div v-if="content.media.length != 0">
+                            <v-img v-if="content.media.length == 1" :src="content.media[0].path" :alt="content.media[0].name" height="33vw"></v-img>
 
-                        <v-carousel v-else hide-delimiters hide-controls height="33vw">
-                            <v-carousel-item v-for="(media, index) in content.media" :key="index" :src="media.path"></v-carousel-item>
-                        </v-carousel>
+                            <v-carousel v-else hide-delimiters hide-controls height="33vw">
+                                <v-carousel-item v-for="(media, index) in content.media" :key="index" :src="media.path"></v-carousel-item>
+                            </v-carousel>
+                        </div>
 
 
                     </v-flex>
@@ -95,7 +100,7 @@
                 <v-card-actions class="pl-3 py-0">
                     <p @click="showMore = !showMore"> Czytaj więcej </p>
                     <v-btn icon @click="showMore = !showMore">
-                        <v-icon class=" white--text">{{ showMore ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
+                        <v-icon class="white--text">{{ showMore ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
                     </v-btn>
                     <v-spacer></v-spacer>
                     {{content.publishDate}}
@@ -147,20 +152,13 @@
         background-image: linear-gradient(to top, #004d34, #08653e, #1c7d47, #32964c, #4caf50);
     }
 
-    .wrapper {
+    .wrapper-relative {
         position: relative;
-    }
-
-    .location-right {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        text-align: right;
     }
 
     .location-left {
         position: absolute;
-        bottom: 0;
+        bottom: -5%;
         width: 100%;
     }
 </style>

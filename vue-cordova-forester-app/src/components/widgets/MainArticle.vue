@@ -2,12 +2,13 @@
     <v-flex xs12 class="ma-2">
         <v-card class="v-card mt-1 white--text elevation-8 gradient-light-dark animated fadeIn">
 
-            <v-img v-if="content.media.length == 1" :src="content.media[0].path" :alt="content.media[0].name" contain></v-img>
+            <div v-if="content.media.length != 0">
+                <v-img v-if="content.media.length == 1" :src="content.media[0].path" :alt="content.media[0].name" contain></v-img>
 
-            <v-carousel v-else hide-delimiters hide-controls height="50vw">
-                <v-carousel-item v-for="(media, index) in content.media" :key="index" :src="media.path"></v-carousel-item>
-            </v-carousel>
-
+                <v-carousel v-else hide-delimiters hide-controls height="50vw">
+                    <v-carousel-item v-for="(media, index) in content.media" :key="index" :src="media.path"></v-carousel-item>
+                </v-carousel>
+            </div>
 
             <v-card-title primary-title>
                 <div>
@@ -16,10 +17,10 @@
                 </div>
 
             </v-card-title>
-                <div class="text-xs-right pb-2 px-3">
-                    <v-icon class="white--text" medium>location_on</v-icon> 
-                     <span>Warszawa</span> 
-                </div>
+            <div class="text-xs-right pb-2 px-3">
+                <v-icon class="white--text" medium>location_on</v-icon>
+                <span>Warszawa</span>
+            </div>
             <v-divider dark class="mx-2"></v-divider>
 
             <v-card-actions>

@@ -9,7 +9,8 @@
     </author>
     <content src="http://192.168.0.73:8081" />
     <allow-navigation href="http://192.168.1.103:8080" />
-    <content src="http://192.168.0.73:8081" />
+    <content src="http://192.168.0.73:8080" />
+    <allow-navigation href="http://192.168.0.73:8080" />
     <allow-navigation href="http://192.168.0.73:8081" />
     <allow-navigation href="http://192.168.0.73:8080" />
     <allow-navigation href="http://192.168.0.164:8081" />
@@ -49,6 +50,6 @@
         <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="true" />
         <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" />
     </plugin>
+    <engine name="browser" spec="5.0.4" />
     <engine name="android" spec="^7.1.4" />
-    <engine name="browser" spec="~5.0.4" />
 </widget>
