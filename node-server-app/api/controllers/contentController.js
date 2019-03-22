@@ -81,14 +81,11 @@ exports.getAllContent = (request, response, next) => {
 					description: article.description,
 					media: getMedia(request, article.media),
 					publisher: publisher,
-					publishDate: article.publishDate.toISOString().substring(0, 10)
+					publishDate: article.publishDate.toISOString().substring(0, 10),
 				}
 				contentResultList.push(contentResult)
 			}
-			const res = {
-				count: articles.length,
-				content: contentResultList
-			}
+			const res = { count: articles.length, content: contentResultList }
 			return response.status(200).json(res)
 		})
 		.catch(err => {
@@ -99,13 +96,9 @@ exports.getAllContent = (request, response, next) => {
 function getMedia(request, medias) {
 	const resultMediasList = []
 	for (media of medias) {
-		let { name, dimensions, path } = media
+		let { name, dimensions, type, path } = media
 		path = `${request.protocol}://${request.hostname}:${process.env.PORT || 8080}/${path}`
-		const mediaResult = {
-			name,
-			dimensions,
-			path
-		}
+		const mediaResult = { name, dimensions, type, path }
 		resultMediasList.push(mediaResult)
 	}
 	return resultMediasList
