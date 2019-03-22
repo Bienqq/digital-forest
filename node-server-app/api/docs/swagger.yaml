@@ -189,12 +189,16 @@ paths:
       parameters:
         - name: medias
           description: |
-            Files to upload, up to 10 files can be send 
+            Files to upload, **up to 10 imates and 1 video** can be send 
 
             Accepted files: 
               *  mp4
               *  png 
               *  jpeg 
+            
+            The length of the title/subtitle **cannot exceed 30** characters
+            
+            The length of the description **cannot exceed 1000** characters
 
           in: formData
           type: array
@@ -414,6 +418,9 @@ definitions:
       name:
         type: string
         example: "image.png"
+      type:
+        type: string
+        example: video
       dimensions:
         type: object
         properties:

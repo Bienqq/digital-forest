@@ -3,8 +3,9 @@ const multer = require("multer")
 const crypto = require("crypto")
 const fs = require("fs")
 
-const UPLOAD_FILES_MAX_AMOUNT = process.env.UPLOAD_FILES_MAX_AMOUNT
-const UPLOAD_FILE_MAX_SIZE = process.env.UPLOAD_FILE_MAX_SIZE
+const UPLOAD_FILE_MAX_SIZE = Number(process.env.UPLOAD_FILE_MAX_SIZE)
+const UPLOAD_FILES_MAX_AMOUNT = Number(process.env.UPLOAD_FILES_MAX_AMOUNT)
+
 const UPLOAD_FILES_ACCEPTED_FORMATS = process.env.UPLOAD_FILES_ACCEPTED_FORMATS.split(",")
 const UPLOAD_FILES_DIRECTORY = process.env.UPLOAD_FILES_DIRECTORY
 
@@ -45,6 +46,23 @@ const uploader = multer({
 		fileSize: UPLOAD_FILE_MAX_SIZE
 	},
 	fileFilter: fileFilterConfig,
-})
+}).array("medias", UPLOAD_FILES_MAX_AMOUNT)
 
-module.exports = uploader.array("medias", UPLOAD_FILES_MAX_AMOUNT)
+//special handler for incoming files
+const uploadHandler = (request, response, next) => {
+	uploader(request, response, (err) => {
+		// error mapping
+		if (err) {
+			if (err.code == "LIMIT_UNEXPECTED_FILE") {
+				return next(new ApiError("Zbyt duza ilość przesłanych plików", 400))
+			}
+			return next(err)
+		} else {
+			// special workaround for files validating with express-validator
+			request.body.files = request.files
+			next()
+		}
+	})
+}
+
+module.exports = uploadHandler

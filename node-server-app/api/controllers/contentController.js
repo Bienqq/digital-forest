@@ -40,7 +40,8 @@ function getMediaFromRequest(request) {
 		const media = {
 			name: mediaFile.originalname,
 			path: mediaFile.path.replace(/\\/g, "/"), // replacing backslash in path with forwardslash
-			dimensions: getMediaDimensions(mediaFile)
+			dimensions: getMediaDimensions(mediaFile),
+			type: mediaFile.originalname.split(".")[1] === "mp4" ? "video" : "image"
 		}
 		medias.push(media)
 	}
@@ -67,6 +68,7 @@ function getMediaDimensions(mediaFile) {
 exports.getAllContent = (request, response, next) => {
 	Article.find()
 		.select("_id title subTitle description publishDate media publisherUserId publisher")
+		.sort({ publishDate: "descending" })
 		.then(async articles => {
 			const contentResultList = []
 			for (let article of articles) {
@@ -80,7 +82,6 @@ exports.getAllContent = (request, response, next) => {
 					media: getMedia(request, article.media),
 					publisher: publisher,
 					publishDate: article.publishDate.toISOString().substring(0, 10)
-
 				}
 				contentResultList.push(contentResult)
 			}
@@ -114,7 +115,7 @@ exports.deleteContent = (request, response, next) => {
 	//deleting content data from database
 	Article.findByIdAndDelete(request.params.contentId)
 		.then(article => {
-			if(!article){
+			if (!article) {
 				return response.status(204).end()
 			}
 			// delete content from static directory

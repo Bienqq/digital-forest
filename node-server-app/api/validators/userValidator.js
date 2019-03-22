@@ -16,9 +16,7 @@ exports.userSignUpValidator = [
 	check("firstName").not().isEmpty().withMessage("Imię nie może być puste"),
 	check("lastName").not().isEmpty().withMessage("Nazwisko nie może być puste"),
 	// optional validator for FORESTER role
-	body("role").custom((role, {
-		req
-	}) => {
+	body("role").custom((role, { req }) => {
 		if (role === FORESTER_ROLE) {
 			let personalId = req.body.personalId
 			if (!personalId) {
