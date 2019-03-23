@@ -3,12 +3,15 @@ const User = require("../models/user")
 const checkValidation = require("../validators/checkValidation")
 const ApiError = require("../common/ApiError")
 const mongoose = require("mongoose")
-const sizeOf = require("image-size");
-const fs = require("fs");
-const VideoLib = require("node-video-lib");
+const sizeOf = require("image-size")
+const fs = require("fs")
+const VideoLib = require("node-video-lib")
+const ffmpeg = require("ffmpeg")
+
+const UPLOAD_FILES_DIRECTORY = process.env.UPLOAD_FILES_DIRECTORY
 
 // upload is a midleware before handling request itself
-exports.uploadContent = (request, response, next) => {
+exports.uploadContent = async (request, response, next) => {
 	const err = checkValidation(request)
 	if (err) {
 		return next(err)
@@ -21,7 +24,7 @@ exports.uploadContent = (request, response, next) => {
 		subTitle: request.body.subTitle !== undefined ? request.body.subTitle : undefined,
 		description: request.body.description,
 		publishDate: new Date(),
-		media: getMediaFromRequest(request),
+		media: await getMediaFromRequest(request),
 		publisherUserId: request.userContext.id
 	})
 
@@ -33,19 +36,37 @@ exports.uploadContent = (request, response, next) => {
 		})
 }
 
-function getMediaFromRequest(request) {
+async function getMediaFromRequest(request) {
 	const mediaFiles = request.files
 	const medias = []
 	for (let mediaFile of mediaFiles) {
+		//getting type of media 
+		const type = mediaFile.originalname.split(".")[1] === "mp4" ? "video" : "image"
+		//create poster only when we have video
+		const posterPath = type === "video" ? await getPosterFromVideo(mediaFile) : undefined
 		const media = {
 			name: mediaFile.originalname,
 			path: mediaFile.path.replace(/\\/g, "/"), // replacing backslash in path with forwardslash
 			dimensions: getMediaDimensions(mediaFile),
-			type: mediaFile.originalname.split(".")[1] === "mp4" ? "video" : "image"
+			type: type,
+			posterPath: posterPath
 		}
 		medias.push(media)
 	}
 	return medias
+}
+
+async function getPosterFromVideo(mediaFile) {
+	const nameWithoutExtension = mediaFile.filename.split(".")[0]
+	const posterName = `poster_${nameWithoutExtension}.jpeg`
+	const posterPath = `${UPLOAD_FILES_DIRECTORY}/${posterName}`
+	// create ffmpeg command to extract 1 frame from video
+	const ffmpegProcess = await new ffmpeg(`./${mediaFile.path}`)
+	ffmpegProcess.addCommand("-ss", "00:00:00")
+	ffmpegProcess.addCommand("-vframes", "1")
+	//executing ffmpeg comand and save frame jpg result to uploads directory
+	ffmpegProcess.save(posterPath)
+	return posterPath
 }
 
 function getMediaDimensions(mediaFile) {
@@ -96,9 +117,13 @@ exports.getAllContent = (request, response, next) => {
 function getMedia(request, medias) {
 	const resultMediasList = []
 	for (media of medias) {
-		let { name, dimensions, type, path } = media
-		path = `${request.protocol}://${request.hostname}:${process.env.PORT || 8080}/${path}`
-		const mediaResult = { name, dimensions, type, path }
+		let { name, dimensions, type, path, posterPath } = media
+		const hostPath = `${request.protocol}://${request.hostname}:${process.env.PORT || 8080}/`
+		path = hostPath + path
+		if (posterPath !== undefined) {
+			posterPath = hostPath + posterPath
+		}
+		const mediaResult = { name, dimensions, type, path, posterPath }
 		resultMediasList.push(mediaResult)
 	}
 	return resultMediasList

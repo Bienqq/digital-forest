@@ -43,6 +43,9 @@ const articleSchema = mongo.Schema({
 			type: String,
 			required: true,
 		},
+		posterPath: {
+			type: String
+		}
 	}],
 	publisherUserId: mongo.Schema.Types.ObjectId
 })
