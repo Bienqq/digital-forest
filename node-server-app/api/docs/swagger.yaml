@@ -196,9 +196,9 @@ paths:
               *  png 
               *  jpeg 
             
-            The length of the title/subtitle **cannot exceed 30** characters
+            The length of the `title`/`subtitle` **cannot exceed 30** characters
             
-            The length of the description **cannot exceed 1000** characters
+            The length of the `description` **cannot exceed 1000** characters
 
           in: formData
           type: array
@@ -242,7 +242,10 @@ paths:
       tags:
       - Content
       summary: Get all published content
-      description: This endpoint enable to get all published content by all users in whole history
+      description: | 
+        This endpoint enable to get all published content by all users in whole history 
+         \
+         Note that in case of video additional field `posterPath` will be send
       produces:
         - application/json
       responses:
@@ -399,6 +402,7 @@ definitions:
       subTitle: 
         type: string
         example: "Amazing holidays in Poland"
+        info: Optional field
       description:
         type: string
         example: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id vestibulum quam. Donec id fringilla urna. Etiam volutpat a augue ultricies varius. Nam auctor suscipit maximus. Etiam vel erat vehicula, pharetra nulla a, tempus tellus"
@@ -432,7 +436,11 @@ definitions:
               example: 500
       path: 
         type: string
-        example: "http://192.168.0.73:8090/uploads/764a6a20f92050fd0ae1.png"
+        example: "http://35.246.63.75:8090/uploads/656f7c1a8d715f767558.mp4"
+      posterPath:
+        type: string
+        info: This field will be send only in case of video
+        example: "http://35.246.63.75:8090/uploads/poster_656f7c1a8d715f767558.jpeg"
   UserInfo:
     properties:
       firstName:
