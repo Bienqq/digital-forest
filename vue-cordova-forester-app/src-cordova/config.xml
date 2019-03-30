@@ -11,8 +11,6 @@
     <allow-navigation href="http://192.168.1.103:8080" />
     <content src="http://192.168.0.73:8080" />
     <allow-navigation href="http://192.168.0.73:8080" />
-    <allow-navigation href="http://192.168.0.73:8081" />
-    <allow-navigation href="http://192.168.0.73:8080" />
     <allow-navigation href="http://192.168.0.164:8081" />
     <allow-navigation href="http://192.168.1.106:8080" />
     <allow-navigation href="http://192.168.1.103:8080" />
@@ -23,7 +21,7 @@
     <access origin="*" />
     <platform name="android">
         <allow-intent href="market:*" />
-        <preference name="orientation" value="portrait" />
+        <preference name="android-minSdkVersion" value="20" />
         <preference name="SplashScreenSpinnerColor" value="white" />
         <preference name="fullscreen" value="false" />
         <preference name="loadUrlTimeoutValue" value="700000" />
@@ -42,7 +40,6 @@
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="cordova-plugin-background-mode" spec="~0.7.2" />
-    <plugin name="com.danielsogl.backashome" spec="~0.1.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="2.1.3" />
     <plugin name="cordova-plugin-facebook4" spec="4.2.1">
         <variable name="APP_ID" value="396137357845888" />
@@ -50,6 +47,6 @@
         <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="true" />
         <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" />
     </plugin>
-    <engine name="browser" spec="5.0.4" />
-    <engine name="android" spec="^7.1.4" />
+    <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
+    <engine name="android" spec="^8.0.0" />
 </widget>

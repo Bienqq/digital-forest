@@ -9,7 +9,7 @@
 
             <v-progress-circular v-if="loading" :size="60" :width="5" color="white" indeterminate />
 
-            <articles-view v-if="!loading" :content-list="content.data" :content-amount="content.count" />
+            <articles-view v-else v-bind="addRefAfterContentLoaded" :content-list="content.data" :content-amount="content.count" />
 
             <v-dialog v-model="logoutDialog" max-width="330px">
                 <v-card>
@@ -66,12 +66,17 @@
             //this method call method from its child compoment
             handleSwipe(direction) {
                 this.$refs.sidebarNavigation.handleSwipe(direction)
+
             },
             // works only android backbutton - logging out 
             handleBackButton() {
-                this.logoutDialog = true;
+                const noModalVisible = this.$refs.articlesViewRef.articleModal === ""
+                if (noModalVisible) {
+                    this.logoutDialog = true
+                }
             },
             logout() {
+
                 this.removeTokensFromLocalStorage()
                 this.clearUserContext()
                 this.showSnackbar({
@@ -125,6 +130,14 @@
                 "getTokenFromLocalStorage",
                 "getRefreshTokenFromLocalStorage"
             ]),
+            // add reference to child component AriclesView after content loading
+            addRefAfterContentLoaded: function() {
+                if (this.loading == false) {
+                    return {
+                        ref: "articlesViewRef"
+                    }
+                }
+            }
         },
         // before route EnterTheForest component add backing to previous view by clicking backbutton
         beforeRouteEnter(to, from, next) {
@@ -135,7 +148,8 @@
             document.removeEventListener("backbutton", this.handleBackButton)
             next()
         },
-        async mounted() {
+        // geting user info and get connent parallel
+        async created() {
             this.getUserInfo()
             this.getContent()
         },
@@ -152,5 +166,5 @@
         height: 100%;
         width: 5vw;
         padding: 0;
-    } 
+    }
 </style>
