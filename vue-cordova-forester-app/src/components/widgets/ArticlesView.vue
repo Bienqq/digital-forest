@@ -4,24 +4,17 @@
         <v-layout align-center column fill-height width="100vw">
             <v-card width="96vw" class="vcard-options" color="rgba(240,240,240,1)">
 
-                <main-article :content-data="contentList[0]" @showModal="handleModal('main-article', true)" />
+                <main-article :content-data="contentList[0]" @showModal="handleModal" />
 
                 <h3 v-if="contentAmount >= 2" class="header pt-1 pl-2">Reszta aktualności:</h3>
 
                 <h3 v-if="contentAmount == 0" class="header pt-1 pl-2">Aktualnie nie ma żadnych wpisów</h3>
 
-                <v-article v-for="(content, index) in contentList.slice(1)" :content-data="content" :index="index" :key="content.id" />
+                <v-article v-for="(content, index) in contentList.slice(1)" :content-data="content" :index="index" :key="content.id" @showModal="handleModal" />
 
             </v-card>
 
-
-            <v-dialog v-model="turnOnArticleModal" lazy scrollable>
-                <v-layout align-center d-block justify-center column>
-                    <v-card class="py-1">
-                        <component :is="articleModal" v-bind="articleModalProps" />
-                    </v-card>
-                </v-layout>
-            </v-dialog>
+            <article-modal v-if="showModal" :content-data="modalContent" @closeModal="showModal = false" />
 
         </v-layout>
 
@@ -33,11 +26,13 @@
 <script>
     import MainArticle from "./MainArticle"
     import Article from "./Article"
-
+    import ArticleModal from "./ArticleModal"
+  
     export default {
         components: {
             "main-article": MainArticle,
             "v-article": Article,
+            "article-modal": ArticleModal
         },
         props: {
             contentList: {
@@ -49,33 +44,19 @@
         },
         data() {
             return {
-                articleModal: "",
-                turnOnArticleModal: false,
+                showModal: false,
+                modalContent: null
             }
         },
         methods: {
-            handleModal(article, visible) {
-                this.turnOnArticleModal = visible
-                if (visible == false) {
-                    setTimeout(() => this.articleModal = article, 400)
-                } else {
-                    this.articleModal = article
-                }
-            },
-        },
-        computed: {
-            articleModalProps: function() {
-                if (this.articleModal !== "") {
-                    return {
-                        "content-data": this.contentList[0],
-                        "description-visible": true,
-                    }
-                }
+            handleModal(content) {
+                this.modalContent = content
+                this.showModal = true
             }
         },
         created() {
             document.addEventListener("backbutton", () => {
-                this.handleModal("", false)
+                this.showModal = false
             })
         },
     };

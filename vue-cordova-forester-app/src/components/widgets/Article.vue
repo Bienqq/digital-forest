@@ -4,7 +4,7 @@
         <!-- Left image card  -->
         <v-flex v-if="index % 2 == 0" xs12 class="pa-2">
 
-            <v-card class="white--text elevation-8 gradient-dark-light animated fadeIn">
+            <v-card class="white--text elevation-8 gradient-dark-light animated fadeIn" @click="$emit('showModal', content)">
                 <v-layout row class="pa-2">
                     <v-flex xs5 align-self-center>
 
@@ -47,7 +47,7 @@
                 <v-card-actions class="pl-3 py-0">
                     <p @click="showMore = !showMore"> Czytaj więcej </p>
                     <v-btn icon @click="showMore = !showMore">
-                        <v-icon class=" white--text">{{ showMore ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
+                        <v-icon class="white--text">{{ showMore ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
                     </v-btn>
                     <v-spacer></v-spacer>
                     {{content.publishDate}}
@@ -72,14 +72,14 @@
         <!-- Right image card  -->
         <v-flex v-else xs12 class="pa-2">
 
-            <v-card class="white--text elevation-8 gradient-light-dark animated fadeIn">
+            <v-card class="white--text elevation-8 gradient-light-dark animated fadeIn" @click="$emit('showModal', content)">
                 <v-layout row class="pa-2">
                     <v-flex xs7 class="wrapper-relative">
                         <v-card-title primary-title class="pa-2 mb-2">
                             <div>
                                 <div class="headline">{{ content.title}}</div>
                                 <div class="subheading">{{ content.subTitle }}</div>
-                                                                <div class="hidden-xs-only mt-2">
+                                <div class="hidden-xs-only mt-2">
                                     {{descriptionPreview}}
                                 </div>
                             </div>
@@ -155,6 +155,10 @@
             },
             index: {
                 type: Number
+            },
+            descriptionVisible: {
+                type: Boolean,
+                default: false,
             }
         },
         components: {
@@ -162,9 +166,8 @@
         },
         data() {
             return {
-                show: false,
                 content: this.contentData,
-                showMore: false,
+                showMore: this.descriptionVisible,
                 plyrOptions: {
                     controls: [
                         "play",

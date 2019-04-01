@@ -70,8 +70,7 @@
             },
             // works only android backbutton - logging out 
             handleBackButton() {
-                const noModalVisible = this.$refs.articlesViewRef.articleModal === ""
-                if (noModalVisible) {
+                if (this.$refs.articlesViewRef.showModal === false) {
                     this.logoutDialog = true
                 }
             },
@@ -167,4 +166,7 @@
         width: 5vw;
         padding: 0;
     }
+
+
+    
 </style>

@@ -1,6 +1,6 @@
 <template>
     <v-flex xs12 class="ma-2" v-if="content !== undefined">
-        <v-card class="v-card mt-1 white--text elevation-8 gradient-light-dark animated fadeIn" @click="$emit('showModal')">
+        <v-card class="v-card mt-1 white--text elevation-8 gradient-light-dark animated fadeIn" @click="$emit('showModal', content)">
 
             <div v-if="content.media != undefined && content.media.length != 0" @click.stop="">
                 <v-img v-if="content.media.length == 1 && mediaType == 'image'" :src="content.media[0].path" :alt="content.media[0].name" contain></v-img>
@@ -21,6 +21,9 @@
                 <div>
                     <div class="headline">{{content.title}}</div>
                     <div class="subheading">{{content.subTitle}}</div>
+                    <div class="hidden-xs-only mt-2">
+                        {{descriptionPreview}}
+                    </div>
                 </div>
 
             </v-card-title>
@@ -99,10 +102,19 @@
         },
         methods: {
             handleExitFullScreen() {
-               window.screen.orientation.lock('portrait')
+                window.screen.orientation.lock('portrait')
             },
             handleEnterFullScreen() {
-               window.screen.orientation.unlock()
+                window.screen.orientation.unlock()
+            }
+        },
+        computed: {
+            descriptionPreview() {
+                if (this.content.description.length > 400) {
+                    return this.content.description.substring(0, 400) + "..."
+                } else {
+                    return this.content.description
+                }
             }
         },
     }
