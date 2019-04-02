@@ -14,8 +14,9 @@
 
             </v-card>
 
-            <article-modal v-if="showModal" :content-data="modalContent" @closeModal="showModal = false" />
-
+           
+                <article-modal v-if="showModal" :content-data="modalContent" @closeModal="showModal = false" />
+           
         </v-layout>
 
         <router-view />
@@ -27,7 +28,7 @@
     import MainArticle from "./MainArticle"
     import Article from "./Article"
     import ArticleModal from "./ArticleModal"
-  
+
     export default {
         components: {
             "main-article": MainArticle,
@@ -80,5 +81,13 @@
     .vcard-options {
         margin-top: 10vw;
         padding-top: 1vw;
+    }
+
+    .modal-animated-enter-active {
+        animation: zoomIn .4s;
+    }
+
+    .modal-animated-leave-active {
+        animation: zoomOut .4s;
     }
 </style>

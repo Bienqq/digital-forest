@@ -8,7 +8,7 @@
                 <v-layout row class="pa-2">
                     <v-flex xs5 align-self-center>
 
-                        <div v-if="content.media != undefined && content.media.length != 0">
+                        <div v-if="content.media != undefined && content.media.length != 0" @click.stop="">
 
                             <v-img v-if="content.media.length == 1 && content.media[0].type == 'image'" :src="content.media[0].path" :alt="content.media[0].name" height="33vw"></v-img>
 
@@ -45,8 +45,8 @@
                 <v-divider dark class="mx-2 mt-2"></v-divider>
 
                 <v-card-actions class="pl-3 py-0">
-                    <p @click="showMore = !showMore"> Czytaj więcej </p>
-                    <v-btn icon @click="showMore = !showMore">
+                    <p @click.stop="showMore = !showMore"> Czytaj więcej </p>
+                    <v-btn icon @click.stop="showMore = !showMore">
                         <v-icon class="white--text">{{ showMore ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
                     </v-btn>
                     <v-spacer></v-spacer>
@@ -94,7 +94,7 @@
 
                     <v-flex xs5 align-self-center>
 
-                        <div v-if="content.media != undefined && content.media.length != 0">
+                        <div v-if="content.media != undefined && content.media.length != 0" @click.stop="">
 
                             <v-img v-if="content.media.length == 1 && content.media[0].type == 'image'" :src="content.media[0].path" :alt="content.media[0].name" height="33vw"></v-img>
 
@@ -117,8 +117,8 @@
                 <v-divider dark class="mx-2 mt-2"></v-divider>
 
                 <v-card-actions class="pl-3 py-0">
-                    <p @click="showMore = !showMore"> Czytaj więcej </p>
-                    <v-btn icon @click="showMore = !showMore">
+                    <p @click.stop="showMore = !showMore"> Czytaj więcej </p>
+                    <v-btn icon @click.stop="showMore = !showMore">
                         <v-icon class="white--text">{{ showMore ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
                     </v-btn>
                     <v-spacer></v-spacer>
