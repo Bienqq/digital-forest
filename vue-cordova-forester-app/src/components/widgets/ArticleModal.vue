@@ -1,24 +1,11 @@
 <template>
-    <v-dialog id="modal-dialog" :content-class="['animated', 'zoomIn']" scrollable v-model="show">
+    <v-dialog :content-class="['modal-dialog']" scrollable v-model="show">
         <v-layout class="animated fadeIn faster" column fill-height>
             <v-card>
                 <v-flex xs12 class="ma-2" v-if="content !== undefined">
-                    <v-card class="v-card mt-1 white--text elevation-8 gradient-light-dark" @click="$emit('showModal', content)">
+                    <v-card class="v-card mt-1 white--text elevation-8 gradient-light-dark">
 
-                        <div v-if="content.media != undefined && content.media.length != 0" v-on:dblclick="doubleClick">
-                            <v-img v-if="content.media.length == 1 && mediaType == 'image'" :src="content.media[0].path" :alt="content.media[0].name" contain max-height="80vw"></v-img>
-
-                            <vue-plyr v-else-if="mediaType == 'video'" ref="videoPlayer" :options="plyrOptions" :emit="['enterfullscreen', 'exitfullscreen']" @exitfullscreen="handleExitFullScreen()" @enterfullscreen="handleEnterFullScreen()">
-                                <video :poster="content.media[0].posterPath">
-                                    <source :src="content.media[0].path" type="video/mp4" size="720">
-                                </video>
-                            </vue-plyr>
-
-                            <v-carousel v-else hide-delimiters hide-controls height="50vw">
-                                <v-carousel-item v-for="(media, index) in content.media" :key="index" :src="media.path"></v-carousel-item>
-                            </v-carousel>
-
-                        </div>
+                        <article-media :media="content.media" img-height="80vw" carousel-height="50vw"></article-media>
 
                         <v-card-title primary-title>
                             <div>
@@ -64,12 +51,8 @@
 </template>
 
 <script>
-    import {
-        VuePlyr
-    } from 'vue-plyr'
-
-    import 'vue-plyr/dist/vue-plyr.css'
-
+    import ArticleMedia from "./ArticleMedia"
+    
     export default {
         props: {
             contentData: {
@@ -77,43 +60,13 @@
             },
         },
         components: {
-            "vue-plyr": VuePlyr,
+            "article-media":ArticleMedia
         },
         data() {
             return {
                 show: true,
                 content: this.contentData,
                 showMore: true,
-                mediaType: this.contentData.media[0].type,
-                plyrOptions: {
-                    controls: [
-                        "play",
-                        "progress",
-                        "current-time",
-                        "mute",
-                        "volume",
-                        "fullscreen",
-                    ],
-                },
-            }
-        },
-
-        methods: {
-            handleExitFullScreen() {
-                window.screen.orientation.lock('portrait')
-            },
-            handleEnterFullScreen() {
-                window.screen.orientation.unlock()
-            },
-            mediaClicked() {
-                if (this.mediaType === "video") {
-
-                }
-                console.log("single click")
-                //console.log(this.$refs.videoPlayer.player.play())
-            },
-            doubleClick() {
-                console.log("doubleclick")
             }
         },
         watch: {
@@ -127,12 +80,9 @@
 
 <style lang="scss">
     // no scoped styles here in order to override child v-dialog styles with new ones
-    #modal-dialog {
-        .v-dialog {
-            margin: 5px;
-        }
+    .modal-dialog{
+        margin: 30px 0 0 0 !important;
     }
-
     .publisher {
         position: absolute;
         bottom: 0;

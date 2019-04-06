@@ -14,8 +14,7 @@
 
             </v-card>
 
-           
-                <article-modal v-if="showModal" :content-data="modalContent" @closeModal="showModal = false" />
+            <article-modal v-if="showModal" :content-data="modalContent" @closeModal="showModal = false" />
            
         </v-layout>
 

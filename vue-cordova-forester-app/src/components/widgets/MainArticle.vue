@@ -2,20 +2,7 @@
     <v-flex xs12 class="ma-2" v-if="content !== undefined">
         <v-card class="v-card mt-1 white--text elevation-8 gradient-light-dark animated fadeIn" @click="$emit('showModal', content)">
 
-            <div v-if="content.media != undefined && content.media.length != 0" @click.stop="">
-                <v-img v-if="content.media.length == 1 && mediaType == 'image'" :src="content.media[0].path" :alt="content.media[0].name" contain></v-img>
-
-                <vue-plyr v-else-if="mediaType == 'video'" :options="plyrOptions" :emit="['enterfullscreen', 'exitfullscreen']" @exitfullscreen="handleExitFullScreen()" @enterfullscreen="handleEnterFullScreen()">
-                    <video :poster="content.media[0].posterPath">
-                        <source :src="content.media[0].path" type="video/mp4" size="720">
-                    </video>
-                </vue-plyr>
-
-                <v-carousel v-else hide-delimiters hide-controls height="50vw">
-                    <v-carousel-item v-for="(media, index) in content.media" :key="index" :src="media.path"></v-carousel-item>
-                </v-carousel>
-
-            </div>
+            <article-media :media="content.media" carousel-height="50vw" />
 
             <v-card-title primary-title>
                 <div>
@@ -62,13 +49,7 @@
 </template>
 
 <script>
-    import {
-        VuePlyr
-    } from 'vue-plyr'
-
-    import 'vue-plyr/dist/vue-plyr.css'
-
-
+    import ArticleMedia from "./ArticleMedia"
 
     export default {
         props: {
@@ -81,31 +62,12 @@
             }
         },
         components: {
-            "vue-plyr": VuePlyr,
+            "article-media": ArticleMedia
         },
         data() {
             return {
                 showMore: this.descriptionVisible,
                 content: this.contentData,
-                mediaType: this.contentData.media[0].type,
-                plyrOptions: {
-                    controls: [
-                        "play",
-                        "progress",
-                        "current-time",
-                        "mute",
-                        "volume",
-                        "fullscreen",
-                    ],
-                },
-            }
-        },
-        methods: {
-            handleExitFullScreen() {
-                window.screen.orientation.lock('portrait')
-            },
-            handleEnterFullScreen() {
-                window.screen.orientation.unlock()
             }
         },
         computed: {
