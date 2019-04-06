@@ -4,12 +4,12 @@ Based on: [vue-cli-plugin-cordova](https://github.com/m0dch3n/vue-cli-plugin-cor
 
 ## API documentation:
 
-SwaggerUI: [docs](http://35.234.82.79:8090/api-docs/)
+SwaggerUI: [docs](http://35.246.63.75:8090/api-docs/)
 
 ## Required dependencies
 * Node.js with npm
-* Gradle
-* Android virtual device (AVD)
+* Android Studio or just Gradle
+* Android virtual device (AVD) or phisical device
 * Vue CLI
 * Cordova
 
