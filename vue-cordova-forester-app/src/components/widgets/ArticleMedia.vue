@@ -1,9 +1,9 @@
 <template>
-    <div v-if="media != undefined && media.length != 0">
+    <div v-if="media != undefined && media.length != 0" @click.stop="mediaClicked()" @dblclick.stop="mediaDoubleClicked()">
 
-        <v-img v-if="media.length == 1 && media[0].type == 'image'" :src="media[0].path" :alt="media[0].name" :max-height="imgHeight"></v-img>
+        <v-img v-if="media.length == 1 && media[0].type == 'image'" :src="media[0].path" :alt="media[0].name" :max-height="imgHeight" :contain="imgContain"></v-img>
 
-        <vue-plyr v-else-if="media[0].type == 'video'" :options="plyrOptions" :emit="['enterfullscreen', 'exitfullscreen']" @exitfullscreen="handleExitFullScreen()" @enterfullscreen="handleEnterFullScreen()">
+        <vue-plyr v-else-if="media[0].type == 'video'" ref="plyr" :options="plyrOptions" :emit="['enterfullscreen', 'exitfullscreen']" @exitfullscreen="handleExitFullScreen()" @enterfullscreen="handleEnterFullScreen()">
             <video :poster="media[0].posterPath" size="720">
                 <source :src="media[0].path" type="video/mp4">
             </video>
@@ -12,13 +12,12 @@
         <v-carousel v-else hide-delimiters hide-controls :height="carouselHeight">
             <v-carousel-item v-for="(media, index) in media" :key="index" :src="media.path"></v-carousel-item>
         </v-carousel>
+
     </div>
 </template>
 
 <script>
-    import {
-        VuePlyr
-    } from 'vue-plyr'
+    import {VuePlyr} from 'vue-plyr'
 
     import 'vue-plyr/dist/vue-plyr.css'
 
@@ -27,10 +26,14 @@
             media: {
                 type: Array
             },
-            imgHeight:{
+            imgHeight: {
                 type: String,
             },
-            carouselHeight:{
+            imgContain: {
+                type: Boolean,
+                default: false,
+            },
+            carouselHeight: {
                 type: String,
             }
         },
@@ -50,6 +53,35 @@
                     ],
                 },
             }
+        },
+        methods: {
+            handleExitFullScreen() {
+                window.screen.orientation.unlock()
+            },
+            handleEnterFullScreen() {
+                window.screen.orientation.lock('portrait')
+            },
+            mediaClicked() {
+                if (this.media[0].type === "video") {
+                    const player = this.$refs.plyr.player
+                    if (player.playing == true) {
+                        player.pause()
+                    } else {
+                        player.play()
+                    }
+                }
+            },
+            mediaDoubleClicked() {
+                if (this.media[0].type === "video") {
+                    const player = this.$refs.plyr.player
+                    if(player.fullscreen.active == false){
+                        player.fullscreen.enter()
+                    }else{
+                        player.fullscreen.exit()	
+                    }
+                }
+            }
+
         },
     }
 </script>

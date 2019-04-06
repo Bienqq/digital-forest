@@ -5,7 +5,7 @@
                 <v-flex xs12 class="ma-2" v-if="content !== undefined">
                     <v-card class="v-card mt-1 white--text elevation-8 gradient-light-dark">
 
-                        <article-media :media="content.media" img-height="80vw" carousel-height="50vw"></article-media>
+                        <article-media :media="content.media" img-height="85vw" :img-contain="true" carousel-height="50vw" />
 
                         <v-card-title primary-title>
                             <div>
