@@ -10,16 +10,19 @@
 		</vue-plyr>
 
 		<v-carousel v-else hide-delimiters hide-controls :height="carouselHeight">
-			<v-carousel-item v-for="(media, index) in media" :key="index" :src="media.path"></v-carousel-item>
+			<v-carousel-item v-for="(media, index) in media" :key="index" :src="media.path" @click.stop="carouselItemClicked(index)"></v-carousel-item>
 		</v-carousel>
+
+		<v-dialog v-model="showFullScreenImage" hide-overlay fullscreen full-width lazy>
+			<v-img :src="fullScreenImageSrc"></v-img>
+		</v-dialog>
 
 	</div>
 </template>
 
 <script>
-	import { VuePlyr } from 'vue-plyr'
-
-	import 'vue-plyr/dist/vue-plyr.css'
+	import { VuePlyr } from "vue-plyr"
+	import "vue-plyr/dist/vue-plyr.css"
 
 	export default {
 		props: {
@@ -42,6 +45,8 @@
 		},
 		data() {
 			return {
+				showFullScreenImage: false,
+				fullScreenImageSrc: null,
 				plyrOptions: {
 					controls: [
 						"play",
@@ -56,10 +61,10 @@
 		},
 		methods: {
 			handleExitFullScreen() {
-				window.screen.orientation.unlock()
+				window.screen.orientation.lock("portrait")
 			},
 			handleEnterFullScreen() {
-				window.screen.orientation.lock('portrait')
+				window.screen.orientation.unlock()
 			},
 			mediaClicked() {
 				if (this.media[0].type === "video") {
@@ -69,6 +74,10 @@
 					} else {
 						player.play()
 					}
+				}
+				if (this.media[0].type === "image") {
+					this.fullScreenImageSrc = this.media[0].path
+					this.showFullScreenImage = true
 				}
 			},
 			mediaDoubleClicked() {
@@ -80,6 +89,9 @@
 						player.fullscreen.exit()
 					}
 				}
+			},
+			carouselItemClicked(itemIndex) {
+				console.log(itemIndex)
 			}
 
 		},

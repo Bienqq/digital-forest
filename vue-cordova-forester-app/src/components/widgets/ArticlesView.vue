@@ -24,9 +24,9 @@
 </template>
 
 <script>
-	import MainArticle from "./MainArticle"
-	import Article from "./Article"
-	import ArticleModal from "./ArticleModal"
+	import MainArticle from "./articles/MainArticle"
+	import Article from "./articles/Article"
+	import ArticleModal from "./articles/ArticleModal"
 
 	export default {
 		components: {
