@@ -1,8 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MainMenu from "./components/main-menu/MainMenu"
-import EnterTheForest from "./components/enter-forest-menu/EnterTheForest"
-import Dashboard from "./components/user-dashboard/Dashboard"
 
 Vue.use(Router)
 
@@ -12,22 +9,21 @@ if you run or build for Cordova. history mode does not work!
 The plugin already tries to fix this automatically...
 */
 
-
 export default new Router({
   routes: [{
       path: "/",
       name: "MainMenu",
-      component: MainMenu,
+      component: () => import('@/views/MainMenu'),
     },
     {
       path: "/enter-the-forest",
       name: "EnterTheForest",
-      component: EnterTheForest,
+      component: () => import('@/views/EnterTheForest'),
     },
     {
       path: "/dashboard",
       name: "Dashboard",
-      component: Dashboard
+      component: () => import('@/views/Dashboard')
     }
   ]
 })

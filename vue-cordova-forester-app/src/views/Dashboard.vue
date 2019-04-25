@@ -35,10 +35,10 @@
 </template>
 
 <script>
-	import SidebarNavigation from "./SidebarNavigation"
 	import { mapMutations, mapGetters } from 'vuex';
+	import SidebarNavigation from "@/components/user-dashboard/SidebarNavigation"
 	import router from "@/router"
-	import ArticlesView from "../widgets/ArticlesView"
+	import ArticlesView from "@/components/articles/ArticlesView"
 
 	const aboutMeUrl = process.env.VUE_APP_API_ABOUT_ME_URL
 	const allContentUrl = process.env.VUE_APP_API_ALL_CONTENT_URL

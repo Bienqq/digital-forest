@@ -33,9 +33,9 @@
 </template>
 
 <script>
-	import RotateLogo from "../common/RotateLogo";
-	import RegisterForm from "./register-form/RegisterForm";
-	import LoginForm from "./login-form/LoginForm.vue"
+	import RotateLogo from "@/components/common/RotateLogo";
+	import RegisterForm from "@/components/register-form/RegisterForm";
+	import LoginForm from "@/components/login-form/LoginForm.vue"
 	import { mapMutations } from "vuex"
 
 	export default {

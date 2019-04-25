@@ -8,7 +8,7 @@
 </template>
 
 <script>
-	import Snackbar from "./components/common/Snackbar"
+	import Snackbar from "@/components/common/Snackbar"
 
 	export default {
 		components: {
@@ -21,7 +21,7 @@
 			};
 		},
 		watch: {
-			$route(to, from) {
+			$route(to) {
 				if (to.path === "/") {
 					this.transitionName = "slideDown";
 				} else {
@@ -37,30 +37,6 @@
 	$lightGray : #f9f9f9;
 	$lightGreen :#4caf50;
 	$darkGreen :#004d34;
-
-	@font-face {
-		font-family: 'Material Icons';
-		font-style: normal;
-		font-weight: 400;
-		src: url(https://fonts.gstatic.com/s/materialicons/v42/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
-	}
-
-	.material-icons {
-		font-family: 'Material Icons';
-		font-weight: normal;
-		font-style: normal;
-		font-size: 24px;
-		line-height: 1;
-		letter-spacing: normal;
-		text-transform: none;
-		display: inline-block;
-		white-space: nowrap;
-		word-wrap: normal;
-		direction: ltr;
-		-webkit-font-feature-settings: 'liga';
-		-webkit-font-smoothing: antialiased;
-		font-feature-settings: "liga";
-	}
 
 	* {
 		box-sizing: border-box;

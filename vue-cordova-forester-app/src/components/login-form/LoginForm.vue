@@ -13,41 +13,38 @@
 					</v-btn>
 				</v-toolbar>
 
-				<section class="pt-1">
-					<v-form ref="form" v-if="loginToogle" v-model="valid" lazy-validation class="animated fadeIn zoomIn fast">
+				<v-form ref="form" class="pt-1" v-if="loginToogle" v-model="valid" lazy-validation class="animated fadeIn zoomIn fast">
 
-						<v-flex xs10 offset-xs1>
-							<v-text-field color="green" v-model="login" prepend-inner-icon="person" label="Login" :rules="loginRules" required autocomplete></v-text-field>
-						</v-flex>
+					<v-flex xs10 offset-xs1>
+						<v-text-field color="green" v-model="login" prepend-inner-icon="person" label="Login" :rules="loginRules" required autocomplete></v-text-field>
+					</v-flex>
 
-						<v-flex xs10 offset-xs1>
-							<v-text-field v-model="password" color="green" prepend-inner-icon="lock" label="Hasło" type="password" :rules="passwordRules" required autocomplete></v-text-field>
-						</v-flex>
+					<v-flex xs10 offset-xs1>
+						<v-text-field v-model="password" color="green" prepend-inner-icon="lock" label="Hasło" type="password" :rules="passwordRules" required autocomplete></v-text-field>
+					</v-flex>
 
-						<v-flex justify-center xs8 offset-xs2 class="mt-1 mb-3">
-							<v-btn block color="success" :loading="loading" :disabled="!valid" @click.stop="hadnleSignInButton()">Zaloguj</v-btn>
-						</v-flex>
+					<v-flex justify-center xs8 offset-xs2 class="mt-1 mb-3">
+						<v-btn block color="success" :loading="loading" :disabled="!valid" @click.stop="hadnleSignInButton()">Zaloguj</v-btn>
+					</v-flex>
 
-						<v-divider class="ml-5 mr-5 mb-3" />
+					<v-divider class="ml-5 mr-5 mb-3" />
 
-						<v-flex justify-center xs8 offset-xs2 class="top-spacer mt-0">
+					<v-flex justify-center xs8 offset-xs2 class="top-spacer mt-0">
 
-							<v-btn class="white--text caption" block small color="rgb(59,89,152)" :loading="facebookLoading" @click.stop="handleFacebookButton()">
-								<font-awesome-icon :icon="['fab', 'facebook-f']" class="mr-2" size="lg" />
-								Zaloguj się Facebookiem
-							</v-btn>
+						<v-btn class="white--text caption" block small color="rgb(59,89,152)" :loading="facebookLoading" @click.stop="handleFacebookButton()">
+							<font-awesome-icon :icon="['fab', 'facebook-f']" class="mr-2" size="lg" />
+							Zaloguj się Facebookiem
+						</v-btn>
 
-						</v-flex>
+					</v-flex>
 
-						<v-flex justify-center xs8 offset-xs2 class="top-spacer mt-3">
-							<v-btn block small color="black" flat @click="loginToogle = false"> Zapomniałeś hasła? Kliknij tutaj!</v-btn>
-						</v-flex>
+					<v-flex justify-center xs8 offset-xs2 class="top-spacer mt-3">
+						<v-btn block small color="black" flat @click="loginToogle = false"> Zapomniałeś hasła? Kliknij tutaj!</v-btn>
+					</v-flex>
 
-					</v-form>
+				</v-form>
 
-					<lost-password-form class="animated fadeIn zoomIn fast" v-else />
-
-				</section>
+				<lost-password-form class="animated fadeIn zoomIn fast" v-else />
 
 			</v-card>
 
