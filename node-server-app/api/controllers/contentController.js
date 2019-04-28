@@ -94,7 +94,7 @@ exports.getAllContent = (request, response, next) => {
 			const contentResultList = []
 			for (let article of articles) {
 				const user = await User.findById(article.publisherUserId)
-				const publisher = `${user.firstName} ${user.lastName}`
+				const publisher = user != null ? `${user.firstName} ${user.lastName}`: ""
 				const contentResult = {
 					id: article._id,
 					title: article.title,
