@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from "vue"
+import Router from "vue-router"
 
 Vue.use(Router)
 
@@ -10,20 +10,20 @@ The plugin already tries to fix this automatically...
 */
 
 export default new Router({
-  routes: [{
-      path: "/",
-      name: "MainMenu",
-      component: () => import('@/views/MainMenu'),
-    },
-    {
-      path: "/enter-the-forest",
-      name: "EnterTheForest",
-      component: () => import('@/views/EnterTheForest'),
-    },
-    {
-      path: "/dashboard",
-      name: "Dashboard",
-      component: () => import('@/views/Dashboard')
-    }
-  ]
+    routes: [{
+            path: "/",
+            name: "MainMenu",
+            component: () => import("@/views/MainMenu")
+        },
+        {
+            path: "/enter-the-forest",
+            name: "EnterTheForest",
+            component: () => import("@/views/EnterTheForest")
+        },
+        {
+            path: "/dashboard",
+            name: "Dashboard",
+            component: () => import("@/views/Dashboard")
+        }
+    ]
 })

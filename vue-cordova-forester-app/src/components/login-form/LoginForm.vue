@@ -1,10 +1,7 @@
 <template>
 	<v-container class="pa-0 overflow-x-hidden">
-
 		<v-layout align-center column class="animated fadeIn zoomIn fast">
-
 			<v-card width="90vw">
-
 				<v-toolbar dark card dense color="#004d34">
 					<v-toolbar-title>{{ formTitle }}</v-toolbar-title>
 					<v-spacer></v-spacer>
@@ -13,8 +10,7 @@
 					</v-btn>
 				</v-toolbar>
 
-				<v-form ref="form" class="pt-1" v-if="loginToogle" v-model="valid" lazy-validation class="animated fadeIn zoomIn fast">
-
+				<v-form ref="form" v-if="loginToogle" v-model="valid" lazy-validation class="pt-1 animated fadeIn zoomIn fast">
 					<v-flex xs10 offset-xs1>
 						<v-text-field color="green" v-model="login" prepend-inner-icon="person" label="Login" :rules="loginRules" required autocomplete></v-text-field>
 					</v-flex>
@@ -30,24 +26,20 @@
 					<v-divider class="ml-5 mr-5 mb-3" />
 
 					<v-flex justify-center xs8 offset-xs2 class="top-spacer mt-0">
-
 						<v-btn class="white--text caption" block small color="rgb(59,89,152)" :loading="facebookLoading" @click.stop="handleFacebookButton()">
 							<font-awesome-icon :icon="['fab', 'facebook-f']" class="mr-2" size="lg" />
 							Zaloguj się Facebookiem
 						</v-btn>
-
 					</v-flex>
 
 					<v-flex justify-center xs8 offset-xs2 class="top-spacer mt-3">
-						<v-btn block small color="black" flat @click="loginToogle = false"> Zapomniałeś hasła? Kliknij tutaj!</v-btn>
+						<v-btn block small color="black" flat @click="loginToogle = false">
+							Zapomniałeś hasła? Kliknij tutaj!</v-btn>
 					</v-flex>
-
 				</v-form>
 
 				<lost-password-form class="animated fadeIn zoomIn fast" v-else />
-
 			</v-card>
-
 		</v-layout>
 	</v-container>
 </template>
@@ -56,9 +48,9 @@
 	import LostPassword from "./LostPassword"
 	import { mapMutations } from "vuex"
 	import router from "@/router"
-	import { library } from '@fortawesome/fontawesome-svg-core'
-	import { faFacebookF } from '@fortawesome/free-brands-svg-icons'
-	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+	import { library } from "@fortawesome/fontawesome-svg-core"
+	import { faFacebookF } from "@fortawesome/free-brands-svg-icons"
+	import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 
 	library.add(faFacebookF)
 
@@ -78,17 +70,13 @@
 				loading: false,
 				facebookLoading: false,
 				valid: true,
-				loginRules: [
-					v => (v && !!v) || "Login nie może być pusty"
-				],
-				passwordRules: [
-					v => (v && !!v) || "Hasło nie może być puste"
-				]
-			};
+				loginRules: [v => (v && !!v) || "Login nie może być pusty"],
+				passwordRules: [v => (v && !!v) || "Hasło nie może być puste"]
+			}
 		},
 		computed: {
-			formTitle: function() {
-				return this.loginToogle == true ? "Logowanie" : "Odzyskiwanie hasła";
+			formTitle() {
+				return this.loginToogle === true ? "Logowanie" : "Odzyskiwanie hasła"
 			}
 		},
 		methods: {
@@ -102,35 +90,33 @@
 				}
 			},
 			signIn(request) {
-				this.$http.post(signInUrl, request)
-					.then(response => {
-						this.handleLogin(response)
-					}).catch(err => {
-						this.showSnackbar({ message: err.response.data.message, icon: "error" })
-					})
+				this.$http
+					.post(signInUrl, request)
+					.then(response => this.handleLogin(response))
+					.catch(err => this.showSnackbar({ message: err.response.data.message, icon: "error" }))
 					.finally(() => this.loading = false)
 			},
 			handleFacebookButton() {
 				this.facebookLoading = true
 				facebookConnectPlugin.login(["public_profile", "email"],
-					(response) => {
-						facebookConnectPlugin.api("/me?fields=email,name", ["public_profile", "email"], (userData) => { this.loginWithFacebook(userData) },
-							err => this.handleFacebookError(err))
+					response => {
+						facebookConnectPlugin.api("/me?fields=email,name", ["public_profile", "email"],
+							userData => { this.loginWithFacebook(userData) },
+							err => this.handleFacebookError(err)
+						)
 					},
-					err => this.handleFacebookError(err))
+					err => this.handleFacebookError(err)
+				)
 			},
 			handleFacebookError(err) {
 				this.showSnackbar({ message: "Błąd połączenia z Facebookiem", icon: "error" })
 				this.facebookLoading = false
 			},
 			loginWithFacebook(userData) {
-				this.$http.post(signInWithFacebookUrl, { facebookId: userData.id })
-					.then(response => {
-						this.handleLogin(response)
-					})
-					.catch(() => {
-						this.$emit("facebookRegistration", userData)
-					})
+				this.$http
+					.post(signInWithFacebookUrl, { facebookId: userData.id })
+					.then(response => this.handleLogin(response))
+					.catch(() => this.$emit("facebookRegistration", userData))
 					.finally(() => this.facebookLoading = false)
 			},
 			handleLogin(response) {
@@ -141,20 +127,17 @@
 				this.showSnackbar({ message: "Zalogowano pomyślnie", icon: "check" })
 				router.push("/dashboard")
 			},
-			...mapMutations([
-				"showSnackbar",
-				"addTokensToLocalStorage"
-			])
+			...mapMutations(["showSnackbar", "addTokensToLocalStorage"])
 		}
-	};
+	}
 </script>
 
 <style lang="scss" scoped>
 	.form-animated-enter-active {
-		animation: zoomIn .4s;
+		animation: zoomIn 0.4s;
 	}
 
 	.form-animated-leave-active {
-		animation: zoomOut .4s;
+		animation: zoomOut 0.4s;
 	}
 </style>

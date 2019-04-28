@@ -1,12 +1,11 @@
 <template>
 	<v-container align-content-center>
 		<!-- purpose of this div is to provide place for swipe gesture to user -->
-		<div class="swipe-border" v-touch="{right: () => handleSwipe('right')}"></div>
+		<div class="swipe-border" v-touch="{ right: () => handleSwipe('right') }"></div>
 
 		<sidebar-navigation ref="sidebarNavigation"></sidebar-navigation>
 
 		<v-layout align-center justify-center column fill-height>
-
 			<v-progress-circular v-if="loading" :size="60" :width="5" color="white" indeterminate />
 
 			<articles-view v-else v-bind="addRefAfterContentLoaded" :content-list="content.data" :content-amount="content.count" />
@@ -25,17 +24,15 @@
 							Zostań
 						</v-btn>
 					</v-card-actions>
-
 				</v-card>
 			</v-dialog>
-
 		</v-layout>
 		<router-view />
 	</v-container>
 </template>
 
 <script>
-	import { mapMutations, mapGetters } from 'vuex';
+	import { mapMutations, mapGetters } from "vuex"
 	import SidebarNavigation from "@/components/user-dashboard/SidebarNavigation"
 	import router from "@/router"
 	import ArticlesView from "@/components/articles/ArticlesView"
@@ -54,18 +51,17 @@
 				loading: true,
 				content: {
 					count: null,
-					data: null,
+					data: null
 				},
-				swipeDirection: "",
+				swipeDirection: ""
 			}
 		},
 		methods: {
 			//this method call method from its child compoment
 			handleSwipe(direction) {
 				this.$refs.sidebarNavigation.handleSwipe(direction)
-
 			},
-			// works only android backbutton - logging out 
+			// works only android backbutton - logging out
 			handleBackButton() {
 				if (this.$refs.articlesViewRef.showModal === false) {
 					this.logoutDialog = true
@@ -79,7 +75,8 @@
 			},
 			// getting all informations about user when enters dashboard
 			getUserInfo() {
-				this.$http.get(aboutMeUrl)
+				this.$http
+					.get(aboutMeUrl)
 					.then(response => {
 						const name = `${response.data.firstName} ${response.data.lastName}`
 						this.fillUserContext({
@@ -88,12 +85,11 @@
 							role: response.data.role
 						})
 					})
-					.catch(err => {
-						this.showSnackbar({ message: err, icon: "error" })
-					})
+					.catch(err => this.showSnackbar({ message: err, icon: "error" }))
 			},
 			getContent() {
-				this.$http.get(allContentUrl)
+				this.$http
+					.get(allContentUrl)
 					.then(response => {
 						this.content.count = response.data.count
 						this.content.data = response.data.content
@@ -101,7 +97,7 @@
 					.catch(err => {
 						this.showSnackbar({ message: err, icon: "error" })
 					})
-					.finally(() => this.loading = false)
+					.finally(() => (this.loading = false))
 			},
 			...mapMutations([
 				"showSnackbar",
@@ -109,7 +105,7 @@
 				"updateTokenInLocalStorage",
 				"fillUserContext",
 				"clearUserContext"
-			]),
+			])
 		},
 		computed: {
 			...mapGetters([
@@ -117,8 +113,8 @@
 				"getRefreshTokenFromLocalStorage"
 			]),
 			// add reference to child component AriclesView after content loading
-			addRefAfterContentLoaded: function() {
-				if (this.loading == false) {
+			addRefAfterContentLoaded() {
+				if (this.loading === false) {
 					return {
 						ref: "articlesViewRef"
 					}
@@ -138,7 +134,7 @@
 		async created() {
 			this.getUserInfo()
 			this.getContent()
-		},
+		}
 	}
 </script>
 

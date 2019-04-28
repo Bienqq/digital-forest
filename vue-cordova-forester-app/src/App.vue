@@ -12,31 +12,29 @@
 
 	export default {
 		components: {
-			"snackbar": Snackbar
+			snackbar: Snackbar
 		},
-		name: "App",
 		data() {
 			return {
 				transitionName: "slideDown"
-			};
+			}
 		},
 		watch: {
 			$route(to) {
 				if (to.path === "/") {
-					this.transitionName = "slideDown";
+					this.transitionName = "slideDown"
 				} else {
-					this.transitionName = "slideUp";
+					this.transitionName = "slideUp"
 				}
-			},
+			}
 		}
-
 	};
 </script>
 
 <style lang="scss">
-	$lightGray : #f9f9f9;
-	$lightGreen :#4caf50;
-	$darkGreen :#004d34;
+	$lightGray: #f9f9f9;
+	$lightGreen: #4caf50;
+	$darkGreen: #004d34;
 
 	* {
 		box-sizing: border-box;

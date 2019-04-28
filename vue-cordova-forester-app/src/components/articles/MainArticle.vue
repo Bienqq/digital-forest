@@ -1,18 +1,16 @@
 <template>
 	<v-flex xs12 class="ma-2" v-if="content !== undefined">
 		<v-card class="v-card mt-1 white--text elevation-8 gradient-light-dark animated fadeIn" @click="$emit('showModal', content)">
-
 			<article-media :media="content.media" carousel-height="50vw" />
 
 			<v-card-title primary-title>
 				<div>
-					<div class="headline">{{content.title}}</div>
-					<div class="subheading">{{content.subTitle}}</div>
+					<div class="headline">{{ content.title }}</div>
+					<div class="subheading">{{ content.subTitle }}</div>
 					<div class="hidden-xs-only mt-2">
-						{{descriptionPreview}}
+						{{ descriptionPreview }}
 					</div>
 				</div>
-
 			</v-card-title>
 			<div class="text-xs-right pb-2 px-3">
 				<v-icon class="white--text" medium>location_on</v-icon>
@@ -21,31 +19,30 @@
 			<v-divider dark class="mx-2"></v-divider>
 
 			<v-card-actions>
-				<span class="pl-1">{{content.publishDate}}</span>
+				<span class="pl-1">{{ content.publishDate }}</span>
 				<v-spacer></v-spacer>
-				<p @click.stop="showMore = !showMore"> Czytaj więcej </p>
+				<p @click.stop="showMore = !showMore">Czytaj więcej</p>
 				<v-btn icon @click.stop="showMore = !showMore">
-					<v-icon class=" white--text">{{ showMore ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
+					<v-icon class=" white--text">{{
+            showMore ? "keyboard_arrow_up" : "keyboard_arrow_down"
+          }}</v-icon>
 				</v-btn>
 			</v-card-actions>
 
 			<v-slide-y-transition>
 				<div v-show="showMore" class="relative">
 					<v-card-text class="pb-5">
-						<p class="body-1">{{content.description}}</p>
+						<p class="body-1">{{ content.description }}</p>
 					</v-card-text>
 
 					<v-card-text class="publisher body-2 text-xs-right">
 						<v-divider dark class="pa-1"></v-divider>
-						<span class="font-italic">{{content.publisher}}</span>
+						<span class="font-italic">{{ content.publisher }}</span>
 					</v-card-text>
 				</div>
 			</v-slide-y-transition>
-
 		</v-card>
 	</v-flex>
-
-
 </template>
 
 <script>
@@ -58,7 +55,7 @@
 			},
 			descriptionVisible: {
 				type: Boolean,
-				default: false,
+				default: false
 			}
 		},
 		components: {
@@ -67,7 +64,7 @@
 		data() {
 			return {
 				showMore: this.descriptionVisible,
-				content: this.contentData,
+				content: this.contentData
 			}
 		},
 		computed: {
@@ -78,7 +75,7 @@
 					return this.content.description
 				}
 			}
-		},
+		}
 	}
 </script>
 

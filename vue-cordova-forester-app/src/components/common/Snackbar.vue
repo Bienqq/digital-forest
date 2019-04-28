@@ -15,26 +15,27 @@
 			}
 		},
 		computed: {
-			iconComputed: function() {
+			iconComputed() {
 				if (this.icon != null) {
 					return require(`@/assets/img/${this.icon}.png`)
 				}
 			}
 		},
-		created: function() {
-			this.$store.watch(state => state.globalSnackbar.message, () => {
-				const msg = this.$store.state.globalSnackbar.message
-				if (msg !== "") {
-					this.show = true
-					this.message = this.$store.state.globalSnackbar.message
-					this.icon = this.$store.state.globalSnackbar.icon
-					this.$store.commit("showSnackbar", { message: "", icon: null })
+		created() {
+			this.$store.watch(
+				state => state.globalSnackbar.message,() => {
+					const msg = this.$store.state.globalSnackbar.message
+					if (msg !== "") {
+						this.show = true
+						this.message = this.$store.state.globalSnackbar.message
+						this.icon = this.$store.state.globalSnackbar.icon
+						this.$store.commit("showSnackbar", { message: "", icon: null })
+					}
 				}
-			})
+			)
 		}
 	}
 </script>
 
 <style <style lang="scss" scoped>
-
 </style>

@@ -1,3 +1,3 @@
-export default function initPlugins(){ 
-    window.screen.orientation.lock('portrait')
+export default function initPlugins() {
+  window.screen.orientation.lock("portrait");
 }

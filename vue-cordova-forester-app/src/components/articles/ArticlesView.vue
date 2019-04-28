@@ -1,25 +1,22 @@
 <template>
 	<v-container align-content-center>
-
-		<v-layout align-center column fill-height width="100vw">
-			<v-card width="96vw" class="vcard-options" color="rgba(240,240,240,1)">
-
+		<v-layout class="mt-4" align-center column fill-height width="100vw">
+			<v-card width="100vw" color="rgba(240,240,240,1)">
 				<main-article :content-data="contentList[0]" @showModal="handleModal" />
 
-				<h3 v-if="contentAmount >= 2" class="header pt-1 pl-2">Reszta aktualności:</h3>
+				<h3 v-if="contentAmount >= 2" class="pt-1 pl-2">Reszta aktualności:</h3>
 
-				<h3 v-if="contentAmount == 0" class="header pt-1 pl-2">Aktualnie nie ma żadnych wpisów</h3>
+				<h3 v-if="contentAmount == 0" class="pt-1 pl-2">
+					Aktualnie nie ma żadnych wpisów
+				</h3>
 
 				<v-article v-for="(content, index) in contentList.slice(1)" :content-data="content" :index="index" :key="content.id" @showModal="handleModal" />
-
 			</v-card>
 
 			<article-modal v-if="showModal" :content-data="modalContent" @closeModal="showModal = false" />
-
 		</v-layout>
 
 		<router-view />
-
 	</v-container>
 </template>
 
@@ -36,7 +33,7 @@
 		},
 		props: {
 			contentList: {
-				type: Array,
+				type: Array
 			},
 			contentAmount: {
 				type: Number
@@ -55,11 +52,9 @@
 			}
 		},
 		created() {
-			document.addEventListener("backbutton", () => {
-				this.showModal = false
-			})
-		},
-	};
+			document.addEventListener("backbutton", () => { this.showModal = false  })
+		}
+	}
 </script>
 
 <style scoped lang="scss">
@@ -72,21 +67,11 @@
 		color: white !important;
 	}
 
-	.header {
-		margin-left: 2vw;
-		margin-top: 1vw;
-	}
-
-	.vcard-options {
-		margin-top: 10vw;
-		padding-top: 1vw;
-	}
-
 	.modal-animated-enter-active {
-		animation: zoomIn .4s;
+		animation: zoomIn 0.4s;
 	}
 
 	.modal-animated-leave-active {
-		animation: zoomOut .4s;
+		animation: zoomOut 0.4s;
 	}
 </style>

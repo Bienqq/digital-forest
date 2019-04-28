@@ -1,25 +1,23 @@
 <template>
 	<div v-if="media != undefined && media.length != 0" @click.stop="mediaClicked()" @dblclick.stop="mediaDoubleClicked()">
-
 		<v-img v-if="media.length == 1 && media[0].type == 'image'" :src="media[0].path" :alt="media[0].name" :max-height="imgHeight" :contain="imgContain"></v-img>
 
 		<vue-plyr v-else-if="media[0].type == 'video'" ref="plyr" :options="plyrOptions" :emit="['enterfullscreen', 'exitfullscreen']" @exitfullscreen="handleExitFullScreen()" @enterfullscreen="handleEnterFullScreen()">
 			<video :poster="media[0].posterPath" size="720">
-				<source :src="media[0].path" type="video/mp4">
+				<source :src="media[0].path" type="video/mp4" />
 			</video>
 		</vue-plyr>
 
 		<v-carousel v-else hide-delimiters hide-controls :height="carouselHeight">
 			<v-carousel-item v-for="(media, index) in media" :key="index" :src="media.path"></v-carousel-item>
 		</v-carousel>
-
 	</div>
 </template>
 
 <script>
-	import { VuePlyr } from 'vue-plyr'
+	import { VuePlyr } from "vue-plyr"
 
-	import 'vue-plyr/dist/vue-plyr.css'
+	import "vue-plyr/dist/vue-plyr.css"
 
 	export default {
 		props: {
@@ -27,18 +25,18 @@
 				type: Array
 			},
 			imgHeight: {
-				type: String,
+				type: String
 			},
 			imgContain: {
 				type: Boolean,
-				default: false,
+				default: false
 			},
 			carouselHeight: {
-				type: String,
+				type: String
 			}
 		},
 		components: {
-			"vue-plyr": VuePlyr,
+			"vue-plyr": VuePlyr
 		},
 		data() {
 			return {
@@ -49,9 +47,9 @@
 						"current-time",
 						"mute",
 						"volume",
-						"fullscreen",
-					],
-				},
+						"fullscreen"
+					]
+				}
 			}
 		},
 		methods: {
@@ -59,7 +57,7 @@
 				window.screen.orientation.unlock()
 			},
 			handleEnterFullScreen() {
-				window.screen.orientation.lock('portrait')
+				window.screen.orientation.lock("portrait")
 			},
 			mediaClicked() {
 				if (this.media[0].type === "video") {
@@ -81,8 +79,7 @@
 					}
 				}
 			}
-
-		},
+		}
 	}
 </script>
 
@@ -92,7 +89,8 @@
 		-moz-osx-font-smoothing: auto;
 		-webkit-font-smoothing: subpixel-antialiased;
 		direction: ltr;
-		font-family: Avenir, "Avenir Next", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+		font-family: Avenir, "Avenir Next", "Helvetica Neue", "Segoe UI", Helvetica,
+			Arial, sans-serif;
 		font-variant-numeric: tabular-nums;
 		font-weight: 500;
 		line-height: 1.7;
@@ -100,10 +98,10 @@
 		min-width: 110px;
 		position: relative;
 		text-shadow: none;
-		-webkit-transition: -webkit-box-shadow .3s ease;
-		transition: -webkit-box-shadow .3s ease;
-		transition: box-shadow .3s ease;
-		transition: box-shadow .3s ease, -webkit-box-shadow .3s ease;
+		-webkit-transition: -webkit-box-shadow 0.3s ease;
+		transition: -webkit-box-shadow 0.3s ease;
+		transition: box-shadow 0.3s ease;
+		transition: box-shadow 0.3s ease, -webkit-box-shadow 0.3s ease;
 	}
 
 	// same as above
@@ -118,7 +116,7 @@
 		overflow: visible;
 		padding: 0px;
 		position: relative;
-		-webkit-transition: all .3s ease;
-		transition: all .3s ease;
+		-webkit-transition: all 0.3s ease;
+		transition: all 0.3s ease;
 	}
 </style>

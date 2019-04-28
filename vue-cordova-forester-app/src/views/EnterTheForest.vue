@@ -1,9 +1,8 @@
 <template>
 	<div>
 		<h1>Enter the forest view</h1>
-		<router-view></router-view>
+		<router-view />
 	</div>
-
 </template>
 
 <script>
@@ -12,20 +11,16 @@
 
 	export default {
 		data() {
-			return {
-
-			}
+			return {}
 		},
 		methods: {
 			handleBackButton() {
 				this.showSnackbar({ message: "Wyszedłeś z lasu!", icon: "exit" })
 				router.push("/")
 			},
-			...mapMutations([
-				"showSnackbar"
-			])
+			...mapMutations(["showSnackbar"])
 		},
-		mounted: function() {
+		mounted() {
 			this.showSnackbar({ message: "Wszedłeś do lasu!", icon: "enter" })
 		},
 		// before route EnterTheForest component add backing to previous view by clicking backbutton
@@ -41,5 +36,4 @@
 </script>
 
 <style>
-
 </style>
